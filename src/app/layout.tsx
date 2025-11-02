@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import 'katex/dist/katex.min.css'; // ★これが重要（どこか1カ所で読み込む）
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
