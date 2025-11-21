@@ -26,7 +26,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   // 1日
   {
     date: "2025-12-01",
-    label: "1日目のタイトル（S1）",
+    label: "Physlab2026挨拶&学科紹介",
     href: "/advent/series1/1",
     seriesId: "series1",
   },
@@ -56,7 +56,7 @@ const adventMap = ADVENT_ENTRIES.reduce<Record<string, AdventEntry[]>>(
   {}
 );
 
-const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 // 指定月の6週×7日グリッドを作る
 function buildMonthMatrix(baseDate: Date) {
@@ -179,7 +179,7 @@ export default function AdventCalendarPage() {
       </div>
 
       {/* 曜日ヘッダー */}
-      <div className="grid grid-cols-7 text-center text-xs font-medium text-zinc-500 mb-2">
+      <div className="grid grid-cols-7 border-b text-center text-xs font-medium text-zinc-500 mb-2">
         {WEEKDAYS.map((w) => (
           <div key={w} className="py-1">
             {w}
@@ -190,7 +190,8 @@ export default function AdventCalendarPage() {
       {/* 壁掛けカレンダー */}
       <div className="grid grid-rows-6 gap-1">
         {weeks.map((week, i) => (
-          <div key={i} className="grid grid-cols-7 gap-1">
+          <div key={i} className="grid border-b grid-cols-7 gap-1"> 
+          {/* ↑カレンダーの線はこれ */}
             {week.map(({ date, inCurrentMonth }) => {
               const key = formatDateKey(date);
               const day = date.getDate();
@@ -210,7 +211,7 @@ export default function AdventCalendarPage() {
 
               // ベースのスタイル
               let className =
-                "relative h-20 rounded-lg border text-xs flex flex-col justify-between px-2 py-1";
+                "relative h-25 rounded-none text-xs flex flex-col justify-between px-2 py-1";
 
               if (!inCurrentMonth) {
                 // 前後月
