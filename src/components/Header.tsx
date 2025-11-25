@@ -55,7 +55,7 @@ export default function Header() {
                             onMouseLeave={() => setIsPosterMenuOpen(false)}
                         >
                             <button className="text-[#444443] hover:text-gray-600 transition-colors duration-200 font-medium text-lg flex items-center gap-1">
-                                ポスター
+                                五月祭ポスター
                                 <svg
                                     className={`w-4 h-4 transition-transform duration-200 ${isPosterMenuOpen ? "rotate-180" : ""
                                         }`}
@@ -74,16 +74,18 @@ export default function Header() {
 
                             {/* ドロップダウンメニュー */}
                             {isPosterMenuOpen && (
-                                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-50">
-                                    {posterSubMenus.map((item, index) => (
-                                        <Link
-                                            key={index}
-                                            href={item.href}
-                                            className="block px-4 py-3 text-[#444443] hover:bg-gray-50 transition-colors duration-150 border-b border-gray-100 last:border-b-0"
-                                        >
-                                            {item.label}
-                                        </Link>
-                                    ))}
+                                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-48 z-50">
+                                    <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                                        {posterSubMenus.map((item, index) => (
+                                            <Link
+                                                key={index}
+                                                href={item.href}
+                                                className="block px-4 py-3 text-[#444443] hover:bg-gray-50 transition-colors duration-150 border-b border-gray-100 last:border-b-0"
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>

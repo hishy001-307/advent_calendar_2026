@@ -432,8 +432,8 @@ export default function AdventCalendarPage() {
         </div>
 
         {/* 壁掛けカレンダー */}
-        <div className="grid grid-rows-6 gap-1">
-          {weeks.map((week, i) => (
+        <div className="grid grid-rows-4 gap-1">
+          {weeks.slice(0, 4).map((week, i) => (
             <div key={i} className="grid border-b grid-cols-7 gap-1">
               {/* ↑カレンダーの線はこれ */}
               {week.map(({ date, inCurrentMonth }) => {
@@ -452,6 +452,16 @@ export default function AdventCalendarPage() {
 
                 const isToday =
                   formatDateKey(date) === formatDateKey(new Date());
+
+                // 26日以降は表示しない
+                if (inCurrentMonth && day > 25) {
+                  return null;
+                }
+
+                // 1月（翌月）は表示しない
+                if (!inCurrentMonth && date.getMonth() === 0) {
+                  return null;
+                }
 
                 // ベースのスタイル
                 let className =
