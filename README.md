@@ -1,6 +1,35 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## 🚀 このプロジェクトの開き方（初めての方向け）
+
+### 1. 依存パッケージをインストールする
+
+プロジェクトを初めて開く場合、まず必要なパッケージをインストールします。
+ターミナルでこのプロジェクトのフォルダに移動して、以下のコマンドを実行してください:
+
+```bash
+npm install
+```
+
+### 2. 開発サーバーを起動する
+
+次に、開発サーバーを起動します:
+
+```bash
+npm run dev
+```
+
+### 3. ブラウザで開く
+
+ブラウザで以下のURLにアクセスしてください:
+
+**http://localhost:3000**
+
+これでページが表示されます！ファイルを編集すると、自動的にページが更新されます。
+
+---
+
+## Getting Started (English)
 
 First, run the development server:
 
