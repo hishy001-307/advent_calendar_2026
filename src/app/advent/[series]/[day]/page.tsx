@@ -59,9 +59,9 @@ export default async function ArticlePage({ params }: Props) {
                 <div className="flex gap-8">
                     {/* メインコンテンツ */}
                     <main className="flex-1 min-w-0">
-                        <article className="prose prose-lg max-w-none">
+                        <article className="pl-10 prose prose-lg !max-w-9/10">
                             {/* メタデータ表示 */}
-                            <div className="mb-8 pb-4 border-b border-gray-200">
+                            <div className="-ml-8 mb-8 pb-4 border-b border-gray-200">
                                 <p className="text-sm text-gray-500 mb-2">
                                     {series === 'series1' ? 'シリーズ1' : 'シリーズ2'} - Day {day}
                                 </p>
