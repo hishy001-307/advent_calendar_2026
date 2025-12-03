@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Header from "@/components/Header";
 
 // ==== 設定：どの年の12月か ====
@@ -20,6 +20,7 @@ type AdventEntry = {
   href: string;      // 記事ページへのリンク
   seriesId: string;  // "series1" | "series2"
   abstract?: string; // アブストラクト（オプション）
+  externalLink?: string; // 外部リンク（mathlog等）
 };
 
 // ==== シリーズ1のデータ（CSVより） ====
@@ -30,13 +31,15 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     label: "Physlab2026挨拶",
     href: "/advent/series1/1",
     seriesId: "series1",
+    externalLink: "https://mathlog.info/articles/fftYodHsDAp74ymsbyIG",
   },
   // 2日
   {
     date: "2025-12-02",
-    label: "副統括挨拶、学科紹介など",
+    label: "運営紹介と理物生の1日",
     href: "/advent/series1/2",
     seriesId: "series1",
+    externalLink: "https://mathlog.info/articles/Dk02hUxpTV1TGNUP2C3L",
   },
   // 3日
   {
@@ -44,6 +47,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     label: "素粒子物理班紹介",
     href: "/advent/series1/3",
     seriesId: "series1",
+    externalLink: "https://mathlog.info/articles/8FdaNR1R5ulpsyls5qWN",
   },
   // 4日
   {
@@ -51,6 +55,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     label: "物性物理班紹介",
     href: "/advent/series1/4",
     seriesId: "series1",
+    externalLink: "https://mathlog.info/articles/9E7Qdcuk2sYGiHlMM9et",
   },
   // 5日
   {
@@ -58,6 +63,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     label: "宇宙物理班紹介",
     href: "/advent/series1/5",
     seriesId: "series1",
+    externalLink: "https://mathlog.info/articles/sIZnNTlwcCFGcqu3Lqi2",
   },
   // 6日
   {
@@ -91,7 +97,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   // 10日
   {
     date: "2025-12-10",
-    label: "宇宙の時間を巻き戻す方法 — Λ-CDMモデルで知る宇宙の広さと年齢",
+    label: "宇宙の時間を巻き戻す方法　 — Λ-CDMモデルで知る宇宙の広さと年齢",
     href: "/advent/series1/10",
     seriesId: "series1",
     abstract: "宇宙の年齢と広さはどうやって計算できるのか　Λ-CDM model",
@@ -112,6 +118,21 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     seriesId: "series1",
     abstract: "自由粒子→TB ハミルトニアン　空間並進対称性が破れると波数空間が「おりたたまれる」ことを理解する。",
   },
+  // 13日
+  {
+    date: "2025-12-13",
+    label: "極座標ラプラシアンと友達になろう",
+    href: "/advent/series1/13",
+    seriesId: "series1",
+  },
+  // 14日
+  {
+    date: "2025-12-14",
+    label: "微分方程式の数値解法とその実装",
+    href: "/advent/series1/14",
+    seriesId: "series1",
+    abstract: "微分方程式をオイラー法やルンゲクッタ法で解く方法の基礎付けとパイソンでの実装を軽く紹介したいと考えています。",
+  },
   // 15日
   {
     date: "2025-12-15",
@@ -126,6 +147,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     label: "仮:曲がった時空の場の量子論",
     href: "/advent/series1/16",
     seriesId: "series1",
+    abstract: "Unruh effect書くかもしれません。全然変わるかもしれません。",
   },
   // 17日
   {
@@ -208,6 +230,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     href: "/advent/series2/3",
     seriesId: "series2",
     abstract: "Virasoro代数がLie代数の中心拡大として得られることを頑張って書きます。",
+    externalLink: "https://mathlog.info/articles/vC7gEcCnikTwz6myYlKK",
   },
   // 7日
   {
@@ -361,6 +384,9 @@ function formatDateKey(date: Date) {
 export default function AdventCalendarPage() {
   // シリーズ切り替え
   const [activeSeries, setActiveSeries] = useState<string>("series1");
+  
+  // クライアント側でのみ今日の日付を取得（Hydration mismatch回避）
+  const [today, setToday] = useState<string | null>(null);
 
   // 月送りはしないので、ベースの月は固定（12月）
   const baseDate = useMemo(
@@ -368,6 +394,11 @@ export default function AdventCalendarPage() {
     []
   );
   const weeks = useMemo(() => buildMonthMatrix(baseDate), [baseDate]);
+
+  // クライアント側マウント後に今日の日付を設定
+  useEffect(() => {
+    setToday(formatDateKey(new Date()));
+  }, []);
 
   const year = baseDate.getFullYear();
   const month = baseDate.getMonth() + 1;
@@ -450,8 +481,7 @@ export default function AdventCalendarPage() {
                   (e) => e.seriesId === activeSeries
                 );
 
-                const isToday =
-                  formatDateKey(date) === formatDateKey(new Date());
+                const isToday = today !== null && formatDateKey(date) === today;
 
                 // 26日以降は表示しない
                 if (inCurrentMonth && day > 25) {
@@ -518,6 +548,22 @@ export default function AdventCalendarPage() {
 
                 // 12/1〜25 かつ entry がある日だけリンクにする
                 if (entry && inAdventRange) {
+                  // 外部リンクがある場合はそちらを優先
+                  if (entry.externalLink) {
+                    return (
+                      <a
+                        key={key}
+                        href={entry.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${className} group relative`}
+                      >
+                        {inner}
+                      </a>
+                    );
+                  }
+                  
+                  // 内部リンク
                   return (
                     <Link
                       key={key}
