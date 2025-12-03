@@ -17,17 +17,20 @@ const SERIES = [
 type AdventEntry = {
   date: string;      // "2026-12-01" 形式
   label: string;     // カレンダーに出す短いタイトル
+  author?: string;    // 著者名
   href: string;      // 記事ページへのリンク
   seriesId: string;  // "series1" | "series2"
   abstract?: string; // アブストラクト（オプション）
 };
 
-// ==== シリーズ1のデータ（CSVより） ====
+// ==== 記事データ ====
 const ADVENT_ENTRIES: AdventEntry[] = [
+  // ==== シリーズ1のデータ（CSVより） ====
   // 1日
   {
     date: "2025-12-01",
     label: "Physlab2026挨拶",
+    author: "Hiro",
     href: "/advent/series1/1",
     seriesId: "series1",
   },
@@ -35,6 +38,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-02",
     label: "副統括挨拶、学科紹介など",
+    author: "Ping",
     href: "/advent/series1/2",
     seriesId: "series1",
   },
@@ -77,6 +81,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-08",
     label: "実験班紹介",
+    author: "メラゾーマ",
     href: "/advent/series1/8",
     seriesId: "series1",
   },
@@ -84,6 +89,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-09",
     label: "テンソルネットワーク1「ising模型と行列積」",
+    author: "Hiro",
     href: "/advent/series1/9",
     seriesId: "series1",
     abstract: "転送行列の議論からはじめてテンソルネットワークの基本的な概念について紹介します",
@@ -92,6 +98,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-10",
     label: "宇宙の時間を巻き戻す方法 — Λ-CDMモデルで知る宇宙の広さと年齢",
+    author: "ほるみる",
     href: "/advent/series1/10",
     seriesId: "series1",
     abstract: "宇宙の年齢と広さはどうやって計算できるのか　Λ-CDM model",
@@ -100,6 +107,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-11",
     label: "誤差解析論考1",
+    author: "Physixしあ",
     href: "/advent/series1/11",
     seriesId: "series1",
     abstract: "誤差の重要性、誤差の表記法、不一致とは何か、統計誤差と系統誤差の違いなど誤差解析を行う上で基礎的な事柄について述べる。",
@@ -112,10 +120,27 @@ const ADVENT_ENTRIES: AdventEntry[] = [
     seriesId: "series1",
     abstract: "自由粒子→TB ハミルトニアン　空間並進対称性が破れると波数空間が「おりたたまれる」ことを理解する。",
   },
+  // 13日
+  {
+    date: "2025-12-13",
+    label: "極座標ラプラシアンと友達になろう",
+    author: "なべ",
+    href: "/advent/series1/13",
+    seriesId: "series1",
+  },
+  // 14日
+  {
+    date: "2025-12-14",
+    label: "微分方程式の数値解法とその実装",
+    href: "/advent/series1/14",
+    seriesId: "series1",
+    abstract: "微分方程式をオイラー法やルンゲクッタ法で解く方法の基礎付けとパイソンでの実装を軽く紹介したいと考えています。",
+  },
   // 15日
   {
     date: "2025-12-15",
     label: "テンソルネットワーク2「繰り込み群の数理と応用」",
+    author: "Hiro",
     href: "/advent/series1/15",
     seriesId: "series1",
     abstract: "テンソルネットワークにおける\"繰り込み\"の概念について紹介し、代表的な計算手法とその応用について扱います",
@@ -124,8 +149,10 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-16",
     label: "仮:曲がった時空の場の量子論",
+    author: "RelLim",
     href: "/advent/series1/16",
     seriesId: "series1",
+    abstract: "Unruh effect書くかもしれません。全然変わるかもしれません。",
   },
   // 17日
   {
@@ -147,6 +174,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-19",
     label: "誤差解析論考2",
+    author: "Physixしあ",
     href: "/advent/series1/19",
     seriesId: "series1",
     abstract: "平均、重み付き平均に対する標準偏差(SDOM)はどう計算されるかを述べ、それを応用して最小二乗法及び重み付き最小二乗法によるフィッティングのパラメタが持つ誤差について解説する。できればその際の系統誤差の扱いにも触れたい。",
@@ -155,6 +183,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-20",
     label: "OISTリサーチインターンの紹介",
+    author: "Bundes",
     href: "/advent/series1/20",
     seriesId: "series1",
     abstract: "自分のOISTリサーチインターンの経験を勝手気ままにご紹介します",
@@ -163,6 +192,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-21",
     label: "(量子100年&)ビスマルク生誕210周年なのでドイツの話をする",
+    author: "Bundes",
     href: "/advent/series1/21",
     seriesId: "series1",
     abstract: "「統一後のドイツ」を楽しく読むための予備知識として、前半部でBundestagswahl 2025について振り返り、後半部でドイツ再統一過程について簡単にご紹介し、ドイツ史・ドイツ政治の魅力を語ります！！！！！",
@@ -171,6 +201,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-22",
     label: "テンソルネットワーク3「ブラックホールと誤り訂正符号」",
+    author: "Hiro",
     href: "/advent/series1/22",
     seriesId: "series1",
     abstract: "MERAネットワークと共形場理論からAdS/CFT対応について議論し、ブラックホールの誤り訂正符号としての解釈を目指します",
@@ -179,6 +210,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-23",
     label: "HGP codeとして高次元表面符号を構成しよう！",
+    author: "Jimmy",
     href: "/advent/series1/23",
     seriesId: "series1",
     abstract: "HGP codeから高次元の表面符号を構成します。量子エラー訂正符号の話です。",
@@ -187,6 +219,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-24",
     label: "クリスマスの夜空にオーロラを作り出す方法",
+    author: "K-2",
     href: "/advent/series1/24",
     seriesId: "series1",
     abstract: "数十億円使って空にロケット打ちあげて電子ビームを放出すれば何とかなるのではという話",
@@ -195,6 +228,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-25",
     label: "クリスマスなのでスパニングツリーの話をする",
+    author: "さみだれ",
     href: "/advent/series1/25",
     seriesId: "series1",
     abstract: "行列木定理の周辺でも書こうかなあ",
@@ -205,6 +239,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-03",
     label: "【共形場理論】Virasoro代数のつくりかた",
+    author: "Jimmy",
     href: "/advent/series2/3",
     seriesId: "series2",
     abstract: "Virasoro代数がLie代数の中心拡大として得られることを頑張って書きます。",
@@ -213,6 +248,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-07",
     label: "LaTeXの表を整える",
+    author: "Physixしあ",
     href: "/advent/series2/7",
     seriesId: "series2",
     abstract: "siunitxとbooktabsで表を整えよう、という話。",
@@ -229,6 +265,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-13",
     label: "トポロジカル超伝導体入門",
+    author: "soleil",
     href: "/advent/series2/13",
     seriesId: "series2",
     abstract: "トポロジカル超伝導体についてMajorana fermionとかの話をしたいです",
@@ -245,6 +282,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-19",
     label: "共形場理論と一般化対称性",
+    author: "soleil",
     href: "/advent/series2/19",
     seriesId: "series2",
     abstract: "CFTのfusion則と一般化対称性におけるfusion則について議論します",
@@ -261,6 +299,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-22",
     label: "トポロジカル周期表",
+    author: "soleil",
     href: "/advent/series2/22",
     seriesId: "series2",
     abstract: "トポロジカル周期表について解説します。どれかの記事は書くのが遅れてしまうかもしれません🙏",
@@ -269,6 +308,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-23",
     label: "誤差解析論考3",
+    author: "Physixしあ",
     href: "/advent/series2/23",
     seriesId: "series2",
     abstract: "1と2で書ききれなかったところや気付いたところ、あと誤差に関する愚痴を喋る。",
@@ -277,6 +317,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-24",
     label: "フ。~フンボルトペンギンの糞の運動について~",
+    author: "さみだれ",
     href: "/advent/series2/24",
     seriesId: "series2",
     abstract: "arxiv:2007.00926 のレビューと、その拡張を議論したい",
@@ -491,11 +532,16 @@ export default function AdventCalendarPage() {
                       <span className="text-sm font-medium">
                         {day}
                       </span>
-                      {entry && inAdventRange && (
-                        <div className="text-[11px] leading-snug font-medium line-clamp-2 text-center px-1">
-                          {entry.label}
-                        </div>
-                      )}
+                      <div className="text-[11px] leading-snug font-medium text-center px-1 h-[32px] overflow-hidden">
+                        {entry && inAdventRange && (
+                          entry.label
+                        )}
+                      </div>
+                      <div className="text-[11px] leading-snug font-medium text-center px-1 min-h-[14px]">
+                        {entry && inAdventRange && entry.author && (
+                          'by ' + entry.author
+                        )}
+                      </div>
                     </div>
 
                     {/* ホバー時のツールチップ */}
@@ -504,6 +550,11 @@ export default function AdventCalendarPage() {
                         <div className="text-sm font-bold text-[#444443] mb-2">
                           {entry.label}
                         </div>
+                        {entry.author && (
+                          <div className="text-xs font-medium text-gray-900 mb-2">
+                            by {entry.author}
+                          </div>
+                        )}
                         {entry.abstract && (
                           <div className="text-xs text-gray-700 leading-relaxed">
                             {entry.abstract}
