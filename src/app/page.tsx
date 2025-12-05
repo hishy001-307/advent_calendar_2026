@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
+
+import About from "@/components/About/About";
+
+import Footer from "@/components/Footer/Footer";
+
 
 // ==== 設定：どの年の12月か ====
 const ADVENT_YEAR = 2025;
@@ -432,6 +437,8 @@ export default function AdventCalendarPage() {
     <>
       <Header />
       <main className="mx-auto max-w-5xl px-4 pt-8 pb-8 space-y-6">
+        {/* Aboutをここに表示 */}
+        <About />
         {/* ページヘッダ */}
         <header className="space-y-2 text-center">
           <p className="text-xs uppercase tracking-wide text-zinc-500">
@@ -624,6 +631,7 @@ export default function AdventCalendarPage() {
           ピンクのマスがこのシリーズのアドベント記事の日です。
         </p>
       </main>
+      <Footer />
     </>
   );
 }
