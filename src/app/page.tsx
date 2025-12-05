@@ -40,6 +40,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-02",
     label: "運営紹介と理物生の1日",
+    author: "Ping",
     href: "/advent/series1/2",
     seriesId: "series1",
     externalLink: "https://mathlog.info/articles/Dk02hUxpTV1TGNUP2C3L",
@@ -64,6 +65,7 @@ const ADVENT_ENTRIES: AdventEntry[] = [
   {
     date: "2025-12-05",
     label: "宇宙物理班紹介",
+    author: "ほるみる",
     href: "/advent/series1/5",
     seriesId: "series1",
     externalLink: "https://mathlog.info/articles/sIZnNTlwcCFGcqu3Lqi2",
@@ -507,6 +509,8 @@ export default function AdventCalendarPage() {
                 );
 
                 const isToday = today !== null && formatDateKey(date) === today;
+                
+                const isFuture = today !== null && formatDateKey(date) > today;
 
                 // 26日以降は表示しない
                 if (inCurrentMonth && day > 25) {
@@ -528,8 +532,15 @@ export default function AdventCalendarPage() {
                     " border-zinc-200 bg-zinc-50 text-zinc-300";
                 } else if (entry && inAdventRange) {
                   // 記事あり
-                  className +=
-                    " border-pink-200 bg-pink-100 text-zinc-900";
+                  if (isFuture) {
+                    // 未来の記事（まだ公開されていない）
+                    className +=
+                      " border-zinc-300 bg-zinc-100 text-zinc-400 cursor-not-allowed opacity-60";
+                  } else {
+                    // 公開済みの記事
+                    className +=
+                      " border-pink-200 bg-pink-100 text-zinc-900";
+                  }
                 } else {
                   // 当月だが記事なし
                   className +=
@@ -561,18 +572,38 @@ export default function AdventCalendarPage() {
                     {/* ホバー時のツールチップ */}
                     {entry && inAdventRange && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-white border-2 border-[#444443] rounded-lg shadow-xl p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none">
-                        <div className="text-sm font-bold text-[#444443] mb-2">
-                          {entry.label}
-                        </div>
-                        {entry.author && (
-                          <div className="text-xs font-medium text-gray-900 mb-2">
-                            by {entry.author}
+                        {isFuture ? (
+                          // 未来の記事
+                          <div className="text-center">
+                            <div className="text-sm font-bold text-[#444443] mb-2">
+                              {entry.label}
+                            </div>
+                            {entry.author && (
+                              <div className="text-xs font-medium text-gray-900 mb-2">
+                                by {entry.author}
+                              </div>
+                            )}
+                            <div className="text-xs text-gray-500 italic">
+                              🔒 {formatDateKey(date)}に公開予定
+                            </div>
                           </div>
-                        )}
-                        {entry.abstract && (
-                          <div className="text-xs text-gray-700 leading-relaxed">
-                            {entry.abstract}
-                          </div>
+                        ) : (
+                          // 公開済みの記事
+                          <>
+                            <div className="text-sm font-bold text-[#444443] mb-2">
+                              {entry.label}
+                            </div>
+                            {entry.author && (
+                              <div className="text-xs font-medium text-gray-900 mb-2">
+                                by {entry.author}
+                              </div>
+                            )}
+                            {entry.abstract && (
+                              <div className="text-xs text-gray-700 leading-relaxed">
+                                {entry.abstract}
+                              </div>
+                            )}
+                          </>
                         )}
                         {/* 吹き出しの三角形 */}
                         <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[#444443]"></div>
@@ -583,6 +614,15 @@ export default function AdventCalendarPage() {
 
                 // 12/1〜25 かつ entry がある日だけリンクにする
                 if (entry && inAdventRange) {
+                  // 未来の記事はクリック不可
+                  if (isFuture) {
+                    return (
+                      <div key={key} className={`${className} group relative`}>
+                        {inner}
+                      </div>
+                    );
+                  }
+                  
                   // 外部リンクがある場合はそちらを優先
                   if (entry.externalLink) {
                     return (

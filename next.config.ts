@@ -7,15 +7,11 @@ const withMDX = createMDX({
   // ★ オプションは一旦"空"にして通す（後で足す）
   options: {},
 });
-
-const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'mdx'],
-  // Docker用のスタンドアロン出力を有効化
-  output: 'standalone',
-  experimental: {
-    // ★ Rust MDX ローダを無効化（JSローダを使う）
-    mdxRs: false,
+const nextConfig = {
+  output: 'export',  // これを追加
+  // 画像最適化を使っている場合は以下も必要（サーバー側で変換できないため）
+  images: {
+    unoptimized: true,
   },
 };
-
-export default withMDX(nextConfig);
+module.exports = nextConfig;
