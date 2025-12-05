@@ -1,0 +1,145 @@
+/* 全体の板感・角丸・境界線 */
+.header {
+  background: #f6f3e6;
+//   border-bottom: 3px solid #444443;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  
+}
+
+/* 中身の横並びレイアウト */
+.inner {
+  max-width: 72rem; /* 6xl 相当 */
+  margin: 0 auto;
+  padding: 0.7rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ロゴまわり */
+.logoLink {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  max-height: 72px;
+  width: auto;
+  height: auto;
+}
+
+/* ナビ全体 */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  color: #444443;
+}
+
+/* 共通の nav リンクスタイル（アンダーライン演出込み） */
+.navLink {
+  position: relative;
+  font-size: 0.98rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding-bottom: 2px;
+  letter-spacing: 0.03em;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #9e3f38; /* 猫の赤茶に合わせる */
+    transition: width 0.18s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+/* 五月祭ポスター用：アイコンを足すだけで navLink を再利用 */
+.posterWrapper {
+  position: relative;
+}
+
+.posterButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+/* ▼アイコン */
+.chevron {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.18s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* ドロップダウンメニュー */
+.posterMenu {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  padding-top: 0.7rem;
+  z-index: 50;
+  width: 13rem;
+}
+
+.posterMenuPanel {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e4ddd0;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+
+.posterMenuItem {
+  display: block;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.85rem;
+  color: #444443;
+  text-decoration: none;
+  border-bottom: 1px solid #f1e8d7;
+  transition: background-color 0.12s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f6f3e6;
+  }
+}
+
+/* 必要なら: 小さめ画面でロゴを縮める */
+@media (max-width: 960px) {
+  .inner {
+    padding-inline: 1.25rem;
+    gap: 1rem;
+  }
+
+  .logoImage {
+    max-height: 60px;
+  }
+
+  .nav {
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+}

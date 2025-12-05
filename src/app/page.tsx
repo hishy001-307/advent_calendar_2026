@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 import About from "@/components/About/About";
 
