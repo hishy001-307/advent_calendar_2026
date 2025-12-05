@@ -638,16 +638,16 @@ export default function AdventCalendarPage() {
                     );
                   }
                   
-                  // 内部リンク
-                  return (
-                    <Link
-                      key={key}
-                      href={entry.href}
-                      className={`${className} group relative`}
-                    >
-                      {inner}
-                    </Link>
-                  );
+                  // // 内部リンク
+                  // return (
+                  //   <Link
+                  //     key={key}
+                  //     href={entry.href}
+                  //     className={`${className} group relative`}
+                  //   >
+                  //     {inner}
+                  //   </Link>
+                  // );
                 }
 
                 return (
