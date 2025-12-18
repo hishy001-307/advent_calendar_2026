@@ -8,6 +8,8 @@ import About from "@/components/About/About";
 
 import Footer from "@/components/Footer/Footer";
 
+import { getDateStatus } from "@/utils/date";
+
 
 // ==== 設定：どの年の12月か ====
 const ADVENT_YEAR = 2025;
@@ -514,6 +516,7 @@ export default function AdventCalendarPage() {
                 );
 
                 const isToday = today !== null && formatDateKey(date) === today;
+                const status = today ? getDateStatus(key, today) : null;
 
                 // 26日以降は表示しない
                 if (inCurrentMonth && day > 25) {
@@ -526,26 +529,26 @@ export default function AdventCalendarPage() {
                 }
 
                 // ベースのスタイル
-                let className =
-                  "relative h-25 rounded-none text-xs flex flex-col justify-between px-2 py-1";
+let className =
+  "relative h-25 rounded-none text-xs flex flex-col justify-between px-2 py-1";
 
-                if (!inCurrentMonth) {
-                  // 前後月
-                  className +=
-                    " border-zinc-200 bg-zinc-50 text-zinc-300";
-                } else if (entry && inAdventRange) {
-                  // 記事あり
-                  className +=
-                    " border-pink-200 bg-pink-100 text-zinc-900";
-                } else {
-                  // 当月だが記事なし
-                  className +=
-                    " border-zinc-200 bg-white text-zinc-700";
-                }
+if (!inCurrentMonth) {
+  // 前後月
+  className += " border-zinc-200 bg-zinc-50 text-zinc-300";
+} else if (inAdventRange && status && (status === "tomorrow" || status === "future")) {
+  // 未来（明日含む）：グレー（ロック）
+  className += " border-zinc-200 bg-zinc-100 text-zinc-500";
+} else if (entry && inAdventRange) {
+  // 公開済み記事あり：ピンク
+  className += " border-pink-200 bg-pink-100 text-zinc-900";
+} else {
+  // 当月だが記事なし
+  className += " border-zinc-200 bg-white text-zinc-700";
+}
 
-                if (isToday) {
-                  className += " ring-2 ring-zinc-800 ring-offset-2";
-                }
+if (isToday) {
+  className += " ring-2 ring-zinc-800 ring-offset-2";
+}
 
                 const inner = (
                   <>
