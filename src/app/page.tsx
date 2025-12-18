@@ -10,6 +10,8 @@ import Footer from "@/components/Footer/Footer";
 
 import { getDateStatus } from "@/utils/date";
 
+import NewBadge from "@/components/Badges/NewBadge";
+
 
 // ==== 設定：どの年の12月か ====
 const ADVENT_YEAR = 2025;
@@ -517,6 +519,7 @@ export default function AdventCalendarPage() {
 
                 const isToday = today !== null && formatDateKey(date) === today;
                 const status = today ? getDateStatus(key, today) : null;
+                const isNew = status === "today" && !!entry && inAdventRange;
 
                 // 26日以降は表示しない
                 if (inCurrentMonth && day > 25) {
@@ -552,20 +555,27 @@ if (isToday) {
 
                 const inner = (
                   <>
+                  {isNew && (
+  <NewBadge className="absolute top-1 right-1" />
+)}
                     <div className="flex items-center justify-center h-full flex-col gap-1">
                       <span className="text-sm font-medium">
                         {day}
                       </span>
                       <div className="text-[11px] leading-snug font-medium text-center px-1 h-[32px] overflow-hidden">
-                        {entry && inAdventRange && (
-                          entry.label
-                        )}
-                      </div>
+  {inAdventRange && (
+    status === "past" || status === "today"
+      ? entry?.label ?? null
+      : status === "tomorrow"
+        ? entry?.label ?? "Coming Soon"
+        : "Coming Soon"
+  )}
+</div>
                       <div className="text-[11px] leading-snug font-medium text-center px-1 min-h-[14px]">
-                        {entry && inAdventRange && entry.author && (
-                          'by ' + entry.author
-                        )}
-                      </div>
+  {inAdventRange && (status === "past" || status === "today") && entry?.author
+    ? `by ${entry.author}`
+    : null}
+</div>
                     </div>
 
                     {/* ホバー時のツールチップ */}
@@ -591,8 +601,10 @@ if (isToday) {
                   </>
                 );
 
-                // 12/1〜25 かつ entry がある日だけリンクにする
-                if (entry && inAdventRange) {
+                const isPublished = status === "past" || status === "today";
+
+                // 12/1〜25 かつ entry がある、かつ 公開済みだけリンクにする
+                if (entry && inAdventRange && isPublished) {
                   // 外部リンクがある場合はそちらを優先
                   if (entry.externalLink) {
                     return (
@@ -607,7 +619,7 @@ if (isToday) {
                       </a>
                     );
                   }
-                  
+
                   // 内部リンク
                   return (
                     <Link
