@@ -76,20 +76,22 @@
 
 /* スマホで少しタイトに */
 @media (max-width: 768px) {
-  .aboutSection {
-    padding: 2rem 1.5rem;
-
-    &::before {
-      left: 16px;
-    }
+  .titleRow {
+    flex-wrap: nowrap;          /* 横並び固定 */
   }
 
   .title {
-    margin-top: 1.75rem;
-    font-size: 1.35rem;
+    min-width: 0;               /* 省略を効かせるために重要 */
+    white-space: nowrap;
+    font-size: 1.15rem; 
+    line-height: 1.3;
+    // overflow: hidden;
+    // text-overflow: ellipsis;    /* どうしても入らない端末で…にする */
   }
 
-  .body {
-    font-size: 0.9rem;
+  .cat {
+    flex: 0 0 auto;
+    width: 44px;                /* SPで少し縮める */
+    transform: translateY(-6px);
   }
 }
