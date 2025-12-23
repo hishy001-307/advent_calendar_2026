@@ -12,6 +12,7 @@ import { getDateStatus } from "@/utils/date";
 
 import NewBadge from "@/components/Badges/NewBadge";
 
+import SpCalendarAccordion from "@/components/Calendar/SpCalendarAccordion";
 
 // ==== 設定：どの年の12月か ====
 const ADVENT_YEAR = 2025;
@@ -489,6 +490,20 @@ export default function AdventCalendarPage() {
           {year}年{month}月
         </div>
 
+        {/* ===== SP用カレンダー（週アコーディオン） ===== */}
+        <div className="block md:hidden">
+          <SpCalendarAccordion
+            weeks={weeks}
+            adventMap={adventMap}
+            activeSeries={activeSeries}
+            today={today}
+          />
+        </div>
+
+      
+          
+{/* ===== PC用カレンダー（7列壁掛け） ===== */}
+<div className="hidden md:block">
         {/* 曜日ヘッダー */}
         <div className="grid grid-cols-7 border-b text-center text-xs font-medium text-zinc-500 mb-2">
           {WEEKDAYS.map((w) => (
@@ -640,6 +655,7 @@ if (isToday) {
               })}
             </div>
           ))}
+        </div>
         </div>
 
         <p className="mt-3 text-xs text-zinc-400 text-center">
