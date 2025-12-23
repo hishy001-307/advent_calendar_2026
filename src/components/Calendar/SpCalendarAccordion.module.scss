@@ -1,0 +1,114 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===== Week全体 ===== */
+.week {
+  background: #ffffff;
+  border: 1px solid #e5e1d6;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ===== Weekヘッダー ===== */
+.weekHeader {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #fffdf7;
+  font-weight: 600;
+  color: #444443;
+
+  border-bottom: 1px solid #eee6d3;
+}
+
+/* ===== 中身 ===== */
+.weekBody {
+  padding: 0.25rem 0;
+  padding-top: 0.25rem;
+}
+
+/* ===== 日付行 ===== */
+.dayRow {
+  position: relative;
+  /* ★必須 */
+
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+}
+
+/* 余白付き divider */
+.dayRow::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  /* ← 左の余白 */
+  right: 1rem;
+  /* ← 右の余白 */
+  bottom: 0;
+
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* 最後の行は線を出さない */
+.dayRow:last-child::after {
+  display: none;
+}
+
+/* 最後の行だけ線を消す */
+.dayRow:last-child {
+  border-bottom: none;
+}
+
+.day {
+  width: 2rem;
+  text-align: right;
+  font-weight: 600;
+  color: #444443;
+}
+
+.content {
+  flex: 1;
+}
+
+.label {
+  font-weight: 500;
+  color: #2f2f2f;
+}
+
+.comingSoon {
+  color: #a0a0a0;
+}
+
+.author {
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+  color: #777;
+}
+
+/* ===== accordion animation ===== */
+.panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-2px);
+  transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.panelOpen {
+  max-height: 1200px; /* 十分大きい値にしておく */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+

@@ -143,3 +143,94 @@
     font-size: 0.9rem;
   }
 }
+
+/* ===== SP用：ハンバーガー & 縦メニュー ===== */
+
+.hamburger {
+  display: none; /* PCでは非表示 */
+  background: transparent;
+  border: none;
+  color: #444443;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  display: none; /* PCでは非表示 */
+  border-top: 1px solid #e4ddd0;
+  background: #f6f3e6;
+  padding: 0.6rem 1.25rem 1rem;
+}
+
+.mobileLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0.85rem 0.2rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: #444443;
+  text-decoration: none;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileSubMenu {
+  padding: 0.25rem 0 0.5rem;
+}
+
+.mobileSubLink {
+  display: block;
+  padding: 0.65rem 0.7rem;
+  margin-left: 0.2rem;
+
+  font-size: 0.9rem;
+  color: #444443;
+  text-decoration: none;
+
+  border-left: 2px solid #9e3f38;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+  margin-top: 0.4rem;
+}
+
+/* ===== SP/PC 出し分け ===== */
+/* 960px以下をSP扱い（既存の設計に合わせる） */
+@media (max-width: 960px) {
+  .nav {
+    display: none; /* PCナビを隠す */
+  }
+
+  .hamburger {
+    display: inline-flex; /* ハンバーガー表示 */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobileMenu {
+    display: block; /* 縦メニュー表示（stateで出すので実際はDOMが出た時だけ） */
+  }
+}
+
+/* ===== SPメニュー：タップ時フィードバック ===== */
+
+.mobileLink,
+.mobileSubLink {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mobileLink:hover,
+.mobileLink:active {
+  background-color: rgba(158, 63, 56, 0.08); /* 猫の赤茶を薄く */
+}
+
+.mobileSubLink:hover,
+.mobileSubLink:active {
+  background-color: rgba(158, 63, 56, 0.12);
+}
