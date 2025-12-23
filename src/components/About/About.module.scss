@@ -95,3 +95,85 @@
     transform: translateY(-6px);
   }
 }
+
+.aboutHero {
+  position: relative;
+}
+
+/* SPではAboutをファーストビュー化 */
+@media (max-width: 768px) {
+  .aboutHero {
+    min-height: calc(100vh - 76px);
+    /* Header実高に近い値 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* ★中央→上寄せ */
+    padding-top: 60px;
+    /* ★上の“虚無”を消す */
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    /* ★下端の安全域 */
+  }
+
+  /* Aboutカード自体の上余白もSPでは縮める */
+  .aboutSection {
+    padding-top: 1.6rem;
+    /* 既存: 2.5rem */
+    padding-bottom: 1.8rem;
+  }
+
+        .scrollHint {
+          position:absolute;
+          /* ★ここがfixed */
+          left: 50%;
+          bottom: calc(clamp(28px, 10vh, 100px) + env(safe-area-inset-bottom));
+          z-index: 60;
+    
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
+    
+          color: #444443;
+          pointer-events: none;
+    
+          transition: opacity 180ms ease, transform 180ms ease;
+        }
+    
+        /* 表示中：ふわっと上下 */
+        .scrollHintVisible {
+          opacity: 0.65;
+          transform: translateX(-50%) translateY(0);
+          animation: scrollFloat 2.6s ease-in-out infinite;
+        }
+    
+        /* 非表示：消える（TSXがこのclassを付ける前提） */
+        .scrollHintHidden {
+          opacity: 0;
+          transform: translateX(-50%) translateY(8px);
+        }
+    
+        @keyframes scrollFloat {
+          0% {
+            transform: translateX(-50%) translateY(0);
+          }
+    
+          50% {
+            transform: translateX(-50%) translateY(6px);
+          }
+    
+          100% {
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+  .scrollText {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .scrollIcon {
+    font-size: 18px;
+    line-height: 1;
+  }
+}
