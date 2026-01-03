@@ -1,4 +1,0 @@
-1:"$Sreact.fragment"
-2:I[7518,["/physlab2026/_next/static/chunks/22802e7dc2d42493.js","/physlab2026/_next/static/chunks/703c1491f8b82ebe.js"],"default"]
-3:I[9547,["/physlab2026/_next/static/chunks/22802e7dc2d42493.js","/physlab2026/_next/static/chunks/703c1491f8b82ebe.js"],"default"]
-0:{"buildId":"81WWg-LXVBsL1xzUS0b--","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
