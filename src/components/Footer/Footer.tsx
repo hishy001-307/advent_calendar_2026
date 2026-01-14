@@ -13,7 +13,7 @@ export default function Footer() {
           {/* ブランドロゴ部分 */}
           <div className={styles.brand}>
             <Image
-              src="/logo_monochrome.png"  // ← ヘッダーと同じモノクロ版を使用
+              src="/physlab2026/logo_monochrome.png"  // ← ヘッダーと同じモノクロ版を使用
               alt="Physics Lab ロゴ"
               width={5165}
               height={1989}

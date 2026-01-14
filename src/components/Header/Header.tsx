@@ -23,7 +23,7 @@ export default function Header() {
         {/* ロゴ */}
         <Link href="/" className={styles.logoLink}>
           <Image
-            src="/header.png"
+            src="/physlab2026/header.png"
             alt="Physics Lab Logo"
             width={360}
             height={120}
@@ -47,9 +47,8 @@ export default function Header() {
             <button className={`${styles.navLink} ${styles.posterButton}`}>
               五月祭ポスター
               <svg
-                className={`${styles.chevron} ${
-                  isPosterMenuOpen ? styles.chevronOpen : ""
-                }`}
+                className={`${styles.chevron} ${isPosterMenuOpen ? styles.chevronOpen : ""
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
