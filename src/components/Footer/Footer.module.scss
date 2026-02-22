@@ -12,8 +12,9 @@
 
   @media (min-width: 768px) {
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2.2rem;
   }
 }
 
@@ -40,8 +41,16 @@
 /* リンク */
 .nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem 1.4rem;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.6rem;
+  margin-left: 0.5rem;
+}
+
+.teamColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
 .link {

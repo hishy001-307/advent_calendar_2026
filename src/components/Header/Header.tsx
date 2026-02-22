@@ -9,12 +9,12 @@ export default function Header() {
   const [isPosterMenuOpen, setIsPosterMenuOpen] = useState(false);
 
   const posterSubMenus = [
-    { label: "素粒子物理班", href: "/poster/particle" },
-    { label: "物性物理班", href: "/poster/condensed-matter" },
-    { label: "宇宙物理班", href: "/poster/astrophysics" },
-    { label: "生物物理班", href: "/poster/biophysics" },
-    { label: "計算・数理物理班", href: "/poster/computational" },
-    { label: "実験班", href: "/poster/experimental" },
+    { label: "素粒子物理班", href: "/teams/particle" },
+    { label: "物性物理班", href: "/teams/condensed-matter" },
+    { label: "宇宙物理班", href: "/teams/astrophysics" },
+    { label: "生物物理班", href: "/teams/biophysics" },
+    { label: "計算・数理物理班", href: "/teams/computational-math" },
+    { label: "実験班", href: "/teams/experimental" },
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function Header() {
         {/* ロゴ */}
         <Link href="/" className={styles.logoLink}>
           <Image
-            src="/physlab2026/header.png"
+            src="/header.png"
             alt="Physics Lab Logo"
             width={360}
             height={120}
@@ -35,6 +35,9 @@ export default function Header() {
         {/* ナビ */}
         <nav className={styles.nav}>
           <Link href="/" className={styles.navLink}>
+            ホーム
+          </Link>
+          <Link href="/advent" className={styles.navLink}>
             アドベントカレンダー
           </Link>
 
@@ -45,7 +48,7 @@ export default function Header() {
             onMouseLeave={() => setIsPosterMenuOpen(false)}
           >
             <button className={`${styles.navLink} ${styles.posterButton}`}>
-              五月祭ポスター
+              班紹介
               <svg
                 className={`${styles.chevron} ${isPosterMenuOpen ? styles.chevronOpen : ""
                   }`}
@@ -79,12 +82,8 @@ export default function Header() {
             )}
           </div>
 
-          <Link href="/performance" className={styles.navLink}>
-            学生公演
-          </Link>
-
-          <Link href="/articles" className={styles.navLink}>
-            解説記事
+          <Link href="/contact" className={styles.navLink}>
+            お問い合わせ
           </Link>
         </nav>
       </div>

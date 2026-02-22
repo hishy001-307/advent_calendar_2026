@@ -12,7 +12,7 @@ export default function About() {
       <div className={styles.titleRow}>
         <h2 className={styles.title}>Physics Labとは？</h2>
         <Image
-          src="/physlab2026/cat_nobi.png"
+          src="/cat_nobi.png"
           alt="伸びをしている猫のシルエット"
           width={60}          // 必須
           height={60}         // 必須

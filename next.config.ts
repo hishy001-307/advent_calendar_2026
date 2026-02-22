@@ -5,10 +5,12 @@
 
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
-  basePath: "/physlab2026",
+  ...(isProduction ? { basePath: "/physlab2026" } : {}),
   images: {
     unoptimized: true,
   },
