@@ -5,6 +5,7 @@ export default function BiophysicsTeamPage() {
     <TeamPage
       teamName="生物物理班"
       description="生物物理班の活動紹介ページです。"
+      loadingVariant="biophysics"
     />
   );
 }

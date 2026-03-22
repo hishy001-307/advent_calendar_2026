@@ -5,6 +5,7 @@ export default function AstrophysicsTeamPage() {
     <TeamPage
       teamName="宇宙物理班"
       description="宇宙物理班の活動紹介ページです。"
+      loadingVariant="astrophysics"
     />
   );
 }

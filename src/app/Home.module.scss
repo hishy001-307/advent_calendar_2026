@@ -215,11 +215,25 @@
 }
 
 .teamCardLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   padding: 0.9rem 1rem;
   color: #444443;
   text-decoration: none;
   font-weight: 500;
+}
+
+.teamIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.teamIconBio {
+  width: 54px;
+  height: 54px;
 }
 
 .teamCard:hover,

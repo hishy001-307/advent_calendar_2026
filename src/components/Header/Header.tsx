@@ -37,7 +37,7 @@ export default function Header() {
           <Link href="/" className={styles.navLink}>
             ホーム
           </Link>
-          <Link href="/advent" className={styles.navLink}>
+          <Link href="/advent" className={styles.navLink} prefetch={false}>
             アドベントカレンダー
           </Link>
 
@@ -72,6 +72,7 @@ export default function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
+                      prefetch={false}
                       className={styles.posterMenuItem}
                     >
                       {item.label}
@@ -81,6 +82,14 @@ export default function Header() {
               </div>
             )}
           </div>
+
+          <Link href="/performance" className={styles.navLink}>
+            学生公演
+          </Link>
+
+          <Link href="/articles" className={styles.navLink}>
+            解説記事
+          </Link>
 
           <Link href="/contact" className={styles.navLink}>
             お問い合わせ

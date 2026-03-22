@@ -1,0 +1,225 @@
+.pageRoot {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pageRootDark {
+  .teamLogo {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+  }
+}
+
+.pageEnter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: pageEnter 600ms ease-out both;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.teamLogo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.eyebrowDark {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.teamNameDark {
+  color: #f8fafc;
+}
+
+.descriptionDark {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.contentSectionLight {
+  border-color: #f0e4c8;
+  background: #fffdf7;
+}
+
+.contentSectionDark {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.placeholderDark {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.summarySection {
+  border-radius: 14px;
+  border: 1px solid rgba(240, 228, 200, 0.95);
+  background: rgba(255, 253, 247, 0.96);
+  padding: 1.35rem 1.5rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+}
+
+.summarySectionDark {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.summaryHeading {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9e3f38;
+  margin-bottom: 0.65rem;
+}
+
+.summaryHeadingDark {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.summaryBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #3f3f3e;
+  text-align: left;
+}
+
+.summaryBodyDark {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.pdfSectionTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #444443;
+  margin-bottom: 0.85rem;
+}
+
+.pdfSectionTitleDark {
+  color: #f8fafc;
+}
+
+.pdfGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .pdfGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .pdfGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.pdfCard {
+  border-radius: 12px;
+  border: 1px solid #e8dcc4;
+  background: #fffdf9;
+  padding: 1.1rem 1.15rem;
+  min-height: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pdfCard:hover {
+  border-color: rgba(158, 63, 56, 0.45);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.pdfCardDark {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.pdfCardDark:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
+}
+
+.pdfBadge {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9e3f38;
+  border: 1px solid rgba(158, 63, 56, 0.35);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  background: rgba(158, 63, 56, 0.06);
+}
+
+.pdfBadgeDark {
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.pdfTitleLink {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2f2f2e;
+  text-decoration: none;
+  line-height: 1.45;
+}
+
+.pdfTitleLink:hover {
+  color: #9e3f38;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pdfTitleLinkDark {
+  color: #f8fafc;
+}
+
+.pdfTitleLinkDark:hover {
+  color: #ffffff;
+}
+
+.pdfSummary {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #5c5c59;
+  flex: 1;
+}
+
+.pdfSummaryDark {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

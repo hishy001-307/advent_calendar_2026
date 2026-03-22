@@ -34,14 +34,16 @@ export default function Footer() {
           {/* ナビ */}
           <nav className={styles.nav}>
             <Link href="/" className={styles.link}>ホーム</Link>
-            <Link href="/advent" className={styles.link}>アドベント</Link>
+            <Link href="/advent" className={styles.link} prefetch={false}>アドベント</Link>
             <div className={styles.teamColumn}>
               {teamLinks.map((item) => (
-                <Link key={item.href} href={item.href} className={styles.link}>
+                <Link key={item.href} href={item.href} className={styles.link} prefetch={false}>
                   {item.label}
                 </Link>
               ))}
             </div>
+            <Link href="/performance" className={styles.link}>学生公演</Link>
+            <Link href="/articles" className={styles.link}>解説記事</Link>
             <Link href="/contact" className={styles.link}>お問い合わせ</Link>
           </nav>
         </div>

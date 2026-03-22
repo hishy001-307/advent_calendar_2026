@@ -37,7 +37,7 @@ export default function HomePage() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/teams/particle" className={styles.primaryButton}>
+            <Link href="/teams/particle" className={styles.primaryButton} prefetch={false}>
               班紹介を見る
             </Link>
             <Link href="/contact" className={styles.secondaryButton}>
@@ -67,7 +67,7 @@ export default function HomePage() {
           <div className={styles.teamGrid}>
             {TEAMS.map((team) => (
               <div key={team.href} className={styles.teamCard}>
-                <Link href={team.href} className={styles.teamCardLink}>
+                <Link href={team.href} className={styles.teamCardLink} prefetch={false}>
                   {team.name}
                 </Link>
               </div>

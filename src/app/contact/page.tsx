@@ -38,17 +38,28 @@ export default function ContactPage() {
 
         <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3">
           <p className="text-zinc-700">
-            公式X:{" "}
+            Physics Lab. 2026 公式X:{" "}
             <a
-              href="https://x.com/physicslab2025"
+              href="https://x.com/physicslab2026"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#983c3d] underline underline-offset-4"
             >
-              @physicslab2025
+              @physicslab2026
             </a>
           </p>
-          <p className="text-zinc-700">Mail: physicslab2025[at]gmail.com</p>
+          <p className="text-zinc-700">
+            Physics Lab. 2026 公式Instagram:{" "}
+            <a
+              href="https://www.instagram.com/physlab2026/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#983c3d] underline underline-offset-4"
+            >
+              @physlab2026
+            </a>
+          </p>
+          <p className="text-zinc-700">Mail: physlab2026[at]gmail.com</p>
         </section>
 
         <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-4">
@@ -63,7 +74,7 @@ export default function ContactPage() {
         <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-2">
           <h2 className="text-2xl font-semibold text-[#444443]">外部リンク</h2>
           <a
-            href="https://www.s.u-tokyo.ac.jp/ja/phys/"
+            href="https://www.s.u-tokyo.ac.jp/ja/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#983c3d] underline underline-offset-4"

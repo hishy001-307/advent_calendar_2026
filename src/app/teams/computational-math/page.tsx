@@ -5,6 +5,7 @@ export default function ComputationalMathTeamPage() {
     <TeamPage
       teamName="計算・数理物理班"
       description="計算・数理物理班の活動紹介ページです。"
+      loadingVariant="computationalMath"
     />
   );
 }
