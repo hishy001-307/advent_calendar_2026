@@ -17,6 +17,12 @@
   animation: pageEnter 600ms ease-out both;
 }
 
+/* flex:1 の子が縮んで本文が欠けるのを防ぐ */
+.pageMain {
+  flex-shrink: 0;
+  width: 100%;
+}
+
 .titleRow {
   display: flex;
   align-items: center;
@@ -30,6 +36,11 @@
   height: 64px;
   object-fit: contain;
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    width: 52px;
+    height: 52px;
+  }
 }
 
 .eyebrowDark {
@@ -65,6 +76,15 @@
   background: rgba(255, 253, 247, 0.96);
   padding: 1.35rem 1.5rem;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 768px) {
+    padding: 1.15rem 1.15rem;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 0.95rem;
+  }
 }
 
 .summarySectionDark {
@@ -94,6 +114,12 @@
   line-height: 1.75;
   color: #3f3f3e;
   text-align: left;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    line-height: 1.72;
+  }
 }
 
 .summaryBodyDark {
@@ -105,6 +131,11 @@
   font-weight: 600;
   color: #444443;
   margin-bottom: 0.85rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.98rem;
+    margin-bottom: 0.65rem;
+  }
 }
 
 .pdfSectionTitleDark {
@@ -142,6 +173,16 @@
     border-color 0.2s ease,
     box-shadow 0.2s ease,
     transform 0.2s ease;
+
+  @media (max-width: 768px) {
+    min-height: 0;
+    padding: 1rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.9rem 0.85rem;
+    border-radius: 10px;
+  }
 }
 
 .pdfCard:hover {
@@ -186,6 +227,11 @@
   color: #2f2f2e;
   text-decoration: none;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 480px) {
+    font-size: 0.92rem;
+  }
 }
 
 .pdfTitleLink:hover {
@@ -207,6 +253,11 @@
   line-height: 1.65;
   color: #5c5c59;
   flex: 1;
+
+  @media (max-width: 480px) {
+    font-size: 0.84rem;
+    line-height: 1.62;
+  }
 }
 
 .pdfSummaryDark {

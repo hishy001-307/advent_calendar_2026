@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import 'katex/dist/katex.min.css'; // ★これが重要（どこか1カ所で読み込む）
 import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
@@ -12,6 +12,11 @@ const zenMaruGothic = Zen_Maru_Gothic({
 export const metadata: Metadata = {
   title: "Physics Lab. 2026",
   description: "Physics Lab. Advent Calendar 2026",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

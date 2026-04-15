@@ -1,8 +1,8 @@
-// src/components/Layout/Footer.tsx
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Footer.module.scss";
+import { publicPath } from "@/utils/publicPath";
 
 export default function Footer() {
   const teamLinks = [
@@ -22,7 +22,7 @@ export default function Footer() {
           {/* ブランドロゴ部分 */}
           <div className={styles.brand}>
             <Image
-              src="/logo_monochrome.png"  // ← ヘッダーと同じモノクロ版を使用
+              src={publicPath("/logo_monochrome.png")}
               alt="Physics Lab ロゴ"
               width={5165}
               height={1989}

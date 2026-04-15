@@ -37,18 +37,20 @@ export default function ArticlesPage() {
             <div className={styles.cardGrid}>
               {team.items.map((item, itemIndex) => (
                 <article
-                  key={`${team.variant}-${itemIndex}-${item.title}`}
+                  key={`${team.variant}-${itemIndex}`}
                   className={styles.card}
                 >
                   <span className={styles.badge}>PDF</span>
-                  <h3 className={styles.cardTitle}>
-                    <Link href={item.href} prefetch={false}>
-                      {item.title}
-                    </Link>
-                  </h3>
+                  {item.title.trim() ? (
+                    <h3 className={styles.cardTitle}>
+                      <Link href={item.href} prefetch={false}>
+                        {item.title}
+                      </Link>
+                    </h3>
+                  ) : null}
                   <div className={styles.summary}>
                     {item.summaryLines.map((line, i) => (
-                      <p key={`${item.title}-${i}`}>{line}</p>
+                      <p key={`${team.variant}-${itemIndex}-${i}`}>{line}</p>
                     ))}
                   </div>
                 </article>

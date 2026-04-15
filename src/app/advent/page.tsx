@@ -460,13 +460,13 @@ export default function AdventCalendarPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-5xl px-4 pt-8 pb-8 space-y-6">
+      <main className="mx-auto max-w-5xl min-w-0 px-3 pt-6 pb-8 space-y-5 min-[480px]:px-4 min-[480px]:pt-8 min-[480px]:space-y-6">
         {/* ページヘッダ */}
         <header className="space-y-2 text-center">
           <p className="text-xs uppercase tracking-wide text-zinc-500">
             Advent Calendar 2026
           </p>
-          <h1 className="text-4xl font-semibold text-[#444443]">
+          <h1 className="break-words px-1 text-2xl font-semibold text-[#444443] min-[480px]:text-3xl sm:text-4xl">
             Physics Lab. アドベントカレンダー
           </h1>
           <p className="text-xs text-zinc-500">
@@ -475,13 +475,16 @@ export default function AdventCalendarPage() {
           <p className="text-xs text-zinc-500">
             シリーズを切り替えて各日の記事をチェックできます。
           </p>
-          <p className="text-xs text-zinc-500">
+          <p className="hidden text-xs text-zinc-500 sm:block">
             カーソルを近づけると詳細が表示されます。
+          </p>
+          <p className="text-xs text-zinc-500 sm:hidden">
+            各マスをタップすると記事（外部サイト）が開きます。
           </p>
         </header>
 
         {/* シリーズ切り替えボタン */}
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2 px-1">
           {SERIES.map((s) => {
             const isActive = s.id === activeSeries;
             return (
@@ -503,12 +506,15 @@ export default function AdventCalendarPage() {
         </div>
 
         {/* 月タイトル（固定：12月） */}
-        <div className="text-center text-lg font-medium text-zinc-800">
+        <div className="text-center text-base font-medium text-zinc-800 min-[480px]:text-lg">
           {year}年{month}月
         </div>
 
+        {/* 狭い画面ではカレンダー全体を横スクロール（7列を読みやすく保つ） */}
+        <div className="-mx-3 min-w-0 overflow-x-auto pb-1 min-[480px]:mx-0 min-[480px]:overflow-visible min-[480px]:pb-0">
+          <div className="min-w-[36rem] min-[480px]:min-w-0">
         {/* 曜日ヘッダー */}
-        <div className="grid grid-cols-7 border-b text-center text-xs font-medium text-zinc-500 mb-2">
+        <div className="mb-2 grid min-w-0 grid-cols-7 border-b text-center text-[0.65rem] font-medium text-zinc-500 min-[480px]:text-xs [grid-template-columns:repeat(7,minmax(0,1fr))]">
           {WEEKDAYS.map((w) => (
             <div key={w} className="py-1">
               {w}
@@ -517,9 +523,12 @@ export default function AdventCalendarPage() {
         </div>
 
         {/* 壁掛けカレンダー */}
-        <div className="grid grid-rows-4 gap-1">
+        <div className="grid min-w-0 grid-rows-4 gap-1">
           {weeks.slice(0, 4).map((week, i) => (
-            <div key={i} className="grid border-b grid-cols-7 gap-1">
+            <div
+              key={i}
+              className="grid min-w-0 grid-cols-7 gap-1 border-b [grid-template-columns:repeat(7,minmax(0,1fr))]"
+            >
               {/* ↑カレンダーの線はこれ */}
               {week.map(({ date, inCurrentMonth }) => {
                 const key = formatDateKey(date);
@@ -552,61 +561,51 @@ export default function AdventCalendarPage() {
                   return null;
                 }
 
-                // ベースのスタイル
+                const lockedByDate = isFuture;
+                const lockedByStatus =
+                  Boolean(today) &&
+                  inAdventRange &&
+                  Boolean(status) &&
+                  (status === "tomorrow" || status === "future");
+                const isLocked = entry && inAdventRange && (lockedByDate || lockedByStatus);
+
                 let className =
-                  "relative h-25 rounded-none text-xs flex flex-col justify-between px-2 py-1";
+                  "relative flex min-h-[5.5rem] min-w-0 flex-col justify-between rounded-none border px-1 py-1 text-xs min-[480px]:min-h-[6.25rem] sm:px-2";
 
                 if (!inCurrentMonth) {
-                  // 前後月
-                  className +=
-                    " border-zinc-200 bg-zinc-50 text-zinc-300";
-                } else if (entry && inAdventRange) {
-                  // 記事あり
-                  if (isFuture) {
-                    // 未来の記事（まだ公開されていない）
+                  className += " border-zinc-200 bg-zinc-50 text-zinc-300";
+                } else if (!inAdventRange) {
+                  className += " border-zinc-200 bg-white text-zinc-700";
+                } else if (entry) {
+                  if (isLocked) {
                     className +=
-                      " border-zinc-300 bg-zinc-100 text-zinc-400 cursor-not-allowed opacity-60";
+                      " border-zinc-200 bg-zinc-100 text-zinc-500 opacity-80";
+                    if (lockedByDate) {
+                      className += " cursor-not-allowed";
+                    }
                   } else {
-                    // 公開済みの記事
-                    className +=
-                      " border-pink-200 bg-pink-100 text-zinc-900";
+                    className += " border-pink-200 bg-pink-100 text-zinc-900";
                   }
                 } else {
-                  // 当月だが記事なし
-                  className +=
-                    " border-zinc-200 bg-white text-zinc-700";
-                }
-
-                if (!inCurrentMonth) {
-                  // 前後月
-                  className += " border-zinc-200 bg-zinc-50 text-zinc-300";
-                } else if (inAdventRange && status && (status === "tomorrow" || status === "future")) {
-                  // 未来（明日含む）：グレー（ロック）
-                  className += " border-zinc-200 bg-zinc-100 text-zinc-500";
-                } else if (entry && inAdventRange) {
-                  // 公開済み記事あり：ピンク
-                  className += " border-pink-200 bg-pink-100 text-zinc-900";
-                } else {
-                  // 当月だが記事なし
                   className += " border-zinc-200 bg-white text-zinc-700";
                 }
 
                 if (isToday) {
-                  className += " ring-2 ring-zinc-800 ring-offset-2";
+                  className += " ring-2 ring-zinc-800 ring-offset-1 sm:ring-offset-2";
                 }
 
                 const inner = (
                   <>
-                    <div className="flex items-center justify-center h-full flex-col gap-1">
-                      <span className="text-sm font-medium">
+                    <div className="flex h-full flex-col items-center justify-center gap-0.5 min-[480px]:gap-1">
+                      <span className="text-xs font-medium min-[480px]:text-sm">
                         {day}
                       </span>
-                      <div className="text-[11px] leading-snug font-medium text-center px-1 h-[32px] overflow-hidden">
+                      <div className="h-[28px] overflow-hidden px-0.5 text-center text-[10px] font-medium leading-snug break-words min-[480px]:h-[32px] min-[480px]:text-[11px] sm:px-1">
                         {entry && inAdventRange && (
                           entry.label
                         )}
                       </div>
-                      <div className="text-[11px] leading-snug font-medium text-center px-1 min-h-[14px]">
+                      <div className="min-h-[12px] px-0.5 text-center text-[10px] font-medium leading-snug min-[480px]:min-h-[14px] min-[480px]:px-1 min-[480px]:text-[11px]">
                         {entry && inAdventRange && entry.author && (
                           'by ' + entry.author
                         )}
@@ -615,9 +614,9 @@ export default function AdventCalendarPage() {
 
                     {/* ホバー時のツールチップ */}
                     {entry && inAdventRange && (
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-white border-2 border-[#444443] rounded-lg shadow-xl p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none">
-                        {isFuture ? (
-                          // 未来の記事
+                      <div className="pointer-events-none invisible absolute bottom-full left-1/2 z-50 mb-2 max-sm:hidden w-[min(16rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-lg border-2 border-[#444443] bg-white p-3 text-left opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:opacity-100 sm:p-4">
+                        {isLocked ? (
+                          // 公開前の記事
                           <div className="text-center">
                             <div className="text-sm font-bold text-[#444443] mb-2">
                               {entry.label}
@@ -658,8 +657,7 @@ export default function AdventCalendarPage() {
 
                 // 12/1〜25 かつ entry がある日だけリンクにする
                 if (entry && inAdventRange) {
-                  // 未来の記事はクリック不可
-                  if (isFuture) {
+                  if (isLocked) {
                     return (
                       <div key={key} className={`${className} group relative`}>
                         {inner}
@@ -703,8 +701,10 @@ export default function AdventCalendarPage() {
             </div>
           ))}
         </div>
+          </div>
+        </div>
 
-        <p className="mt-3 text-xs text-zinc-400 text-center">
+        <p className="mt-3 px-1 text-center text-xs text-zinc-400">
           ピンクのマスがこのシリーズのアドベント記事の日です。
         </p>
       </main>

@@ -1,5 +1,3 @@
-// src/utils/date.ts
-
 export type DateStatus =
   | "past"
   | "today"

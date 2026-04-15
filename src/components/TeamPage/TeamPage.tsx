@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import type { LoadingVariant } from "@/components/TeamLoading/TeamLoading";
 import teamTheme from "@/components/TeamLoading/TeamLoading.module.scss";
 import TeamLogoMarquee from "./TeamLogoMarquee";
+import { publicPath } from "@/utils/publicPath";
 import styles from "./TeamPage.module.scss";
 import {
   defaultFieldSummary,
@@ -56,7 +57,7 @@ export default async function TeamPage({
   const logoSrc = TEAM_LOGO_SRC[loadingVariant];
   const marqueeSlides = Array.from({ length: MARQUEE_CYCLE }, () => ({
     href: "#",
-    imageSrc: logoSrc,
+    imageSrc: publicPath(logoSrc),
   }));
 
   return (
@@ -71,7 +72,14 @@ export default async function TeamPage({
     >
       <div className={styles.pageEnter}>
           <Header />
-          <main className="mx-auto max-w-5xl px-4 pt-8 pb-8 space-y-8">
+          <main
+            className={[
+              styles.pageMain,
+              "mx-auto max-w-5xl min-w-0 space-y-6 px-3 pb-8 pt-6 min-[480px]:space-y-8 min-[480px]:px-4 min-[480px]:pt-8",
+            ]
+              .join(" ")
+              .trim()}
+          >
             <header className="space-y-2 text-center">
               <p
                 className={[
@@ -85,7 +93,7 @@ export default async function TeamPage({
               </p>
               <div className={styles.titleRow}>
                 <Image
-                  src={logoSrc}
+                  src={publicPath(logoSrc)}
                   alt=""
                   width={64}
                   height={64}
@@ -95,7 +103,7 @@ export default async function TeamPage({
                 />
                 <h1
                   className={[
-                    "text-4xl font-semibold",
+                    "max-w-full min-w-0 break-words text-2xl font-semibold min-[480px]:text-3xl sm:text-4xl",
                     isDarkPage ? styles.teamNameDark : "text-[#444443]",
                   ]
                     .join(" ")
@@ -169,9 +177,9 @@ export default async function TeamPage({
                 解説資料（PDF）
               </h2>
               <div className={styles.pdfGrid}>
-                {pdfSpotlights.map((item) => (
+                {pdfSpotlights.map((item, itemIndex) => (
                   <article
-                    key={item.title}
+                    key={`pdf-${loadingVariant}-${itemIndex}`}
                     className={[
                       styles.pdfCard,
                       isDarkPage ? styles.pdfCardDark : "",
@@ -189,18 +197,20 @@ export default async function TeamPage({
                     >
                       PDF
                     </span>
-                    <Link
-                      href={item.href}
-                      prefetch={false}
-                      className={[
-                        styles.pdfTitleLink,
-                        isDarkPage ? styles.pdfTitleLinkDark : "",
-                      ]
-                        .join(" ")
-                        .trim()}
-                    >
-                      {item.title}
-                    </Link>
+                    {item.title.trim() ? (
+                      <Link
+                        href={item.href}
+                        prefetch={false}
+                        className={[
+                          styles.pdfTitleLink,
+                          isDarkPage ? styles.pdfTitleLinkDark : "",
+                        ]
+                          .join(" ")
+                          .trim()}
+                      >
+                        {item.title}
+                      </Link>
+                    ) : null}
                     <div
                       className={[
                         styles.pdfSummary,
@@ -211,7 +221,7 @@ export default async function TeamPage({
                     >
                       {item.summaryLines.map((line, lineIndex) => (
                         <p
-                          key={`${item.title}-${lineIndex}`}
+                          key={`pdf-${loadingVariant}-${itemIndex}-${lineIndex}`}
                           className="mb-2 last:mb-0"
                         >
                           {line}

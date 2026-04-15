@@ -16,11 +16,12 @@
 .viewport {
   overflow: hidden;
   width: 100%;
+  /* 端でロゴが「切れた」ように見えないよう、マスクのフェードをやや狭くする */
   mask-image: linear-gradient(
     to right,
     transparent,
-    #000 6%,
-    #000 94%,
+    #000 2%,
+    #000 98%,
     transparent
   );
 }
@@ -35,6 +36,17 @@
   width: max-content;
   padding-inline: 0.5rem;
   animation: teamMarquee 32s linear infinite;
+
+  @media (max-width: 768px) {
+    --slide-width: clamp(120px, 34vw, 175px);
+    --slide-gap: 0.85rem;
+    padding-inline: 0.4rem;
+  }
+
+  @media (max-width: 480px) {
+    --slide-width: clamp(102px, 38vw, 148px);
+    --slide-gap: 0.65rem;
+  }
 }
 
 .viewport:hover .track {
@@ -62,6 +74,17 @@
     border-color 0.25s ease,
     box-shadow 0.25s ease,
     background-color 0.25s ease;
+
+  @media (max-width: 768px) {
+    height: clamp(100px, 30vw, 140px);
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 480px) {
+    height: clamp(88px, 34vw, 120px);
+    padding: 6px 8px;
+  }
 }
 
 .wrapDark .imageShell {

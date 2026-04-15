@@ -7,15 +7,11 @@
 
 .row {
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 2.2rem;
-  }
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.25rem 2.2rem;
 }
 
 /* ロゴ + サイト名 */
@@ -23,10 +19,13 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .logo {
-  width: 300px;
+  width: 100%;
+  max-width: min(300px, 100%);
   height: auto;
   // filter: brightness(0) invert(1); 
   /* ← モノクロロゴが黒の場合でも白化して馴染ませられる */
@@ -42,9 +41,35 @@
 .nav {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 1.6rem;
+  gap: 1rem 1.6rem;
   margin-left: 0.5rem;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .nav {
+    margin-left: 0;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .teamColumn {
+    padding-top: 0.35rem;
+    margin-top: 0.15rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .copy {
+    font-size: 0.7rem;
+  }
 }
 
 .teamColumn {

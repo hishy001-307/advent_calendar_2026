@@ -2,11 +2,24 @@
   max-width: 52rem;
   margin: 0 auto;
   padding: 2rem 1rem 3rem;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0.85rem 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 0.75rem 2rem;
+  }
 }
 
 .header {
   text-align: center;
   margin-bottom: 2rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .eyebrow {
@@ -31,6 +44,11 @@
   color: #5c5a56;
   max-width: 40rem;
   margin-inline: auto;
+
+  @media (max-width: 480px) {
+    font-size: 0.86rem;
+    line-height: 1.68;
+  }
 }
 
 .teamSection {
@@ -49,6 +67,12 @@
   margin-bottom: 0.9rem;
   padding-bottom: 0.45rem;
   border-bottom: 2px solid rgba(158, 63, 56, 0.35);
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
 }
 
 .teamName {
@@ -96,6 +120,12 @@
   flex-direction: column;
   gap: 0.45rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 480px) {
+    padding: 0.85rem 0.9rem;
+    min-height: 0;
+    border-radius: 9px;
+  }
 }
 
 .badge {
@@ -120,6 +150,7 @@
 .cardTitle a {
   color: #2f2f2e;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .cardTitle a:hover {
@@ -133,6 +164,7 @@
   line-height: 1.6;
   color: #5c5a56;
   flex: 1;
+  overflow-wrap: anywhere;
 }
 
 .summary p + p {

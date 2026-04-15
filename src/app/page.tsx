@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-5xl px-4 pt-8 pb-8 space-y-8">
+      <main className="mx-auto max-w-5xl min-w-0 px-3 pt-6 pb-8 space-y-6 min-[480px]:px-4 min-[480px]:pt-8 min-[480px]:space-y-8">
         <section className={styles.hero}>
           <div className={styles.orbOne} />
           <div className={styles.orbTwo} />
@@ -61,7 +61,7 @@ export default function HomePage() {
             <p className="text-xs uppercase tracking-wide text-zinc-500">
               Teams
             </p>
-            <h2 className="text-3xl font-semibold text-[#444443]">班紹介</h2>
+            <h2 className="text-2xl font-semibold text-[#444443] min-[480px]:text-3xl">班紹介</h2>
           </header>
 
           <div className={styles.teamGrid}>
@@ -90,7 +90,7 @@ export default function HomePage() {
             「企画紹介」欄から行うことができます。
           </p>
           <p className={styles.noticeText}>本企画への投票をよろしくお願いいたします！</p>
-
+{/* 
           <div className={styles.noticeSchedule}>
             <h3 className={styles.noticeSubTitle}>投票期間</h3>
             <p className={styles.noticeText}>オンライン投票の場合:</p>
@@ -98,7 +98,7 @@ export default function HomePage() {
             <p className={styles.noticeText}>現地投票の場合:</p>
             <p className={styles.noticeTime}>5月24日（土）9:00～18:00</p>
             <p className={styles.noticeTime}>5月25日（日）9:00～16:00</p>
-          </div>
+          </div> */}
 
           <div className={styles.noticeLinks}>
             <a
@@ -109,25 +109,24 @@ export default function HomePage() {
             >
               五月祭公式 Web サイトでの投票はこちら
             </a>
-            <a
+            {/* <a
               href="https://gogatsusai.jp/98/visitor/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.noticeLink}
             >
               現地投票の場所はこちら
-            </a>
+            </a> */}
           </div>
         </ScrollReveal>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3">
-          <h2 className="text-2xl font-semibold text-[#444443]">会場までの地図</h2>
+        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3 sm:p-8">
+          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">会場までの地図</h2>
           <div className="overflow-hidden rounded-lg border border-zinc-200">
             <iframe
               src={MAP_EMBED_URL}
               width="100%"
-              height="360"
-              style={{ border: 0 }}
+              className="block h-[220px] w-full border-0 sm:h-[360px]"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

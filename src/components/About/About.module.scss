@@ -93,3 +93,27 @@
     font-size: 0.9rem;
   }
 }
+
+@media (max-width: 480px) {
+  .aboutSection {
+    padding: 1.65rem 1.15rem;
+
+    &::before {
+      left: 14px;
+      top: 14px;
+    }
+  }
+
+  .titleRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 1.22rem;
+  }
+
+  .cat {
+    width: 48px;
+  }
+}

@@ -17,9 +17,7 @@ export default function PerformancePage() {
             <header className={styles.pageHeader}>
               <p className={styles.eyebrow}>Physics Lab. 2026</p>
               <h1 className={styles.title}>学生公演</h1>
-              <p className={styles.subtitle}>
-                五月祭での学生公演のタイムスケジュールと、各プログラムの紹介です。詳細は決定次第更新します。
-              </p>
+              <p className={styles.subtitle}>準備中です。</p>
             </header>
 
             <section aria-labelledby="schedule-heading" className={styles.schedules}>
@@ -30,8 +28,8 @@ export default function PerformancePage() {
               <div className={styles.dayCard}>
                 <h3 className={styles.dayLabel}>Day 1</h3>
                 <ul className={styles.scheduleList}>
-                  {DAY1_SCHEDULE.map((slot) => (
-                    <li key={`d1-${slot.time}-${slot.label}`} className={styles.scheduleRow}>
+                  {DAY1_SCHEDULE.map((slot, index) => (
+                    <li key={`d1-${index}`} className={styles.scheduleRow}>
                       <span className={styles.time}>{slot.time}</span>
                       <span className={styles.scheduleLabel}>{slot.label}</span>
                     </li>
@@ -42,8 +40,8 @@ export default function PerformancePage() {
               <div className={styles.dayCard}>
                 <h3 className={styles.dayLabel}>Day 2</h3>
                 <ul className={styles.scheduleList}>
-                  {DAY2_SCHEDULE.map((slot) => (
-                    <li key={`d2-${slot.time}-${slot.label}`} className={styles.scheduleRow}>
+                  {DAY2_SCHEDULE.map((slot, index) => (
+                    <li key={`d2-${index}`} className={styles.scheduleRow}>
                       <span className={styles.time}>{slot.time}</span>
                       <span className={styles.scheduleLabel}>{slot.label}</span>
                     </li>

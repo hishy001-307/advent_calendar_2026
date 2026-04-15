@@ -7,6 +7,11 @@
   padding: 3.5rem 2rem;
   text-align: center;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
+
+  @media (max-width: 480px) {
+    padding: 2.25rem 1.15rem;
+    border-radius: 18px;
+  }
 }
 
 .eyebrow {
@@ -41,16 +46,33 @@
   gap: 0.75rem;
   flex-wrap: wrap;
   animation: fadeUp 1000ms ease both;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .primaryButton,
 .secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   padding: 0.7rem 1.2rem;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
 }
 
 .primaryButton {
@@ -114,6 +136,11 @@
   border-radius: 18px;
   padding: 2rem 1.25rem;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+  }
 }
 
 .noticeCard {
@@ -122,12 +149,17 @@
   background: linear-gradient(180deg, #fffdf8 0%, #fbf6ea 100%);
   padding: 1.6rem 1.4rem;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+
+  @media (max-width: 480px) {
+    padding: 1.35rem 1.1rem;
+    border-radius: 16px;
+  }
 }
 
 .revealFromLeft {
-  opacity: 1;
-  transform: translateX(calc(-100vw - 120px));
-  will-change: transform;
+  opacity: 0;
+  transform: translateX(-1.75rem);
+  will-change: transform, opacity;
 }
 
 .revealed {
@@ -151,6 +183,10 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 }
 
 .noticeSubTitle {
@@ -164,6 +200,7 @@
   color: #595952;
   line-height: 1.8;
   margin-top: 0.35rem;
+  overflow-wrap: anywhere;
 }
 
 .noticeSchedule {
@@ -203,7 +240,7 @@
 .teamGrid {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 0.75rem;
 }
 
@@ -255,15 +292,18 @@
 
 @keyframes slideBounceFast {
   0% {
-    transform: translateX(calc(-100vw - 120px));
+    opacity: 0;
+    transform: translateX(-1.75rem);
   }
-  75% {
+  70% {
+    opacity: 1;
     transform: translateX(8px);
   }
-  88% {
+  86% {
     transform: translateX(-3px);
   }
   100% {
+    opacity: 1;
     transform: translateX(0);
   }
 }

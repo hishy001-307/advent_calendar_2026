@@ -28,15 +28,17 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-5xl px-4 pt-8 pb-8 space-y-6">
+      <main className="mx-auto max-w-5xl min-w-0 space-y-5 px-3 pb-8 pt-6 min-[480px]:space-y-6 min-[480px]:px-4 min-[480px]:pt-8">
         <header className="space-y-2 text-center">
           <p className="text-xs uppercase tracking-wide text-zinc-500">
             Contact
           </p>
-          <h1 className="text-4xl font-semibold text-[#444443]">お問い合わせ</h1>
+          <h1 className="text-2xl font-semibold text-[#444443] min-[480px]:text-3xl sm:text-4xl">
+            お問い合わせ
+          </h1>
         </header>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3">
+        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3 sm:p-8">
           <p className="text-zinc-700">
             Physics Lab. 2026 公式X:{" "}
             <a
@@ -62,8 +64,8 @@ export default function ContactPage() {
           <p className="text-zinc-700">Mail: physlab2026[at]gmail.com</p>
         </section>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-4">
-          <h2 className="text-2xl font-semibold text-[#444443]">過去のPhysics Lab.</h2>
+        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-4 sm:p-8">
+          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">過去のPhysics Lab.</h2>
           <ul className="grid gap-1 text-zinc-700 sm:grid-cols-2">
             {PAST_YEARS.map((year) => (
               <li key={year}>{year}</li>
@@ -71,8 +73,8 @@ export default function ContactPage() {
           </ul>
         </section>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-2">
-          <h2 className="text-2xl font-semibold text-[#444443]">外部リンク</h2>
+        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-2 sm:p-8">
+          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">外部リンク</h2>
           <a
             href="https://www.s.u-tokyo.ac.jp/ja/"
             target="_blank"
@@ -83,14 +85,13 @@ export default function ContactPage() {
           </a>
         </section>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-8 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3">
-          <h2 className="text-2xl font-semibold text-[#444443]">会場までの地図</h2>
+        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3 sm:p-8">
+          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">会場までの地図</h2>
           <div className="overflow-hidden rounded-lg border border-zinc-200">
             <iframe
               src={MAP_EMBED_URL}
               width="100%"
-              height="360"
-              style={{ border: 0 }}
+              className="block h-[220px] w-full border-0 sm:h-[360px]"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -101,7 +102,7 @@ export default function ContactPage() {
             href={MAP_LINK_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#983c3d] underline underline-offset-4"
+            className="break-words text-[#983c3d] underline underline-offset-4"
           >
             Google マップで開く
           </a>
