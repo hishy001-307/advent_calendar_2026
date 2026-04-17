@@ -1,0 +1,172 @@
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0.85rem 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 0.75rem 2rem;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #787672;
+  margin-bottom: 0.45rem;
+}
+
+.title {
+  font-size: clamp(1.65rem, 3.5vw, 2.1rem);
+  font-weight: 600;
+  color: #444443;
+}
+
+.lead {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #5c5a56;
+  max-width: 40rem;
+  margin-inline: auto;
+
+  @media (max-width: 480px) {
+    font-size: 0.86rem;
+    line-height: 1.68;
+  }
+}
+
+.teamSection {
+  margin-bottom: 2.25rem;
+}
+
+.teamSection:last-child {
+  margin-bottom: 0;
+}
+
+.teamHeading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid rgba(158, 63, 56, 0.35);
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}
+
+.teamName {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2f2f2e;
+}
+
+.teamLink {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #9e3f38;
+  text-decoration: none;
+}
+
+.teamLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cardGrid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  border-radius: 10px;
+  border: 1px solid #e8dcc4;
+  background: #fffdf9;
+  padding: 1rem 1.05rem;
+  min-height: 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 480px) {
+    padding: 0.85rem 0.9rem;
+    min-height: 0;
+    border-radius: 9px;
+  }
+}
+
+.badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9e3f38;
+  border: 1px solid rgba(158, 63, 56, 0.35);
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+  background: rgba(158, 63, 56, 0.06);
+}
+
+.cardTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.cardTitle a {
+  color: #2f2f2e;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.cardTitle a:hover {
+  color: #9e3f38;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.summary {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #5c5a56;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.summary p + p {
+  margin-top: 0.4rem;
+}

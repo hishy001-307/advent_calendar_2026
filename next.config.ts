@@ -1,25 +1,18 @@
-// next.config.ts
-import type { NextConfig } from 'next';
-import createMDX from '@next/mdx';
+import type { NextConfig } from "next";
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  // ★ オプションは一旦"空"にして通す（後で足す）
-  options: {},
-});
+const isProduction = process.env.NODE_ENV === "production";
+const siteBasePath = isProduction ? "/physlab2026" : "";
 
 const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'mdx'],
-  // 静的サイトとしてエクスポート
-  output: 'export',
-  // 画像最適化を無効化（静的エクスポートに必要）
+  output: "export",
+  trailingSlash: true,
+  ...(siteBasePath ? { basePath: siteBasePath } : {}),
+  env: {
+    NEXT_PUBLIC_STATIC_BASE_PATH: siteBasePath,
+  },
   images: {
     unoptimized: true,
   },
-  experimental: {
-    // ★ Rust MDX ローダを無効化（JSローダを使う）
-    mdxRs: false,
-  },
 };
 
-export default withMDX(nextConfig);
+export default nextConfig;

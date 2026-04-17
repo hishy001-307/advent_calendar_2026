@@ -1,4 +1,3 @@
-// src/content/registry.ts
 // ここに存在する day だけを import できるように明示マップ化
 export const adventRegistry: Record<number, () => Promise<any>> = {
   1: () => import('./advent/1.mdx'),

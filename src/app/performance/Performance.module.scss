@@ -1,0 +1,224 @@
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ビューポート全体を紺で埋め、フッタまで連続させる */
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #0c1220 0%, #121a2e 42%, #0a0f1a 100%);
+  color: #e8edf5;
+}
+
+.mainColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.page {
+  flex: 1;
+  width: 100%;
+}
+
+.inner {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 2.5rem;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0.85rem 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 0.75rem 1.75rem;
+  }
+}
+
+.footerWrap {
+  margin-top: auto;
+  padding-top: 1rem;
+  width: 100%;
+}
+
+/* Footer の上マージンが body 側に抜けてクリーム色が見えないようにする */
+.footerWrap :global(footer) {
+  margin-top: 0;
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 2.25rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.75rem;
+  }
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.95);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin-top: 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(203, 213, 225, 0.92);
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.schedules {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-bottom: 2.75rem;
+}
+
+@media (min-width: 768px) {
+  .schedules {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+}
+
+.dayCard {
+  flex: 1;
+  min-width: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  padding: 1.1rem 1.2rem 1.15rem;
+
+  @media (max-width: 480px) {
+    padding: 0.95rem 1rem 1rem;
+    border-radius: 10px;
+  }
+}
+
+.dayLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #a5c4ff;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.scheduleList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 5.25rem 1fr;
+  gap: 0.65rem;
+  align-items: baseline;
+  font-size: 0.88rem;
+  line-height: 1.45;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    font-size: 0.84rem;
+  }
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+  color: rgba(226, 232, 240, 0.88);
+  font-weight: 500;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+.scheduleLabel {
+  color: rgba(203, 213, 225, 0.95);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.showsSectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.shows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.showCard {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(30, 41, 59, 0.45);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+
+  @media (max-width: 480px) {
+    padding: 1rem 1rem;
+    border-radius: 10px;
+  }
+}
+
+.showTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 0.65rem;
+  line-height: 1.4;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.showBody {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: rgba(203, 213, 225, 0.95);
+}
+
+.showBody p + p {
+  margin-top: 0.55rem;
+}
