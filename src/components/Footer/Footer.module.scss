@@ -72,6 +72,16 @@
   }
 }
 
+.socialLinks {
+  margin-left: auto;
+  align-self: center;
+
+  @media (max-width: 640px) {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+}
+
 .teamColumn {
   display: flex;
   flex-direction: column;

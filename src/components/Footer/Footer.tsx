@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Footer.module.scss";
+import SocialLinks from "@/components/SocialLinks/SocialLinks";
 import { publicPath } from "@/utils/publicPath";
 
 export default function Footer() {
@@ -42,10 +43,12 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-            <Link href="/performance" className={styles.link}>学生公演</Link>
+            <Link href="/performance" className={styles.link}>学生講演</Link>
             <Link href="/articles" className={styles.link}>解説記事</Link>
             <Link href="/contact" className={styles.link}>お問い合わせ</Link>
           </nav>
+
+          <SocialLinks variant="onDarkFooter" className={styles.socialLinks} />
         </div>
 
         <div className={styles.copy}>

@@ -38,26 +38,49 @@ export function defaultPdfSpotlights(variant: LoadingVariant): PdfSpotlight[] {
   return PDF_PLACEHOLDERS[variant];
 }
 
-/** ナビ・解説記事一覧用：班とパスの対応 */
+/** ナビ・解説記事一覧・トップページ班紘介用：班とパス・ロゴの対応（班ページ TeamPage と同じ public 配下のアセット） */
 export const TEAM_NAV: {
   variant: LoadingVariant;
   teamName: string;
   teamHref: string;
+  logoSrc: string;
 }[] = [
-  { variant: "particle", teamName: "素粒子物理班", teamHref: "/teams/particle" },
+  {
+    variant: "particle",
+    teamName: "素粒子物理班",
+    teamHref: "/teams/particle",
+    logoSrc: "/particle.png",
+  },
   {
     variant: "condensedMatter",
     teamName: "物性物理班",
     teamHref: "/teams/condensed-matter",
+    logoSrc: "/solid.png",
   },
-  { variant: "astrophysics", teamName: "宇宙物理班", teamHref: "/teams/astrophysics" },
+  {
+    variant: "astrophysics",
+    teamName: "宇宙物理班",
+    teamHref: "/teams/astrophysics",
+    logoSrc: "/space.png",
+  },
   {
     variant: "computationalMath",
     teamName: "計算・数理物理班",
     teamHref: "/teams/computational-math",
+    logoSrc: "/calc.png",
   },
-  { variant: "biophysics", teamName: "生物物理班", teamHref: "/teams/biophysics" },
-  { variant: "experimental", teamName: "実験班", teamHref: "/teams/experimental" },
+  {
+    variant: "biophysics",
+    teamName: "生物物理班",
+    teamHref: "/teams/biophysics",
+    logoSrc: "/bio.png",
+  },
+  {
+    variant: "experimental",
+    teamName: "実験班",
+    teamHref: "/teams/experimental",
+    logoSrc: "/exp.png",
+  },
 ];
 
 /** 各班ページの「解説資料（PDF）」と同一データを一覧用にまとめる */

@@ -3,7 +3,11 @@ import Footer from "@/components/Footer/Footer";
 import {
   DAY1_SCHEDULE,
   DAY2_SCHEDULE,
+  PERFORMANCE_DAY1_TITLE,
+  PERFORMANCE_DAY2_TITLE,
+  PERFORMANCE_PAGE_SUBTITLE,
   PERFORMANCE_SHOWS,
+  SCHEDULE_TABLE_HEADING,
 } from "./performanceData";
 import styles from "./Performance.module.scss";
 
@@ -16,8 +20,8 @@ export default function PerformancePage() {
           <main className={styles.inner}>
             <header className={styles.pageHeader}>
               <p className={styles.eyebrow}>Physics Lab. 2026</p>
-              <h1 className={styles.title}>学生公演</h1>
-              <p className={styles.subtitle}>準備中です。</p>
+              <h1 className={styles.title}>学生講演</h1>
+              <p className={styles.subtitle}>{PERFORMANCE_PAGE_SUBTITLE}</p>
             </header>
 
             <section aria-labelledby="schedule-heading" className={styles.schedules}>
@@ -26,24 +30,30 @@ export default function PerformancePage() {
               </h2>
 
               <div className={styles.dayCard}>
-                <h3 className={styles.dayLabel}>Day 1</h3>
+                <h3 className={styles.dayLabel}>
+                  Day 1・{PERFORMANCE_DAY1_TITLE}
+                </h3>
+                <p className={styles.scheduleTableTitle}>{SCHEDULE_TABLE_HEADING}</p>
                 <ul className={styles.scheduleList}>
                   {DAY1_SCHEDULE.map((slot, index) => (
                     <li key={`d1-${index}`} className={styles.scheduleRow}>
                       <span className={styles.time}>{slot.time}</span>
-                      <span className={styles.scheduleLabel}>{slot.label}</span>
+                      <span className={styles.scheduleLabel}>{slot.title}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className={styles.dayCard}>
-                <h3 className={styles.dayLabel}>Day 2</h3>
+                <h3 className={styles.dayLabel}>
+                  Day 2・{PERFORMANCE_DAY2_TITLE}
+                </h3>
+                <p className={styles.scheduleTableTitle}>{SCHEDULE_TABLE_HEADING}</p>
                 <ul className={styles.scheduleList}>
                   {DAY2_SCHEDULE.map((slot, index) => (
                     <li key={`d2-${index}`} className={styles.scheduleRow}>
                       <span className={styles.time}>{slot.time}</span>
-                      <span className={styles.scheduleLabel}>{slot.label}</span>
+                      <span className={styles.scheduleLabel}>{slot.title}</span>
                     </li>
                   ))}
                 </ul>

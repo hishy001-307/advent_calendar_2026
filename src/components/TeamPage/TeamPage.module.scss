@@ -93,13 +93,66 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
 }
 
+.summaryDetails {
+  margin: 0;
+}
+
+.summaryToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 0.15rem 0.05rem;
+
+  /* Chrome / Safari はデフォルトの三角マーカーを消す（独自の ▶ とする） */
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgba(158, 63, 56, 0.45);
+  }
+}
+
+.summaryToggleDark:focus-visible {
+  box-shadow: 0 0 0 2px rgba(248, 250, 252, 0.55);
+}
+
+.summaryChevron {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.38em 0 0.38em 0.54em;
+  border-color: transparent transparent transparent rgba(158, 63, 56, 0.85);
+  transform: rotate(0deg);
+  transition: transform 0.18s ease;
+}
+
+.summaryToggleDark .summaryChevron {
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+}
+
+.summaryDetails[open] .summaryChevron {
+  transform: rotate(90deg);
+}
+
 .summaryHeading {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #9e3f38;
-  margin-bottom: 0.65rem;
+  text-align: left;
 }
 
 .summaryHeadingDark {
@@ -110,20 +163,33 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-top: 0.85rem;
+  padding-top: 0.95rem;
+  border-top: 1px dashed rgba(207, 198, 168, 0.85);
   font-size: 0.95rem;
   line-height: 1.75;
   color: #3f3f3e;
   text-align: left;
   overflow-wrap: anywhere;
 
+  :global(.katex) {
+    font-size: 1em;
+    line-height: 1.25;
+  }
+
   @media (max-width: 480px) {
     font-size: 0.9rem;
     line-height: 1.72;
+
+    :global(.katex) {
+      font-size: 0.95em;
+    }
   }
 }
 
 .summaryBodyDark {
   color: rgba(255, 255, 255, 0.92);
+  border-top-color: rgba(255, 255, 255, 0.2);
 }
 
 .pdfSectionTitle {

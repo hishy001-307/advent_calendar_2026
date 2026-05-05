@@ -12,6 +12,7 @@ import {
   defaultPdfSpotlights,
   type PdfSpotlight,
 } from "./teamPageDefaults";
+import { fragmentsWithInlineMath } from "@/utils/fragmentsWithInlineMath";
 
 type TeamPageProps = {
   teamName: string;
@@ -125,37 +126,37 @@ export default async function TeamPage({
             </header>
 
             <section
-              className={[
-                styles.summarySection,
-                isDarkPage ? styles.summarySectionDark : "",
-              ]
-                .join(" ")
-                .trim()}
               aria-labelledby="team-field-summary-heading"
+              className={[styles.summarySection, isDarkPage ? styles.summarySectionDark : ""].join(" ").trim()}
             >
-              <h2
-                id="team-field-summary-heading"
-                className={[
-                  styles.summaryHeading,
-                  isDarkPage ? styles.summaryHeadingDark : "",
-                ]
-                  .join(" ")
-                  .trim()}
-              >
-                分野の概要
-              </h2>
-              <div
-                className={[
-                  styles.summaryBody,
-                  isDarkPage ? styles.summaryBodyDark : "",
-                ]
-                  .join(" ")
-                  .trim()}
-              >
-                {fieldSummaryLines.map((paragraph, index) => (
-                  <p key={`summary-${index}`}>{paragraph}</p>
-                ))}
-              </div>
+              <details className={styles.summaryDetails}>
+                <summary className={[styles.summaryToggle, isDarkPage ? styles.summaryToggleDark : ""].join(" ").trim()}>
+                  <span
+                    className={[styles.summaryChevron].join(" ")}
+                    aria-hidden
+                  />
+                  <h2
+                    id="team-field-summary-heading"
+                    className={[styles.summaryHeading, isDarkPage ? styles.summaryHeadingDark : ""].join(" ").trim()}
+                  >
+                    分野の概要
+                  </h2>
+                </summary>
+                <div
+                  className={[
+                    styles.summaryBody,
+                    isDarkPage ? styles.summaryBodyDark : "",
+                  ]
+                    .join(" ")
+                    .trim()}
+                >
+                  {fieldSummaryLines.map((paragraph, index) => (
+                    <p key={`summary-${index}`}>
+                      {fragmentsWithInlineMath(paragraph)}
+                    </p>
+                  ))}
+                </div>
+              </details>
             </section>
 
             <TeamLogoMarquee

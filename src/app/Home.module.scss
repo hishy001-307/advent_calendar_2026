@@ -261,16 +261,23 @@
   font-weight: 500;
 }
 
+.teamCardLabel {
+  min-width: 0;
+  line-height: 1.35;
+}
+
 .teamIcon {
   width: 48px;
   height: 48px;
   border-radius: 0;
   flex-shrink: 0;
+  object-fit: contain;
 }
 
 .teamIconBio {
   width: 54px;
   height: 54px;
+  object-fit: contain;
 }
 
 .teamCard:hover,

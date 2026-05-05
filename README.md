@@ -27,7 +27,7 @@ physlab2026_web/
 │   │   ├── advent/         # アドベントカレンダー（layout.tsx / page.tsx）
 │   │   ├── articles/       # 解説記事・各班資料の一覧
 │   │   ├── contact/        # お問い合わせ
-│   │   ├── performance/    # 学生公演（スケジュール・紹介、performanceData.ts）
+│   │   ├── performance/    # 学生講演（スケジュール・紹介、performanceData.ts）
 │   │   └── teams/          # 各班紹介（particle, condensed-matter など）
 │   ├── components/         # 共通 UI
 │   │   ├── Header/         # グローバルナビ
@@ -56,11 +56,11 @@ physlab2026_web/
 | `/advent` | アドベントカレンダー |
 | `/articles` | 解説記事・資料一覧（各班ページの PDF 枠と同じデータを集約） |
 | `/contact` | お問い合わせ |
-| `/performance` | 学生公演（Day1 / Day2 スケジュール、プログラム紹介） |
+| `/performance` | 学生講演（Day1 / Day2 スケジュール、プログラム紹介） |
 | `/teams/particle` など | 各班紹介（6 班） |
 
 各班の文言・「解説資料」枠の共通データは `src/components/TeamPage/teamPageDefaults.ts` を編集します。  
-学生公演の時刻・公演リストは `src/app/performance/performanceData.ts` です。
+学生講演の時刻・講演リストは `src/app/performance/performanceData.ts` です。
 
 ## 開発手順
 

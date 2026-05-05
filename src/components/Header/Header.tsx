@@ -110,7 +110,7 @@ export default function Header() {
             </div>
 
             <Link href="/performance" className={styles.navLink}>
-              学生公演
+              学生講演
             </Link>
 
             <Link href="/articles" className={styles.navLink}>

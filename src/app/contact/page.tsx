@@ -1,22 +1,29 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import SocialLinks from "@/components/SocialLinks/SocialLinks";
+import { OFFICIAL_INSTAGRAM_URL, OFFICIAL_X_URL } from "@/constants/social";
 
-const PAST_YEARS = [
-  "2024年度",
-  "2023年度",
-  "2022年度",
-  "2021年度",
-  "2020年度",
-  "2019年度",
-  "2018年度",
-  "2017年度",
-  "2016年度",
-  "2015年度",
-  "2014年度",
-  "2013年度",
-  "2012年度",
-  "2011年度",
-  "2010年度",
+const PAST_PHYSICSLAB = [
+  { year: "2025年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2025/" },
+  { year: "2024年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2024/" },
+  { year: "2023年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2023/" },
+  { year: "2022年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2022/" },
+  { year: "2021年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2021/" },
+  { year: "2020年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2020/" },
+  // 2019 はトップが見つからなかったため、資料ページへのリンク（確認できた範囲）
+  {
+    year: "2019年度",
+    href: "https://event.phys.s.u-tokyo.ac.jp/physlab2019/panel/material/",
+  },
+  { year: "2018年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2018/" },
+  { year: "2017年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2017/index.html" },
+  { year: "2016年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2016/" },
+  { year: "2015年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2015/index.html" },
+  { year: "2014年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2014/index" },
+  { year: "2013年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2013/" },
+  { year: "2012年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2012/" },
+  { year: "2011年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2011/about.html" },
+  { year: "2010年度", href: "https://event.phys.s.u-tokyo.ac.jp/physlab2010/pc/about.html" },
 ];
 
 const MAP_EMBED_URL =
@@ -39,36 +46,53 @@ export default function ContactPage() {
         </header>
 
         <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-3 sm:p-8">
-          <p className="text-zinc-700">
-            Physics Lab. 2026 公式X:{" "}
-            <a
-              href="https://x.com/physicslab2026"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#983c3d] underline underline-offset-4"
-            >
-              @physicslab2026
-            </a>
-          </p>
-          <p className="text-zinc-700">
-            Physics Lab. 2026 公式Instagram:{" "}
-            <a
-              href="https://www.instagram.com/physlab2026/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#983c3d] underline underline-offset-4"
-            >
-              @physlab2026
-            </a>
-          </p>
+          <div className="space-y-2">
+            <p className="text-zinc-700">
+              Physics Lab. 2026 公式X:{" "}
+              <a
+                href={OFFICIAL_X_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#983c3d] underline underline-offset-4"
+              >
+                @physicslab2026
+              </a>
+            </p>
+            <p className="text-zinc-700">
+              Physics Lab. 2026 公式Instagram:{" "}
+              <a
+                href={OFFICIAL_INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#983c3d] underline underline-offset-4"
+              >
+                @physlab2026
+              </a>
+            </p>
+            <SocialLinks variant="onLightContact" />
+          </div>
           <p className="text-zinc-700">Mail: physlab2026[at]gmail.com</p>
         </section>
 
-        <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-4 sm:p-8">
-          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">過去のPhysics Lab.</h2>
+        <section
+          id="past-physicslab"
+          className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-4 sm:p-8"
+        >
+          <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">
+            過去のPhysics Lab.
+          </h2>
           <ul className="grid gap-1 text-zinc-700 sm:grid-cols-2">
-            {PAST_YEARS.map((year) => (
-              <li key={year}>{year}</li>
+            {PAST_PHYSICSLAB.map((item) => (
+              <li key={item.year} className="break-words">
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#983c3d] underline underline-offset-4"
+                >
+                  {item.year}
+                </a>
+              </li>
             ))}
           </ul>
         </section>
@@ -76,7 +100,7 @@ export default function ContactPage() {
         <section className="rounded-xl border border-[#f0e4c8] bg-[#fffdf7] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.06)] space-y-2 sm:p-8">
           <h2 className="text-xl font-semibold text-[#444443] min-[480px]:text-2xl">外部リンク</h2>
           <a
-            href="https://www.s.u-tokyo.ac.jp/ja/"
+            href="https://www.phys.s.u-tokyo.ac.jp/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#983c3d] underline underline-offset-4"

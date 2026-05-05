@@ -1,18 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header/Header";
 import About from "@/components/About/About";
 import Footer from "@/components/Footer/Footer";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
+import { TEAM_NAV } from "@/components/TeamPage/teamPageDefaults";
+import { publicPath } from "@/utils/publicPath";
 import styles from "./Home.module.scss";
-
-const TEAMS = [
-  { name: "素粒子物理班", href: "/teams/particle" },
-  { name: "物性物理班", href: "/teams/condensed-matter" },
-  { name: "宇宙物理班", href: "/teams/astrophysics" },
-  { name: "計算・数理物理班", href: "/teams/computational-math" },
-  { name: "生物物理班", href: "/teams/biophysics" },
-  { name: "実験班", href: "/teams/experimental" },
-];
 
 const MAP_EMBED_URL =
   "https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E5%A4%A7%E5%AD%A6%E7%90%86%E5%AD%A6%E9%83%A8%E4%B8%80%E5%8F%B7%E9%A4%A8&output=embed";
@@ -65,10 +59,23 @@ export default function HomePage() {
           </header>
 
           <div className={styles.teamGrid}>
-            {TEAMS.map((team) => (
-              <div key={team.href} className={styles.teamCard}>
-                <Link href={team.href} className={styles.teamCardLink} prefetch={false}>
-                  {team.name}
+            {TEAM_NAV.map((team) => (
+              <div key={team.teamHref} className={styles.teamCard}>
+                <Link href={team.teamHref} className={styles.teamCardLink} prefetch={false}>
+                  <Image
+                    src={publicPath(team.logoSrc)}
+                    alt=""
+                    width={team.variant === "biophysics" ? 54 : 48}
+                    height={team.variant === "biophysics" ? 54 : 48}
+                    className={[
+                      styles.teamIcon,
+                      team.variant === "biophysics" ? styles.teamIconBio : "",
+                    ]
+                      .join(" ")
+                      .trim()}
+                    aria-hidden
+                  />
+                  <span className={styles.teamCardLabel}>{team.teamName}</span>
                 </Link>
               </div>
             ))}
@@ -86,7 +93,7 @@ export default function HomePage() {
             「五月祭総選挙」を実施しています。
           </p>
           <p className={styles.noticeText}>
-            投票は、指定の投票場所もしくは第 98 回五月祭 HP の企画詳細ページの
+            投票は、指定の投票場所もしくは第 99 回五月祭 HP の企画詳細ページの
             「企画紹介」欄から行うことができます。
           </p>
           <p className={styles.noticeText}>本企画への投票をよろしくお願いいたします！</p>
@@ -102,7 +109,7 @@ export default function HomePage() {
 
           <div className={styles.noticeLinks}>
             <a
-              href="https://gogatsusai.jp/98/"
+              href="https://visitor.gogatsusai.jp/project/255"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.noticeLink}
