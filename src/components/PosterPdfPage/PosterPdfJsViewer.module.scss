@@ -1,0 +1,75 @@
+.pageStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pageImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.fallbackNote {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.fallbackLight .fallbackNote {
+  color: #57534e;
+}
+
+.fallbackDark .fallbackNote {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pdfFrame {
+  display: block;
+  width: 100%;
+  min-height: 72vh;
+  border: 0;
+  border-radius: 4px;
+}
+
+.loadingLight,
+.loadingDark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  font-size: 0.9rem;
+}
+
+.loadingLight {
+  color: #57534e;
+}
+
+.loadingDark {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.loadingSpinner {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: pdfPreviewSpin 0.75s linear infinite;
+  opacity: 0.55;
+}
+
+@keyframes pdfPreviewSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+    opacity: 0.35;
+  }
+}

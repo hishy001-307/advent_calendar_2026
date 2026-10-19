@@ -1,0 +1,388 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.stage {
+  min-height: 90px;
+  min-width: 180px;
+  display: grid;
+  place-items: center;
+}
+
+.bgParticle {
+  background: #cfc0dd;
+}
+
+.bgCondensedMatter {
+  background: #e8ddb9;
+}
+
+.bgAstrophysics {
+  background: #177f8d;
+}
+
+.bgComputationalMath {
+  background: #c4d3e9;
+}
+
+.bgBiophysics {
+  background: #d6ddb0;
+}
+
+.bgExperimental {
+  background: #e2caca;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.stringRope {
+  width: 210px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+}
+
+.ropeSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ropePath {
+  fill: none;
+  stroke: #8c3a67;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.spinChain {
+  display: flex;
+  gap: 8px;
+}
+
+.spinChain span {
+  position: relative;
+  width: 18px;
+  height: 36px;
+  transform-origin: 50% 50%;
+  animation: spinRotate 1.6s ease-in-out infinite;
+}
+
+.spinChain span::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 2px;
+  height: 22px;
+  margin-left: -1px;
+  background: #2f4b63;
+  border-radius: 999px;
+}
+
+.spinChain span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  margin-left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 7px solid #2f4b63;
+}
+
+.spinChain span:nth-child(1) { animation-duration: 1.35s; animation-delay: 0ms; }
+.spinChain span:nth-child(2) { animation-duration: 1.75s; animation-delay: 120ms; animation-direction: reverse; }
+.spinChain span:nth-child(3) { animation-duration: 1.48s; animation-delay: 220ms; }
+.spinChain span:nth-child(4) { animation-duration: 1.95s; animation-delay: 70ms; animation-direction: reverse; }
+.spinChain span:nth-child(5) { animation-duration: 1.62s; animation-delay: 180ms; }
+.spinChain span:nth-child(6) { animation-duration: 1.86s; animation-delay: 240ms; animation-direction: reverse; }
+.spinChain span:nth-child(7) { animation-duration: 1.42s; animation-delay: 310ms; }
+.spinChain span:nth-child(8) { animation-duration: 2.05s; animation-delay: 90ms; animation-direction: reverse; }
+
+.astroSystem {
+  position: relative;
+  width: 88px;
+  height: 88px;
+}
+
+.core {
+  position: absolute;
+  inset: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  margin-top: -5.5px;
+  border-radius: 999px;
+  background: #2f2f2f;
+}
+
+.orbitOne,
+.orbitTwo,
+.orbitThree {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+
+.orbitOne {
+  border: 1.5px solid #d9c8ab;
+}
+
+.orbitTwo {
+  inset: 11px;
+  border: 1.5px solid #d8bf9d;
+}
+
+.orbitThree {
+  inset: 22px;
+  border: 1.5px solid #d7b386;
+}
+
+.orbitOne::after,
+.orbitTwo::after,
+.orbitThree::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  margin-left: -4px;
+}
+
+.orbitOne::after {
+  background: #983c3d;
+  transform-origin: 0 49px;
+  animation: orbitSpin 1.5s linear infinite;
+}
+
+.orbitTwo::after {
+  background: #7a94c6;
+  transform-origin: 0 38px;
+  animation: orbitSpin 1.1s linear infinite reverse;
+}
+
+.orbitThree::after {
+  background: #8ab186;
+  transform-origin: 0 27px;
+  animation: orbitSpin 0.82s linear infinite;
+}
+
+.perceptron {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+}
+
+.perceptron::before,
+.perceptron::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  background: #d8cfbe;
+  transform: translateY(-50%);
+}
+
+.perceptron::before {
+  left: 24px;
+  width: 42px;
+}
+
+.perceptron::after {
+  right: 16px;
+  width: 40px;
+}
+
+.layer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #c7c7c0;
+  box-shadow: 0 0 0 rgba(152, 60, 61, 0);
+  animation: nnPulse 1.2s ease-in-out infinite;
+}
+
+.layer:nth-child(1) span {
+  animation-delay: 0ms;
+}
+
+.layer:nth-child(2) span {
+  animation-delay: 260ms;
+}
+
+.layer:nth-child(3) span {
+  animation-delay: 520ms;
+}
+
+.brownianBox {
+  width: 120px;
+  height: 74px;
+  border-radius: 12px;
+  border: 1px solid #d8dfd5;
+  background: #f7fbf7;
+  position: relative;
+  overflow: hidden;
+}
+
+.brownianBox span {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #6f9f79;
+  left: 50%;
+  top: 50%;
+  margin-left: -3.5px;
+  margin-top: -3.5px;
+}
+
+.brownianBox span:nth-child(1) { animation: brownianA 1.2s linear infinite; }
+.brownianBox span:nth-child(2) { animation: brownianB 1.45s linear infinite; }
+.brownianBox span:nth-child(3) { animation: brownianC 1.3s linear infinite; }
+.brownianBox span:nth-child(4) { animation: brownianD 1.6s linear infinite; }
+.brownianBox span:nth-child(5) { animation: brownianE 1.4s linear infinite; }
+
+.pendulum {
+  position: relative;
+  width: 90px;
+  height: 80px;
+  transform-origin: 50% 0;
+  animation: pendulumSwing 1.4s ease-in-out infinite;
+}
+
+.pendulumRod {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 52px;
+  margin-left: -1.5px;
+  background: #8f3a33;
+  transform-origin: top center;
+}
+
+.pendulumBob {
+  position: absolute;
+  left: 50%;
+  top: 54px;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 999px;
+  background: #d4554d;
+  border: 2px solid #8f3a33;
+}
+
+@keyframes spinRotate {
+  0%,
+  32% {
+    transform: rotate(0deg);
+  }
+  46% {
+    transform: rotate(180deg);
+  }
+  78% {
+    transform: rotate(180deg);
+  }
+  92% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes nnPulse {
+  0%,
+  20% {
+    background: #c7c7c0;
+    box-shadow: 0 0 0 rgba(152, 60, 61, 0);
+    transform: scale(1);
+  }
+  40%,
+  60% {
+    background: #983c3d;
+    box-shadow: 0 0 12px rgba(152, 60, 61, 0.6);
+    transform: scale(1.15);
+  }
+  100% {
+    background: #c7c7c0;
+    box-shadow: 0 0 0 rgba(152, 60, 61, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes brownianA {
+  0% { transform: translate(-8px, -4px); }
+  25% { transform: translate(22px, -16px); }
+  50% { transform: translate(10px, 14px); }
+  75% { transform: translate(-24px, 10px); }
+  100% { transform: translate(-8px, -4px); }
+}
+
+@keyframes brownianB {
+  0% { transform: translate(16px, 8px); }
+  25% { transform: translate(-18px, -12px); }
+  50% { transform: translate(4px, -20px); }
+  75% { transform: translate(18px, 18px); }
+  100% { transform: translate(16px, 8px); }
+}
+
+@keyframes brownianC {
+  0% { transform: translate(0px, -14px); }
+  25% { transform: translate(24px, 4px); }
+  50% { transform: translate(-8px, 20px); }
+  75% { transform: translate(-26px, -6px); }
+  100% { transform: translate(0px, -14px); }
+}
+
+@keyframes brownianD {
+  0% { transform: translate(-20px, 14px); }
+  25% { transform: translate(6px, -22px); }
+  50% { transform: translate(20px, 2px); }
+  75% { transform: translate(-4px, 18px); }
+  100% { transform: translate(-20px, 14px); }
+}
+
+@keyframes brownianE {
+  0% { transform: translate(12px, -18px); }
+  25% { transform: translate(-14px, 0px); }
+  50% { transform: translate(22px, 16px); }
+  75% { transform: translate(-10px, -10px); }
+  100% { transform: translate(12px, -18px); }
+}
+
+@keyframes pendulumSwing {
+  0%,
+  100% { transform: rotate(-24deg); }
+  50% { transform: rotate(24deg); }
+}

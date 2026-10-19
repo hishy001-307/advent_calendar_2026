@@ -1,0 +1,278 @@
+[本記事はPhysics Lab. Advent Calender2026の13日目の記事です。]
+# はじめに
+みなさんこんにちは。
+あなたが理工系の学生なら、一度は**極座標ラプラシアン**を授業や演習で計算させられたことはあるのではないでしょうか？
+めんどくさすぎる微分計算に辟易し、途中であきらめて答えを見る人が**8割**。
+残り**2割**の計算を完遂した勇者でも、いざ答え合わせすると微妙に違ったりして、自分の計算ノートとにらめっこ。何とかミスを見つけて答を合わせる、という感じではないでしょうか。
+そんな極座標のベクトル解析公式たちは、いたるところで物理に表れて我々を苦しめます。
+普段は「公式なんてその場で導出すればいいんだよ～。覚える必要なんてない！」という強者たちも、**極座標ラプラシアンに限っては公式を丸暗記している人がほとんど**なのではないでしょうか？
+（もしくは、こっそりネット検索しているかも…）
+そんな極座標ラプラシアンですが、
+**「実は覚えなくても、その場で簡単に導出できちゃう」**
+と言ったら、どう思いますか？
+「いやいや、もう極座標ラプラシアンは覚えちゃったよ」という人も、もし**あらゆる座標系**での勾配、回転、発散、ラプラシアンが**その場で簡単に導出できちゃう**と言ったら、さすがに興味湧いてきませんか？
+今日は私がみなさんの救世主となるべく、**微分形式**と**ホッジスター**を使ったベクトル解析の公式の導出方法を伝授します。
+心して聞きたまえ。
+---
+# 魔法の道具：微分形式とホッジスター
+通常、極座標の微分計算が面倒なのは、基底ベクトルそのもの（$\mathbf{e}_r, \mathbf{e}_\theta$ など）が場所によって変化するため、微分のたびに「基底の微分」をケアしなければならないからです（連鎖律の嵐！）。
+しかし、これから紹介する方法では、**面倒な微分の処理は最後の最後の一瞬だけ**。それまでは単なる「掛け算・割り算」として処理できます。
+手順は以下の通りです。
+&&&
+1.  計量から「正規直交基底」を作る。
+2.  ホッジスターで変換する。
+3.  外微分（ただの微分）をする。
+&&&
+これだけです。では、実際にやってみましょう。
+# STEP 1：計量テンソルと「魔法の定規」
+まずは、お馴染みの３次元球面座標（極座標）の定義からスタートします。
+$$
+x = r \sin\theta \cos\phi, \quad y = r \sin\theta \sin\phi, \quad z = r \cos\theta
+$$
+これを微分して二乗和をとる（線素 $ds^2$ を求める）計算は、積分の変数変換などで何度もやっていると思います。結果はこうなりますね。
+$$
+ds^2 = dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta d\phi^2
+$$
+ここからがポイントです。この式を「ピタゴラスの定理」のように見立てて、**長さが1の正規直交基底（1-form）** $\omega$ を定義します。つまり、
+$$
+ds^2 = (\omega^r)^2 + (\omega^\theta)^2 + (\omega^\phi)^2
+$$
+となるように、係数をルートに入れて $\omega$ を決めます。
+&&&def 正規直交基底の定義
+* $\omega^r = dr$
+* $\omega^\theta = r \, d\theta$
+* $\omega^\phi = r \sin\theta \, d\phi$
+&&&
+これで準備の8割は完了です。ベクトル解析の計算はすべてこの $\omega$ をベースに行います。
+# STEP 2：ホッジスター演算子 $*$ のルール
+次に、**ホッジスター演算子 $*$** を導入します。難しそうな名前ですが、やることは**「自分以外の残りの基底を掛ける」**だけです。
+3次元空間の基底は $(\omega^r, \omega^\theta, \omega^\phi)$ の3つセットです。これをクルクル回すイメージを持ってください。
+## 0-form (スカラー) に対する作用
+「無」に対しては「全て」を返します。これが体積要素になります。
+&&&
+ $$*(1) = \omega^r \wedge \omega^\theta \wedge \omega^\phi = r^2 \sin\theta (dr \wedge d\theta \wedge d\phi)$$
+&&&
+## 1-form に対する作用
+「1つ」に対しては「残り2つ」を返します（順列に注意！）。
+&&&
+* $$*(\omega^r) = \omega^\theta \wedge \omega^\phi$$
+* $$*(\omega^\theta) = \omega^\phi \wedge \omega^r$$
+* $$*(\omega^\phi) = \omega^r \wedge \omega^\theta$$
+&&&
+## 2-form に対する作用
+「2つ」に対しては「残り1つ」を返します。
+&&&
+* $$*(\omega^\theta \wedge \omega^\phi) = \omega^r$$
+* $$*(\omega^\phi \wedge \omega^r) = \omega^\theta$$
+* $$*(\omega^r \wedge \omega^\theta) = \omega^\phi$$
+&&&
+## 3-form (体積) に対する作用
+「全て」に対しては「無（スカラーの1）」を返します。
+&&&
+ $$*(\omega^r \wedge \omega^\theta \wedge \omega^\phi) = 1$$
+&&&
+さあ、道具は揃いました。ここからは怒涛の計算ラッシュですが、全部**ただの四則演算**なのでリラックスしてついてきてください。
+
+---
+# STEP 3：実践！演算子の導出
+では、いよいよ実践です。
+スカラー場を $f$、ベクトル場を $\mathbf{V} = V_r \mathbf{e}_r + V_\theta \mathbf{e}_\theta + V_\phi \mathbf{e}_\phi$ とします。
+ベクトル場に対応する 1-form は以下のように書けます。
+$$
+\omega_V = V_r \omega^r + V_\theta \omega^\theta + V_\phi \omega^\phi
+$$
+## ① 勾配 (Gradient)
+勾配は、外微分 $d$ そのものです。
+&&&def 勾配
+$\text{grad}=d$
+&&&
+これは瞬殺です。
+$$
+df = \frac{\partial f}{\partial r} dr + \frac{\partial f}{\partial \theta} d\theta + \frac{\partial f}{\partial \phi} d\phi
+$$
+これを正規直交基底 $\omega^i$ の係数として読み替えるために、無理やり変形します。
+$$
+df = \frac{\partial f}{\partial r} (\omega^r) + \frac{1}{r}\frac{\partial f}{\partial \theta} (r d\theta) + \frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi} (r\sin\theta d\phi)
+$$
+$$
+df = \frac{\partial f}{\partial r} \omega^r + \frac{1}{r}\frac{\partial f}{\partial \theta} \omega^\theta + \frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi} \omega^\phi
+$$
+この $\omega^i$ の係数が、そのまま $(\text{grad} f)_i$ の成分です。
+### 結果
+&&&
+$$
+\nabla f = \left( \frac{\partial f}{\partial r}, \frac{1}{r}\frac{\partial f}{\partial \theta}, \frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi} \right)
+$$
+&&&
+ここまでは準備運動ですね。
+## ② 発散 (Divergence)
+さあ、ここから微分形式の真骨頂です。発散の定義は **$* d *$** です。
+&&&def 発散
+$\text{div}=*d*$
+&&&
+先ほどのコラムの通り、「スターして(面にして)、微分して(湧き出しを測って)、もう一回スター(スカラーに戻す)」です。
+### Step 1: スター $*$ をかける
+ベクトル形式 $\omega_V$ に $*$ を作用させます。1-form は 2-form になります。
+$$
+*\omega_V = V_r *(\omega^r) + V_\theta *(\omega^\theta) + V_\phi *(\omega^\phi)
+$$
+$$
+= V_r (\omega^\theta \wedge \omega^\phi) + V_\theta (\omega^\phi \wedge \omega^r) + V_\phi (\omega^r \wedge \omega^\theta)
+$$
+ここで具体的な $dr, d\theta, d\phi$ に戻します。係数が集まってくるのが見えますか？
+$$
+= V_r (r d\theta \wedge r \sin\theta d\phi) + V_\theta (r \sin\theta d\phi \wedge dr) + V_\phi (dr \wedge r d\theta)
+$$
+整理すると、
+$$
+*\omega_V = (r^2 \sin\theta V_r) d\theta \wedge d\phi + (r \sin\theta V_\theta) d\phi \wedge dr + (r V_\phi) dr \wedge d\theta
+$$
+### Step 2: 外微分 $d$ を実行
+これ全体を微分します。ここで重要なルール！
+「$d\theta \wedge d\phi$ の項には、$dr$ の微分しか効かない」。
+なぜなら、$d\theta$ や $d\phi$ で微分しても、$d\theta \wedge d\theta = 0$ となって消えてしまうからです。
+つまり、**偏微分 $\frac{\partial}{\partial r}$ などを係数の前にポンと置くだけ**でいいのです！
+$$
+d(*\omega_V) = \left[ \frac{\partial}{\partial r}(r^2 \sin\theta V_r) \right] dr \wedge d\theta \wedge d\phi
++ \left[ \frac{\partial}{\partial \theta}(r \sin\theta V_\theta) \right] d\theta \wedge d\phi \wedge dr
++ \left[ \frac{\partial}{\partial \phi}(r V_\phi) \right] d\phi \wedge dr \wedge d\theta
+$$
+すべての項が $dr \wedge d\theta \wedge d\phi$ に比例しています（順番を入れ替えると符号が変わることに注意しても、ここはすべてプラスで揃います）。まとめましょう。
+$$
+d(*\omega_V) = \left[ \frac{\partial}{\partial r}(r^2 \sin\theta V_r) + \frac{\partial}{\partial \theta}(r \sin\theta V_\theta) + \frac{\partial}{\partial \phi}(r V_\phi) \right] dr \wedge d\theta \wedge d\phi
+$$
+### Step 3: 最後のスター $*$
+最後に、体積形式 $dr \wedge d\theta \wedge d\phi$ をスカラーに戻します。
+先ほどの定義 $*(1) = r^2 \sin\theta (dr \wedge d\theta \wedge d\phi)$ の逆演算なので、
+$$
+*(dr \wedge d\theta \wedge d\phi) = \frac{1}{r^2 \sin\theta}
+$$
+です。つまり、全体の係数を $r^2 \sin\theta$ で割れば終了！
+### 結果
+$$
+\text{div} \mathbf{V} = \frac{1}{r^2 \sin\theta} \left[ \frac{\partial (r^2 \sin\theta V_r)}{\partial r} + \frac{\partial (r \sin\theta V_\theta)}{\partial \theta} + \frac{\partial (r V_\phi)}{\partial \phi} \right]
+$$
+$\theta$ や $\phi$ に依存しない係数を微分の外に出して整理すれば、教科書のあの式です。
+&&&
+$$
+\text{div} \mathbf{V} = \frac{1}{r^2}\frac{\partial (r^2 V_r)}{\partial r} + \frac{1}{r\sin\theta}\frac{\partial (\sin\theta V_\theta)}{\partial \theta} + \frac{1}{r\sin\theta}\frac{\partial V_\phi}{\partial \phi}
+$$
+&&&
+
+&&&rem なぜ「$*d*$」なのか？ ～演算子の正体～
+次の計算に入る前に、少しだけ「ココロ」の話をしましょう。
+「なんで $d$ だったり $*d*$ だったりするの？」と不思議に思いませんか？実はこれ、**微分形式の「次元」**を考えれば当然の帰結なのです。
+微分形式の世界では、外微分 $d$ は「次数を $k$ から $k+1$ に上げる」操作です。
+* $0 \to 1$：スカラーの勾配 (grad)
+* $1 \to 2$：ベクトルの回転 (rot) のような渦
+* $2 \to 3$：湧き出し (div) のような体積変化
+一方、ホッジスター $*$ は「$k$ 形式と $3-k$ 形式を自由に行き来できるワープトンネル(正確に言うと$k$形式と$n-k$形式の間の同型写像)」です。これを使うと、欲しい形に変換できます。
+#### ① grad ($d$)
+スカラー場 (0-form) の変化率を知りたい。そのまま $d$ で微分すればベクトルっぽいもの (1-form) になります。だから単純に$d$。
+#### ② div ($*d*$)
+ここが面白いところです。発散 (div) は、本質的に「微小体積からどれくらい湧き出したか」を測る量なので、外微分 $d$ をすることで最終的には**3-form（体積）** への世界へ行きたいのです。
+しかし、スタート地点のベクトル場 $\mathbf{V}$ は **1-form** です。そこで、以下のようなステップを踏みます。
+1.  まず $*$ でワープして、ベクトルを「面を貫くフラックス（**2-form**）」に変換します。
+2.  次に $d$ で微分して、「閉曲面からの湧き出し量（**3-form**）」を計算します。
+3.  最後に $*$ でワープして、「湧き出し密度（**0-form / スカラー**）」に戻します。
+$$\text{1-form} \xrightarrow{*} \text{2-form} \xrightarrow{d} \text{3-form} \xrightarrow{*} \text{0-form}$$
+この「行って帰ってくる」操作が、**$*d*$** という形に表れているのです。数式の背後にある幾何学的な意味を考えると、上の勾配や発散の定義はすぐに導出できるはずです！
+&&&
+## ③ ラプラシアン (Laplacian)
+ここまで来れば、極座標ラプラシアンなんて敵ではありません。
+ラプラシアンは **$\text{div}(\text{grad} f)$** です。
+&&&def ラプラシアン
+$\Delta = \text{div}(\text{grad})=*d*d$
+&&&
+つまり、①で作った $\text{grad} f$ のベクトル成分を、さっき苦労して作った②の $\text{div}$ の式の $V_r, V_\theta, V_\phi$ に代入するだけです。
+代入する成分（①の結果）：
+* $V_r = \frac{\partial f}{\partial r}$
+* $V_\theta = \frac{1}{r}\frac{\partial f}{\partial \theta}$
+* $V_\phi = \frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi}$
+これらを②の「微分を展開する前」の式にぶち込みます。
+$$
+\Delta f = \frac{1}{r^2 \sin\theta} \left[ \frac{\partial}{\partial r}\left( r^2 \sin\theta \cdot \frac{\partial f}{\partial r} \right) + \frac{\partial}{\partial \theta}\left( r \sin\theta \cdot \frac{1}{r}\frac{\partial f}{\partial \theta} \right) + \frac{\partial}{\partial \phi}\left( r \cdot \frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi} \right) \right]
+$$
+カッコの中を約分して整理します。
+* 第1項：そのまま
+* 第2項：$r$ が消える
+* 第3項：$r$ が消え、$\sin\theta$ が分母に残る
+### 結果
+&&&
+$$
+\Delta f = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2 \frac{\partial f}{\partial r}\right) + \frac{1}{r^2 \sin\theta}\frac{\partial}{\partial \theta}\left(\sin\theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{r^2 \sin^2\theta}\frac{\partial^2 f}{\partial \phi^2}
+$$
+&&&
+**完成です！！**
+あの長ったらしい式が、計算用紙数行で導出できました。
+---
+## ④ 回転 (Rotation / Curl)
+最後に、一番面倒くさそうな回転もやってみましょう。定義は **$* d$** です。
+&&&def 回転
+$\text{rot}=*d$ 
+&&&
+今度は手加減なしで、全成分を一気に計算しますよ！
+### Step 1: 形式を作る
+$$
+\omega_V = V_r dr + (r V_\theta) d\theta + (r \sin\theta V_\phi) d\phi
+$$
+### Step 2: 外微分 $d$ を実行
+全項を微分します。$d(A) \wedge dr$ のような形になりますが、同じ成分同士のウェッジ積 ($dr \wedge dr$など) は消えることに注意して展開します。
+####  第1項 $V_r dr$ の微分：
+  $$d(V_r) \wedge dr = \left( \frac{\partial V_r}{\partial \theta} d\theta + \frac{\partial V_r}{\partial \phi} d\phi \right) \wedge dr = -\frac{\partial V_r}{\partial \theta} dr \wedge d\theta - \frac{\partial V_r}{\partial \phi} d\phi \wedge dr$$
+  (順番を入れ替えて見やすくしています)
+####  第2項 $(r V_\theta) d\theta$ の微分：
+  $$d(r V_\theta) \wedge d\theta = \left( \frac{\partial (r V_\theta)}{\partial r} dr + \frac{\partial (r V_\theta)}{\partial \phi} d\phi \right) \wedge d\theta = \frac{\partial (r V_\theta)}{\partial r} dr \wedge d\theta - \frac{\partial (r V_\theta)}{\partial \phi} d\theta \wedge d\phi$$
+#### 第3項 $(r \sin\theta V_\phi) d\phi$ の微分：
+  $$d(r \sin\theta V_\phi) \wedge d\phi = \left( \frac{\partial (r \sin\theta V_\phi)}{\partial r} dr + \frac{\partial (r \sin\theta V_\phi)}{\partial \theta} d\theta \right) \wedge d\phi = \frac{\partial (r \sin\theta V_\phi)}{\partial r} dr \wedge d\phi + \frac{\partial (r \sin\theta V_\phi)}{\partial \theta} d\theta \wedge d\phi$$
+これらを $dr \wedge d\theta$ などの成分ごとにまとめます。
+$$
+d\omega_V = \left( \frac{\partial (r \sin\theta V_\phi)}{\partial \theta} - \frac{\partial (r V_\theta)}{\partial \phi} \right) d\theta \wedge d\phi
++ \left( \frac{\partial V_r}{\partial \phi} - \frac{\partial (r \sin\theta V_\phi)}{\partial r} \right) d\phi \wedge dr
++ \left( \frac{\partial (r V_\theta)}{\partial r} - \frac{\partial V_r}{\partial \theta} \right) dr \wedge d\theta
+$$
+### Step 3: ホッジスター $*$ をかける
+ここからベクトルに戻します。それぞれの2-formに対応する1-form（基底）を思い出しましょう。
+* $*(d\theta \wedge d\phi) = \frac{1}{r^2 \sin\theta} *(\omega^\theta \wedge \omega^\phi) = \frac{1}{r^2 \sin\theta} \omega^r $ 
+* $*(d\phi \wedge dr) = \frac{1}{r \sin\theta} *(\omega^\phi \wedge \omega^r) = \frac{1}{r \sin\theta} \omega^\theta$
+* $*(dr \wedge d\theta) = \frac{1}{r} *(\omega^r \wedge \omega^\theta) = \frac{1}{r} \omega^\phi$
+となるので、結局、
+  $$* d \omega_V = \left(
+\frac{1}{r^2 \sin\theta} \left[ \frac{\partial (r\sin\theta V_\phi)}{\partial \theta} - \frac{\partial (rV_\theta)}{\partial \phi} \right] \omega^r +
+\frac{1}{r\sin\theta} \left[\frac{\partial V_r}{\partial \phi} - \frac{\partial (r\sin \theta V_\phi)}{\partial r} \right] \omega^\theta +
+\frac{1}{r} \left[ \frac{\partial (r V_\theta)}{\partial r} - \frac{\partial V_r}{\partial \theta} \right] \omega^\phi
+\right)$$
+となります。
+### 結果
+これらをまとめると、回転の公式が一丁上がりです。
+&&&
+$$
+\text{rot} \mathbf{V} = \left(
+\frac{1}{r \sin\theta} \left[ \frac{\partial (\sin\theta V_\phi)}{\partial \theta} - \frac{\partial V_\theta}{\partial \phi} \right] \mathbf{e}_r +
+\frac{1}{r} \left[ \frac{1}{\sin\theta}\frac{\partial V_r}{\partial \phi} - \frac{\partial (r V_\phi)}{\partial r} \right] \mathbf{e}_\theta +
+\frac{1}{r} \left[ \frac{\partial (r V_\theta)}{\partial r} - \frac{\partial V_r}{\partial \theta} \right] \mathbf{e}_\phi
+\right)
+$$
+&&&
+どうですか？ 行列式を使って覚える方法もありますが、この「導出のストーリー」を知っていれば、いつでも自分で作り出せます。
+# まとめ
+いかがでしたか？
+この方法の最大のメリットは、**「微分計算」と「座標の幾何学的な性質（計量）」を完全に分離できる**点にあります。
+1.  $ds^2$ から係数（$\omega$）を拾ってくる。
+2.  公式通りに係数を移動させる（$*$ の操作）。
+3.  最後にまとめて微分する。
+この手順さえ覚えておけば、極座標だろうが円筒座標だろうが、どんな座標系でも怖くありません。
+# 演習問題：放物線座標に挑戦！
+最後に、理解度チェックとして「回転放物面座標」でのラプラシアンを求めてみましょう。
+座標定義は以下の通りです。
+$$
+x=\xi\eta \cos\phi, \quad y=\xi\eta \sin\phi, \quad z=\frac{1}{2}(\xi^2-\eta^2)
+$$
+**ヒント：**
+まず線素 $ds^2$ を計算すると、以下のようになります。
+$$
+ds^2 = (\xi^2 + \eta^2)(d\xi^2 + d\eta^2) + \xi^2 \eta^2 d\phi^2
+$$
+ここから $\omega^\xi, \omega^\eta, \omega^\phi$ を定義して、上の手順通りに $\text{div}(\text{grad} f)$ を計算してみてください。
+普通の偏微分でやろうとすると地獄を見ますが、今回の方法なら5分で終わるはずです！
+それでは、良き物理ライフを！

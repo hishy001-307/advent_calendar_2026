@@ -1,0 +1,74 @@
+.footerWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contactWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.glyph {
+  display: block;
+}
+
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  color: rgba(245, 245, 245, 0.92);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.65);
+    outline-offset: 2px;
+  }
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  color: #983c3d;
+  background: rgba(152, 60, 61, 0.08);
+  border: 1px solid rgba(152, 60, 61, 0.2);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    color: #7a3031;
+    background: rgba(152, 60, 61, 0.12);
+    border-color: rgba(152, 60, 61, 0.35);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(152, 60, 61, 0.45);
+    outline-offset: 2px;
+  }
+}
+
+.footerLink .glyph,
+.contactLink .glyph {
+  fill: currentColor;
+}

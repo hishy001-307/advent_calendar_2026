@@ -1,0 +1,3 @@
+# Apache/Plesk で pdf.js ワーカー・cmap が正しい MIME で配信されるようにする
+AddType application/javascript .mjs
+AddType application/octet-stream .bcmap

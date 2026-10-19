@@ -1,0 +1,371 @@
+# 0. はじめに
+
+　今回はPhysics Lab. アドベント・カレンダーの3日目シリーズ2ということで、Virasoro代数をLie代数の中心拡大として得る方法を説明したいと思います。Virasoro代数は２次元共形場理論における変換の生成子を与える代数で、以下のような括弧積が与えられたLie代数です。
+
+$$
+
+[L_m,L_n] = (m-n)L_{m+n}+\frac{c}{12}m(m^2-1)\delta_{m+n,0}
+
+$$
+
+なんのこっちゃという感じですが、この記事ではその気持ちを説明していきたいと思います。
+
+　できる限り厳密に扱うことに気をつけましたが、適切でない表現をしてしまっていたり、背景情報が抜けてしまっているところがあるかもしれません。もしそのような表現を見つけた際には、コメントの方で訂正していただけると助かります。また、Lie代数の拡大については[[extend_lie]]に依ります。
+
+# 1. Lie代数の導入
+
+#### 定義：Lie代数
+
+　体$\mathbb{F}$上の線形空間$\mathfrak{g}$であって、以下の公理を満たす二項演算（Lie括弧積）$[\cdot,\cdot]$が与えられているとき、$\mathfrak{g}$をLie代数、またはLie環という。
+
+- 双線型性
+
+$$
+
+\qquad\qquad&\forall a,b\in\mathbb{F},\ \forall x,y,z\in\mathfrak{g},\\
+
+&\cdot\ [ax+by,z] = a[x,z] + b[y,z]\\
+
+&\cdot\ [ax+by,z] = a[x,z] + b[y,z]
+
+$$
+
+- 交代性
+
+$$
+
+\qquad\qquad\forall x\in\mathfrak{g},\ [x,x]=0
+
+$$
+
+- Jacobi恒等式
+
+$$
+
+\qquad\qquad\forall x,y,z\in\mathfrak{g},\ [x,[y,z]] + [z,[x,y]] + [y,[z,x]] = 0
+
+$$
+
+thm Lie括弧積の性質
+
+　Lie群$\mathfrak{g}$のLie括弧積について、以下が成り立つ。
+
+- $\forall x,y\in\mathfrak{g},\ [x,y]=-[y,x]$
+
+- $\forall x\in\mathfrak{g},\ [0,x]=[x,0]=0$
+
+prf
+
+　$x,y\in\mathfrak{g}$に対し、交代性と双線型性から
+
+$$
+
+0=[x+y,x+y]=[x,x]+[x,y]+[y,x]+[y,y]=[x,y]+[y,x]
+
+$$
+
+よって$[x,y]=-[y,x]$。もう一方は、双線型性から$[0,x]=0$, $[x,0]=0$。
+
+### 例： 一般線形Lie代数
+
+　体$\mathbb{F}$上の$n\times n$行列全体を$\mathfrak{gl}(\mathbb{F})$とし、Lie括弧積を$[A,B]=AB-BA$ $(A,B\in \mathfrak{gl}(\mathbb{F}))$で定めると、これはLie代数となることがわかります。$\mathfrak{gl}(\mathbb{F})$を一般線形Lie代数と呼びます。
+
+　この例から推測できるように、Lie括弧積は交換関係（または反交換関係）を一般化した演算です。
+
+#### 定義：部分Lie代数、イデアル
+
+　$\mathfrak{g}$の線形部分空間$\mathfrak{h}$であって括弧積で閉じているものを$\mathfrak{g}$の部分Lie代数と呼ぶ。さらに、$\mathfrak{g}$とのLie括弧積でも閉じているもの、すなわち部分Lie代数であって、$[\mathfrak{g},\mathfrak{i}]\subseteq\mathfrak{i}$となる$\mathfrak{i}$をイデアルという。
+
+#### 定義：準同型
+
+　$f\mathpunct{:}\mathfrak{g}\to\mathfrak{h}$が準同型であるとは、$f$がLie括弧積の構造を変えないこと、すなわち、すべての$x,y\in\mathfrak{g}$に対し、$f([x,y])=[f(x),f(y)]$が成り立つこととして定める。
+
+　準同型$f\mathpunct{:}\mathfrak{g}\to\mathfrak{h}$に対し、その核$\ker f$は$\mathfrak{g}$のイデアルとなります。これは、$x\in\mathfrak{g},\ y\in\ker f$に対し、$f([x,y])=[f(x),f(y)]=[0,f(y)]=0$となることより分かります。また、イデアルから商代数を、$\mathfrak{g}/\mathfrak{i}\coloneqq\{x+\mathfrak{i}\mid x\in\mathfrak{g}\}$にLie括弧積として$[x+\mathfrak{i},y+\mathfrak{i}]\coloneqq[x,y]+\mathfrak{i}$を定めることで定義できます。この定義がwell-definedであることはイデアルの定義からすぐ分かります。このとき、Lie代数についても準同型定理などを示すことができます。
+
+　ここで、Lie代数の中心という概念を定義しておきます。これは、$\mathfrak{g}$のすべての元とのLie括弧積が$0$になるような元全体として定義されます。
+
+#### 定義：Lie代数の中心
+
+　$\forall x\in\mathfrak{g}$に対して$[x,c]=0$となる$c\in\mathfrak{g}$全体の集合をLie群$\mathfrak{g}$の中心といい、$Z(\mathfrak{g})$で表す。
+
+　ここでLie代数の例として、Virasoro代数のもととなるWitt代数を定義します。
+
+#### 定義：Witt代数
+
+　リーマン球面$\hat{\mathbb{C}}=\mathbb{C}\cup\{\infty\}$から二点$0,\infty$を除いた全域で定義される正則な有理型ベクトル場全体のなすLie代数をWitt代数と呼び、$W$で表す。Lie括弧積は、基底
+
+$$
+
+\ell_n = -z^{n+1}\frac{\partial}{\partial z}\quad(n\in\mathbb{Z})
+
+$$
+
+に対しては
+
+$$
+
+[\ell_m,\ell_n] = (m-n)\ell_{m+n}
+
+$$
+
+と定め、それ以外の元に対してはこれを線形に拡張する。
+
+　任意の$W$の元は正則な有理型のベクトル場であることから、$\mathbb{C}-\{0\}$の各点で以下のように$z$についてローラン展開をすることができます。
+
+$$
+
+-\sum_{n=-\infty}^\infty a_{n+1}z^{n+1}\frac{\partial}{\partial z}
+
+$$
+
+$n+1$や$-$がついているのは、ただその方が物理的に嬉しいというだけなので、特に気にしなくて大丈夫です。これより$\ell_n$が$W$の基底を張ることがわかります。また、以下のようにしてJacobi恒等式も成立するため、$W$はLie代数となっていることが実際に確認できます。
+
+$$
+
+&[\ell_k,[\ell_m,\ell_n]] + [\ell_n,[\ell_k,\ell_m]] + [\ell_m,[\ell_n,\ell_k]]\\
+
+&= \left[(m-n)(k-(m+n)) + (k-m)(n-(k+m)) + (n-k)(m-(n+k))\right]\ell_{k+m+n}\\
+
+&= 0
+
+$$
+
+　Virasoro代数は、このWitt代数を中心拡大することで得ることができます。次からは、そんなLie代数の拡大の手法を見ていきます。
+
+# 2. Lie代数の拡大
+
+　一般に、群に対して拡大を定義することができます。そこから付随して、Lie代数に対しても拡大を定義することができます。
+
+#### 定義：Lie代数の拡大
+
+　体$\mathbb{F}$上のLie代数$\mathfrak{g},\mathfrak{e},\mathfrak{h}$が短完全列をなすとき、すなわち、準同型$i,s$が与えられていて、
+
+$$
+
+\mathfrak{h}\xrightarrow{i}\mathfrak{e}\xrightarrow{s}\mathfrak{g}
+
+$$
+
+であって、$i$が単射、$s$が全射かつ$\ker s=\mathop{\mathrm{im}}\nolimits i$となるとき、$\mathfrak{e}$は$\mathfrak{g}$の$\mathfrak{h}$による拡大であるという。
+
+　準同型写像の核はイデアルであったため、$\ker s=\mathop{\mathrm{im}}\nolimits i$は$\mathfrak{e}$のイデアルです。よって準同型定理より、$\mathfrak{g}\cong\mathfrak{e}/\ker s=\mathfrak{e}/\mathop{\mathrm{im}}\nolimits i=\mathfrak{e}/\mathfrak{h}$が従います。（このことから、$\mathfrak{e}$はおおよそ$\mathfrak{g}$を$\mathfrak{h}$で、自然言語の意味で"拡大"したようなものに相当することがわかります。）
+
+#### 定義：拡大の種類
+
+- Lie群の拡大
+
+$$
+
+\mathfrak{h}\xrightarrow{i}\mathfrak{t}\xrightarrow{s}\mathfrak{g}
+
+$$
+
+が自明な拡大であるとは、$\mathfrak{t}$のイデアル$\mathfrak{i}$であって、$\mathfrak{t} = \mathfrak{i}\oplus\ker s$となるものが存在することをいう。
+
+- Lie群の拡大
+
+$$
+
+\mathfrak{h}\xrightarrow{i}\mathfrak{s}\xrightarrow{s}\mathfrak{g}
+
+$$
+
+が分裂であるとは、$\mathfrak{s}$の部分代数$\mathfrak{u}$であって、$\mathfrak{s} = \mathfrak{u}\oplus\ker s$となるものが存在することをいう。
+
+- Lie群の拡大
+
+$$
+
+\mathfrak{h}\xrightarrow{i}\mathfrak{c}\xrightarrow{s}\mathfrak{g}
+
+$$
+
+が中心拡大であるとは、$\ker s$が$\mathfrak{c}$の中心$Z(\mathfrak{c})$に含まれていることをいう。
+
+　この記事では、これ以降特に中心拡大に注目します。一般に中心拡大があると、この後説明する２-コサイクルを構成できます。また、２-コサイクルから中心拡大を誘導できます。
+
+#### 定義：リー代数上の２-コサイクル
+
+　$\mathfrak{g}$上の２-コサイクルとは、双線形交代関数$\varphi\mathpunct{:}\mathfrak{g}\times\mathfrak{g}\to\mathbb{F}$であって、Jocobi律
+
+$$
+
+\forall x,y,z\in\mathfrak{g},\ \varphi(x,[y,z]) + \varphi(z,[x,y]) + \varphi(y,[z,x]) = 0
+
+$$
+
+を満たすものをいう。また、$\mathfrak{g}$上の２-コサイクルの全体の集合を$Z^2(\mathfrak{g},\mathbb{F})$と書く。
+
+　$\mathfrak{g}$上の１-コチェインを線型写像$f\mathpunct{:}\mathfrak{g}\to\mathbb{F}$として定め、その全体集合を$C^1(\mathfrak{g},\mathbb{F})$とします。ここでコバウンダリ$\delta$を以下のように定めると、$\delta f$が２-コサイクルになることを確かめることができます。
+
+$$
+
+\delta f(x,y)=f([x,y])\quad(x,y\in\mathfrak{g})
+
+$$
+
+交代性はLie括弧積の性質からわかります。Jacobi律も$f$の線形性と、Lie括弧積のJacobi恒等式から分かります。$\delta$による１-コチェインの像を$B^2(\mathfrak{g},\mathbb{F})$で表し、１-コバウンダリといいます。二つのコサイクルが同値であることを、その差がコバウンダリとなることとして定義すると、商群を定義できて、
+
+$$
+
+H^2(\mathfrak{g},\mathbb{F}) = Z^2(\mathfrak{g},\mathbb{F})/B^2(\mathfrak{g},\mathbb{F})
+
+$$
+
+を$\mathfrak{g}$の第２コホモロジー群と呼びます。
+
+　少し長々と書きましたが、一般にはLie群$\mathfrak{g}$とその表現$M$から作られる余鎖複体とコホモロジーに相当します。（が、筆者はあまり詳しくないので、ここでは省きます。）
+
+### ２-コサイクルから誘導される中心拡大
+
+　$\varphi$をLie代数$\mathfrak{g}$上の２-コサイクルで、$\mathfrak{h}$が任意の$1$次元ベクトル空間のとき、$\mathfrak{e}=\mathfrak{g}\oplus\mathfrak{h}$とし、Lie括弧積を
+
+$$
+
+[x+\mu h,y+\nu h]_\varphi = [x,y] + \varphi(x,y)h
+
+$$
+
+と定めます。ここで$h\in\mathfrak{h}$は任意に一つ固定し、$\mu,\nu\in\mathbb{F}$です。このとき$\mathfrak{e}$は$\mathfrak{g}$の$\mathfrak{h}$による中心拡大となります。
+
+prf
+
+　$\mathfrak{e}$がLie代数となることはLie括弧積と２-コサイクルの定義より分かります。ここで$x=0$を考えると$[0+\mu h,y+\nu h]=[0,y]+\varphi(0,y)h=0$となるため、$\mu h\in Z(\mathfrak{e})$です。また$i,s$を$i\mathpunct{:}\mu h\mapsto0+\mu h,\ s\mathpunct{:}x+\mu h\mapsto x$と定めれば、$\mathop{\mathrm{im}}\nolimits i=\ker s=\{\mu h\mid\mu\in\mathbb{F}\}\subseteq Z(\mathfrak{e})$が成り立ちます。よって$\mathfrak{e}$は$\mathfrak{g}$の$\mathfrak{h}$による中心拡大になっています。
+
+　これで準備は終わったため、以下ではいよいよWitt代数と２-コサイクルからVirasoro代数を構成していきます。
+
+# 3. Virasoro代数
+
+　Witt代数$W$と、その上の任意の２-コサイクルを一つ取ります。先に後で使う事実を導いておきます。$\omega_{i,j}=\varphi(\ell_i,\ell_j)$とすると、２-コサイクルのJacobi律から
+
+$$
+
+(l-m)\omega_{l+m,n} + (m-n)\omega_{m+n,l} + (n-l)\omega_{n+l,m} = 0
+
+$$
+
+が成り立ちます。$l=0$として、$\omega$の反対称性$\omega_{i,j}=-\omega_{j,i}$から
+
+$$
+
+(m+n)\omega_{m,n} = (m-n)\omega_{m+n,0}
+
+$$
+
+が分かります。
+
+　$\varphi$から誘導された$W$の$C\mathbb{C}\ \,(C\in\mathbb{C})$による中心拡大を考えます。$\ell_0$に対するLie括弧積は
+
+$$
+
+[\ell_0+\mu C,\ell_m+\nu C]_\varphi = -m\ell_m + \omega_{0,m}C = -m\left(\ell_m - \frac{\omega_{0,m}}{m}C\right)
+
+$$
+
+です。ここで現れる$C$は、$\varphi$を同値な２-コサイクルで置き換えることにより消すことができます。１-コチェインを
+
+$$
+
+f\mathpunct{:}W\to \mathbb{C},\quad\ell_m\mapsto\frac{\omega_{0,m}}{m}
+
+$$
+
+で定義し、$\varphi' = \varphi + \delta f$とすると、
+
+$$
+
+\varphi'(\ell_0,\ell_m) = \varphi(\ell_0,\ell_m) + f([\ell_0,\ell_m]) = \omega_{0,m} - m\frac{\omega_{0,m}}{m} = 0
+
+$$
+
+より
+
+$$
+
+[\ell_0+\mu C,\ell_m+\nu C]_{\varphi'} = m\ell_m
+
+$$
+
+となりました。以降は$\varphi'$を単に$\varphi$と書きます。この２-コサイクルで$(m+n)\omega_{m,n} = (m-n)\omega_{m+n,0}$を考えると、$m+n\neq0$のときは$\omega_{m,n}=0$となります。よって$\omega_{m,n}$の交代性を考慮すると
+
+$$
+
+\omega_{m,n} = a_m\delta_{m,-n},\quad a_{-m} = -a_m
+
+$$
+
+となることが分かります。これを２-コサイクルのJacobi律に代入し、$l+m+n=0$, $n=1$とすると、漸化式
+
+$$
+
+(m-1)a_{m+1} - (m+2)a_m + (2m+1)a_1 = 0
+
+$$
+
+が得られます。これを解くと、一般には$a_m = \alpha m+\beta m^3$となります。ゆえに、$W\oplus C\mathbb{C}$のLie括弧積は
+
+$$
+
+[\ell_m+\mu C,\ell_n+\nu C]_\varphi = (m-n)\ell_{m+n} + (\alpha m+\beta m^3)\delta_{m,-n}C
+
+$$
+
+となります。ここで、$\ell_m'=\ell_m+\frac{\alpha-\gamma}{2}\delta_{0,m}C$のように基底を変換すると、
+
+$$
+
+[\ell'_m+\mu C,\ell'_n+\nu C]_\varphi &= (m-n)\left(\ell'_{m+n}-\frac{\alpha-\gamma}{2}\delta_{0,m+n}C\right) + (\alpha m+\beta m^3)\delta_{m,-n}C\\
+
+&= (m-n)\ell'_{m+n} + (\gamma m+\beta m^3)\delta_{m,-n}C
+
+$$
+
+となるため、$m$の係数$\alpha$は任意に変更できることがわかります。また$\beta=0$であれば$\alpha=0$へ変更することで中心電荷が消えてしまうため、考えないことにします。
+
+　ここでは$-\alpha = \beta = 1/12$として$\beta$の任意性を$C$に吸収させることにします。このとき$C$を$c$で表し、$L_m=\ell_m+\mu c\in W\oplus c\mathbb{C}$として、$\mu$による違いは同一視することにすると、Virasoro代数$V=W\oplus c\mathbb{C}$
+
+$$
+
+[L_m,L_n] = (m-n)L_{m+n} + \frac{c}{12}m(m^2-1)\delta_{m+n,0}
+
+$$
+
+を得ることができました。
+
+### 物理の視点から
+
+　ここまで終わっても良いのですが、せっかくなので物理の側からVirasoro代数をほんの少しだけ眺めてみたいと思います。ここでの記述は[[hikita]][[kawakami]]に依ります。また、ここでは事実ベースとなってしまいますがご了承ください。
+
+　２次元共形場理論において、$z\mapsto z'=\epsilon(z),\ \bar{z}\mapsto\bar{\epsilon}(\bar{z})$なる変換を考えると、正則写像は等角写像であることからこの変換は共形変換です。（一般に、局所的な角度を変えない変換を共形変換と言います。）ここで共形変換の生成子を
+
+$$
+
+Q_\epsilon = \oint_C\frac{dz}{2\pi i}\epsilon(z)T(z),\quad
+
+\bar{Q}_{\bar{\epsilon}} = \oint_{\bar{C}}\frac{d\bar{z}}{2\pi i}\bar{\epsilon}(\bar{z})\bar{T}(\bar{z})
+
+$$
+
+とおくと、"いい性質"を持った場（プライマリ場）$O(z,\bar{z})$の変化は
+
+$$
+
+\delta_{\epsilon,\bar{\epsilon}}O(z,\bar{z}) = [Q_\epsilon,O(z,\bar{z})] + [\bar{Q}_{\bar{\epsilon}},O(z,\bar{z})]
+
+$$
+
+となります。この$Q_\epsilon$や$T(z)$を展開する基底がVirasoro代数の基底$L_n$となります。
+
+$$
+
+Q_\epsilon = -\sum_{n=-\infty}^\infty\epsilon_n L_n,\quad
+
+\epsilon(z) = \sum_{n=-\infty}^\infty\epsilon_n z^{n+1}\\
+
+T(z) = \sum_{n=-\infty}^\infty \frac{L_n}{z^{n+2}},\quad
+
+L_n=\oint\frac{dz}{2\pi i}z^{n+1}T(z)
+
+$$
+
+ここからVirasoro代数のLie括弧積も得られます。古典系では中心電荷は$0$になり、Witt代数に落ちますが、量子系では、例えば自由フェルミオンなら$c=1/2$、自由ボゾンなら$c=1$と、系の自由度を勘定するものになります。（これ以上の詳細はわからないので割愛します。詳しい人教えてください。）

@@ -1,0 +1,340 @@
+.pageRoot {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pageEnter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: pageEnter 600ms ease-out both;
+}
+
+.pageMain {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.backRow {
+  margin-bottom: 0.75rem;
+}
+
+.backLink {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.backLinkLight {
+  composes: backLink;
+  color: #983c3d;
+}
+
+.backLinkDark {
+  composes: backLink;
+  color: rgba(252, 211, 77, 0.95);
+}
+
+.heading {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.titleDark {
+  composes: title;
+  color: #f8fafc;
+}
+
+.titleLight {
+  composes: title;
+  color: #444443;
+}
+
+.meta {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.metaDark {
+  composes: meta;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.metaLight {
+  composes: meta;
+  color: #57534e;
+}
+
+.disclaimerNote {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.disclaimerNoteLight {
+  composes: disclaimerNote;
+  color: #71717a;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(228, 228, 231, 0.95);
+}
+
+.disclaimerNoteDark {
+  composes: disclaimerNote;
+  color: rgba(226, 232, 240, 0.88);
+  background: rgba(15, 23, 42, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.disclaimerLink {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-inline: 0.1em;
+}
+
+.disclaimerLinkLight {
+  composes: disclaimerLink;
+  color: #983c3d;
+}
+
+.disclaimerLinkDark {
+  composes: disclaimerLink;
+  color: rgba(252, 211, 77, 0.95);
+}
+
+.pdfStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pdfFrameWrap {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(228, 228, 231, 0.95);
+  background: #fafafa;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.pdfFrameWrapDark {
+  composes: pdfFrameWrap;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(15, 23, 42, 0.45);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.pdfFrame {
+  display: block;
+  width: 100%;
+  min-height: 72vh;
+  border: 0;
+}
+
+.pdfLabel {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  color: #71717a;
+  background: rgba(250, 250, 250, 0.98);
+  border-bottom: 1px solid rgba(228, 228, 231, 0.95);
+}
+
+.pdfLabelDark {
+  composes: pdfLabel;
+  color: rgba(226, 232, 240, 0.88);
+  background: rgba(15, 23, 42, 0.55);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.downloadRow {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.downloadLink {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.downloadLinkLight {
+  composes: downloadLink;
+  color: #983c3d;
+}
+
+.downloadLinkDark {
+  composes: downloadLink;
+  color: rgba(252, 211, 77, 0.95);
+}
+
+.relatedSection {
+  margin-top: 2rem;
+  padding: 1.1rem 1.15rem;
+  border-radius: 12px;
+}
+
+.relatedSectionLight {
+  composes: relatedSection;
+  border: 1px solid rgba(228, 228, 231, 0.95);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.relatedSectionDark {
+  composes: relatedSection;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.relatedHeading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.relatedHeadingLight {
+  composes: relatedHeading;
+  color: #444443;
+}
+
+.relatedHeadingDark {
+  composes: relatedHeading;
+  color: #f8fafc;
+}
+
+.relatedNote {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.relatedNoteLight {
+  composes: relatedNote;
+  color: #71717a;
+}
+
+.relatedNoteDark {
+  composes: relatedNote;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.relatedInlineLink {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-inline: 0.15em;
+}
+
+.relatedInlineLinkLight {
+  composes: relatedInlineLink;
+  color: #983c3d;
+}
+
+.relatedInlineLinkDark {
+  composes: relatedInlineLink;
+  color: rgba(252, 211, 77, 0.95);
+}
+
+.relatedSubheading {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.relatedSubheadingLight {
+  composes: relatedSubheading;
+  color: #57534e;
+}
+
+.relatedSubheadingDark {
+  composes: relatedSubheading;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.relatedBlockGap {
+  margin-top: 1rem;
+}
+
+.relatedList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.relatedItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.relatedItemLight {
+  composes: relatedItem;
+  color: #444443;
+  background: rgba(250, 250, 250, 0.9);
+  border: 1px solid rgba(228, 228, 231, 0.8);
+
+  &:hover {
+    background: #fff;
+  }
+}
+
+.relatedItemDark {
+  composes: relatedItem;
+  color: #f1f5f9;
+  background: rgba(30, 41, 59, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  &:hover {
+    background: rgba(30, 41, 59, 0.75);
+  }
+}
+
+.relatedTitle {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.relatedTeam {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.relatedTeamLight {
+  composes: relatedTeam;
+  color: #a1a1aa;
+}
+
+.relatedTeamDark {
+  composes: relatedTeam;
+  color: rgba(203, 213, 225, 0.75);
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

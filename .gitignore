@@ -36,6 +36,16 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Extracted Advent Calendar source archive (keep original files local only)
+/アドカレ/
+/アドカレ-*.zip
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+node_modules
+.next
+out
+.env
+.env.*
