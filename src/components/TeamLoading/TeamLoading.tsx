@@ -26,7 +26,7 @@ export default function TeamLoading({ teamName, variant, className = "" }: TeamL
 
   return (
     <main className={[styles.page, backgroundClassMap[variant], className].join(" ").trim()}>
-      <p className={styles.srOnly}>{teamName}を読み込み中</p>
+      {/* <p className={styles.srOnly}>{teamName}を読み込み中</p> */}
       <div className={styles.stage}>
         {variant === "particle" && (
             <div className={styles.stringRope}>

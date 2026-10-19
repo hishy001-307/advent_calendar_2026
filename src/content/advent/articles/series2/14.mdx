@@ -1,0 +1,369 @@
+#はじめに
+　初めまして, 東京大学理学部物理学科3年のうどんです. 今回はPhysics Lab. アドベントカレンダーのシリーズ2の14日目ということで, 量子力学における経路積分について説明したいと思います. 
+
+　私と経路積分の邂逅は, JJサクライ「現代の量子力学」の上巻の2.6節でした. つまりJun John Sakuraiがキューピットということですね. この記事のメインである「経路積分」, 名前がかっこいいですよね！ワクワクしてJJサクライを読んだのですが, よくわからない... いや, 式は追えるけど, 結局何がしたいねん！そんな感情しかかつてのうどん少年は抱きませんでした. だが時を経て, 経路積分の偉大さというのを場の量子論の文脈で知りました. そうか, 経路積分は場の量子論までいくと役に立つのか！ そうなると量子力学において経路積分を持ってくる意味はあまりないかもな, そんなことを考えていました. 
+
+>当然, 意味はあります. よく経路積分を用いればAharonov Bohm効果を簡単に説明できると言われていますね. 
+
+　だがしかし！！！ 最近行っているゼミにて量子力学でも場の量子論と同じように経路積分を使ってさまざまな物理量を知ることができることを知りました. それをまとめようと思いこの記事を書くことを決めました. 
+　扱う内容は, まずは経路積分を導入します. その後ソース, 分配関数と呼ばれるものを導入して, 相関関数との関係を見ます. Wick回転して虚時間表示してから真空期待値を経路積分を使って書きます. これらが理解できれば, 場の量子論への拡張がスムーズにできると思います. 今回は摂動までは扱いません. そちらに興味がある方は参考文献[[RR]]を参照してください. もし誤っている箇所がありましたら, ご指摘いただけたら幸いです.
+
+# 経路積分の導入
+　経路積分はかつてRichard Phillips Feynmanに確立されました. そのアイデアはとても明快で量子力学を触れたことのある人なら受け入れていただけると思います. この章ではそのアイデアと導入を行っていきます.
+>量子力学に触れたことなくても大丈夫です. 位置と運動量(物体の勢い的なもの)が実験によって同時に確定できないほどミクロな物理での話だと思ってください. 
+
+## Feynmanのアイデア
+　まずは電子による2重スリット実験の状況を考えます. 2重スリットの詳しい結果はここでは述べません. 
+![2重スリットの実験](/advent-assets/series2/14/KiLrpyfaazsHLh3mA9Tn.png)
+　電子銃$A$から電子を発射してスクリーン$B$にぶつけることを考えます. まず電子銃$A$とスクリーン$B$の間に何もない時には電子はそのまままっすぐ進みます. 次にその間にスリットを入れることを考えます. 初めに2つの隙間が空いた2重スリット$S^1$を用意します. 2つの穴にそれぞれ$S^1_1, S^1_2$という名前をつけます. 
+
+　$S^1_i$のみを開けている場合のスクリーン$B$上での波動関数を$\psi_i(x)$と書くこととします. すると両方のスリットを開けた状態での波動関数は, 単にその和で与えられることとなります. つまり
+$$
+
+\psi(x) = \psi^{(1)}_1(x) + \psi^{(1)}_2(x)
+$$ 
+となります. $S^1_1$を通ってスクリーン$B$に達したものと$S^1_2$を通ってスクリーン$B$に達したものを足し合わせたものになるわけですね.
+>量子力学では観測するまで状態は確定していません. つまりあり得る状態を重ね合わせた状態にいるということです. なので位置$x$で電子が観測される度合いは確率に沿って記述されます. 位置$x$で観測される確率密度は, 波動関数の2乗で与えられます. 
+>$$ P(x) = \abs{\psi(x)}^2$$
+>波動関数とはこういうものです. また, このセットアップでの$x$はスクリーン$B$での位置を決めるパラメータです. 
+
+　では, スリット$S^1$とスクリーン$B$の間に穴が3つ空いたスリット$S^2$を入れてみましょう. 電子銃$A$からスクリーン$B$までの電子の経路を考えてみましょう. すると次の6つの経路がありえますよね. 
+
+$$
+ 
+
+A \to S^1_1 \to S^2_1 \to B \quad\quad A \to S^1_2 \to S^2_1 \to B \\
+A \to S^1_1 \to S^2_2 \to B \quad\quad A \to S^1_2 \to S^2_2 \to B \\
+A \to S^1_1 \to S^2_3 \to B \quad\quad A \to S^1_2 \to S^2_3 \to B 
+
+$$
+
+そうすると, 波動関数は先ほどと同様に考えて, それぞれの経路での波動関数を足し合わせればいいです. ここまで来れば拡張するのは容易です. 電子銃$A$とスクリーン$B$の間にスリットを隙間なく挿入し, スリットの穴の数も無数に開けます. ではこの時の波動関数はどうなるでしょうか？
+
+　そうですね, 電子銃$A$とスクリーン$B$上の位置$x$を繋ぐ, 全ての経路での波動関数を足し合わせたものになります. 「おいおい, 待てよ」と叫びたくなりますよね. スリットを無数に入れ, そのスリットにはまた無数の穴がある. つまりそれは何もないのと同じではないだろうか？その疑問は正しいです. つまり, スリットなどはもう考えなくてよく, 電子銃$A$とスクリーン$B$を繋ぐ可能な経路での波動関数を全て足し合わせれば, その波動関数がわかる. それを具体的に式で書き表そうとしたものが経路積分なのです！
+
+## Heisenberg描像
+　量子力学を勉強するにあたって主に2つの描像(考え方)があります. 一つ目が**Schrödinger描像**であり, 基本的な方程式はSchrödinger方程式です.
+
+&&&axm Schrödinger方程式
+ $$\mathrm{i}\hbar\pdv{t}\ket{\psi(t)}_{\text{S}} = \h{H}\ket{\psi(t)}_{\text{S}}$$
+&&&
+
+もう一つは**Heisenberg描像**であり, 基本的な方程式はHeisenberg方程式です.
+
+&&&axm Heisenberg方程式
+ $$\mathrm{i}\hbar\pdv{\h{\mathcal{O}}_{\text{H}}(t)}{t} = [\h{H}, \h{\mathcal{O}}_{\text{H}}(t)]$$
+&&&
+
+　これらの違いを簡単にまとめます. Schrödinger描像の方は状態が時間変化して, 演算子は時間に非依存という描像です. 対してHeisenberg描像はその逆です. ゆえに各々の描像で求めるべき対象が異なります. 前者は状態ケット$\psi(t)$を求めることがゴールであることに対して, 後者は時間発展する演算子を求めることが最終的な目的となります. その違いが各描像での基本的な方程式に表れています. どの描像をとっているかわかりやすくするために添字にSとHを使ってます. 何も書かれていない場合は基本的にHeisenberg描像です. 
+>急に出現した$\ket{\psi(t)}_{\text{S}}$ですが, これは状態を表すベクトルです. 簡単に言えば, 状態を抽象的にある空間の元に対応させてラベリングしておこうとしているのです. この$\ket{}$自体はケットと呼びます. ${}_{\text{S}}\!\bra{\psi(t)}$はケットに対してブラと呼び, 互いに双対の関係にあります. ${}_{\text{S}}\!\bra{\psi(t)} = (\ket{\psi(t)}_{\text{S}})^{†}$の関係が成り立っています. 
+
+> 波動関数との関係は$\psi(x, t) = {}_{\text{S}}\!\braket{x}{\psi(t)}_{\text{S}}$です. 波動関数とは時刻$t$に位置$x$で観測される確率密度と関係していました. 右辺はブラとケットが繋がっており, これをブラケットと呼びます. ベクトルの言葉で言えば内積であり, $\ket{\psi(t)}_{\text{S}}$という状態が位置$x$にどれだけあるかというのを表しています. 
+
+　ではこれらの描像の関係はどうなっているのでしょうか？それは以下のように定義されています. 
+
+&&&def 2つの描像間での状態ケットの関係
+$$\ket{\psi(t)}_{\text{S}} = e^{-\mathrm{i}\frac{\h{H}}{\hbar}t} \ket{\psi}_{\text{H}}$$
+&&&
+
+&&&def 演算子における2つの描像間での関係
+どの描像でも位置や運動量, その他の演算子の期待値は同じ値を持つという要請を課せば, 直ちに$$\h{\mathcal{O}}_{\text{H}}(t) = e^{\mathrm{i}\frac{\h{H}}{\hbar}t} \h{\mathcal{O}}_{\text{S}} e^{-\mathrm{i}\frac{\h{H}}{\hbar}t}$$という関係が導けます. これも定義の一つとして扱うことにします. 
+&&&
+
+>ハミルトニアンが**時間並進の生成子**であったことを思い出せば, 2つの描像を繋げる定義式は時間発展させている感じがにじみ出ていますよね. 
+
+>時間発展演算子$e^{-\mathrm{i}\frac{\h{H}}{\hbar}t}$はハミルトニアンを用いて書かれています. ということは時間発展演算子とハミルトニアンは交換します. したがって以上でも以下でもハミルトニアンには添字SやHか書かないこととします.
+
+　Schrödinger描像での座標と運動量の演算子$\h{q}_{\text{S}}, \h{p}_{\text{S}}$の固有値を$q, p$として, その固有状態を$\ket{q}_{\text{S}}, \ket{p}_{\text{S}}$と定めます. つまり$$\h{q}_{\text{S}} \ket{q}_{\text{S}} = q\ket{q}_{\text{S}}, \quad\quad \h{p}_{\text{S}} \ket{p}_{\text{S}} = p\ket{p}_{\text{S}}$$が満たされています. 先ほどの定義に則って左から$e^{\mathrm{i}\frac{\h{H}}{\hbar}t}$を作用させれば次が得られます. 
+
+$$
+
+\h{q}(t)_{\text{H}} \ket{q, t}_{\text{H}} = q\ket{q, t}_{\text{H}}, \quad\quad \h{p}(t)_{\text{H}} \ket{p, t}_{\text{H}} = p\ket{p, t}_{\text{H}} \\
+\;\;\;\;\;\;\;\; \ket{q, t}_{\text{H}} \equiv e^{\mathrm{i}\frac{\h{H}}{\hbar}t} \ket{q}_{\text{S}}, \quad\quad\quad\quad \ket{p, t}_{\text{H}} \equiv e^{\mathrm{i}\frac{\h{H}}{\hbar}t} \ket{p}_{\text{S}}
+
+$$
+
+&&&thm 規格直交関係/完全性関係
+以上のように位置演算子や運動量演算子を定めると次の規格直交関係と完全性関係が得られます. 
+
+$$
+
+{}_{\text{H}}\braket{q, t}{q^{\prime}, t}_{\text{H}} &= \delta(q - q^{\prime}), \quad\quad \int_{-\infty}^{\infty} \mathrm{d}q \ket{q, t}_{\text{H\;H}}\!\bra{q, t} = \bm{1} \\
+{}_{\text{H}}\braket{p, t}{p^{\prime}, t}_{\text{H}} &= \delta(p - p^{\prime}), \quad\quad \int_{-\infty}^{\infty} \mathrm{d}p \ket{p, t}_{\text{H\;H}}\!\bra{p, t} = \bm{1}
+
+$$
+
+&&&
+
+　ここまでで基本的なものは全て導入しました. 以下では基本的にHeisenberg描像で話を進めます. (その為混乱が起きない場合は添字のHは略すことがあります)
+>冒頭のあたりで量子力学わからなくても大丈夫ですと豪語しましたが, この辺りから抽象度が上がるため, この記事だけでは全てをカバーすることはできなかったです. 固有状態ってなんやねんって感じですよね... ちょっと今回は省かせてもらいます. 深く謝罪申し上げます. ただこれさえ認めてもらえれば経路積分の表式まであと少しなので楽しめると思います. 逆に経路積分の利用を知りたい方はここらへんは飛ばしてもらっても大丈夫です. 
+
+## 経路積分
+　ここまで長い準備が終わりました. それでは経路積分を導いていきましょう. 経路積分で考えるものは次の**ファインマン核**と呼ばれるものです.
+
+&&&def ファインマン核
+
+$$
+ 
+K(q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}}) &\equiv { }_{\text{H}} \braket{q_{\text{F}}, t_{\text{F}}}{q_{\text{I}}, t_{\text{I}}}_{\text{H}} \\
+&= {}_{\text{S}} \mel{q_{\text{F}}}{e^{-\mathrm{i}\frac{\h{H}}{\hbar}(t_{\text{F}} - t_{\text{I}})}}{q_{\text{I}}}_{\text{S}}
+
+$$
+
+&&&
+これをひたすら計算していきます. 
+>ただ今回の記事の趣旨は経路積分を導くことではなく, それを如何に生かすかであったことを今思い出したので, 計算をところどころ省略します.
+
+　まず, この意味を述べておきます. Heisenberg描像でのファインマン核の表式は, 時刻$t_{\text{I}}$に位置$q_{\text{I}}$にあった粒子が時刻$t_{\text{F}}$に位置$q_{\text{F}}$にある確率振幅を表していると解釈できます. これは正しく導入の部分で説明したことを, 単にブラケットで表現しただけです. まだこの段階では全ての経路で足し合わせている感じはありません. 
+
+### ファインマン核の性質
+　ファインマン核の性質を述べてます. まず, 先ほどファインマン核は**始状態から終状態への遷移確率**であると述べました. つまりこれと始状態における波動関数さえわかっていれば, 終状態での波動関数もわかります. 具体的には
+
+$$
+
+\psi(q_{\text{F}}, t_{\text{F}}) = \int_{-\infty}^{\infty} \mathrm{d}q_{\text{I}} K(q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}}) \psi(q_{\text{I}}, t_{\text{I}})
+
+$$
+
+と書けます. 
+　顕に書くことはしませんが, ファインマン核がSchrödinger方程式を満たすことも示せます. そして以降の計算において特に大事な性質は
+
+&&&thm ファインマン核の合成則
+
+$$
+
+K(q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}}) = \int_{-\infty}^{\infty} \mathrm{d}q_{\text{I}} K(q_{\text{F}}, t_{\text{F}} ; q^{\prime}, t^{\prime}) K(q^{\prime}, t^{\prime} ; q_{\text{I}}, t_{\text{I}})
+
+$$
+
+&&&
+
+です. 始状態から終状態までの遷移確率を考えるとき, その間の一点を考え, そこを通って遷移する確率を全て足し合わせるということを意味しています. これは2重スリット実験において, 電子銃とスクリーンの間にスリットを入れることに対応していることがわかると思います. 
+>最後の性質は完全性関係からすぐに導くことができます.
+
+### アイデアの実現
+　いよいよ, ファインマン自身のアイデアを実現していきます. まず, 時間間隔$t_{\text{F}} - t_{\text{I}}$を$N$等分して, 各時刻を$t_n \equiv t_{\text{I}} + n\Delta t \; (n = 1, 2, \cdots, N) \;\; \text{w}/ \;\; \Delta t \equiv (t_{\text{F}} - t_{\text{I}})/N$と表すことにします. ファインマン核をHeisenberg表示で書き直したあと, 各時刻$t_n$での完全性関係を挿入すれば
+
+$$
+
+K(q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}}) &= \int_{-\infty}^{\infty} \mathrm{d}q_1 \cdots \mathrm{d}q_{N-1} \; { }_{\text{H}} \braket{q_{\text{F}}, t_{\text{F}}}{q_{N-1}, t_{N-1}}_{\text{H} \; \text{H}} \braket{q_{N-1}, t_{N-1}}{q_{N-2}, t_{N-2}}_{\text{H}} \\
+&\hspace{20mm}\times \cdots { }_{\text{H}} \braket{q_{n}, t_{n}}{q_{n-1}, t_{n-1}}_{\text{H}} \cdots { }_{\text{H}} \braket{q_{2}, t_{2}}{q_{1}, t_{1}}_{\text{H} \; \text{H}} \braket{q_{1}, t_{1}}{q_{\text{I}}, t_{\text{I}}}_{\text{H}}
+
+$$
+
+と変形できます. 被積分関数に着目すれば, これは$(q_{\text{I}}, t_{\text{I}}) \to (q_{1}, t_{1}) \to (q_{2}, t_{2}) \to \cdots \to (q_{N-1}, t_{N-1}) \to (q_{\text{F}}, t_{\text{F}})$の経路での遷移確率に対応しています. これを$q_1$から$q_{N-1}$まで積分することで可能な全ての経路の遷移振幅の和が取られていることになります. そして最後に$N \to \infty$でファインマンのアイデアが完全に再現されました！
+
+### 経路積分表示
+　以下ではハミルトニアンとして$\h{H} = H(\h{p}_{\text{S}}, \h{q}_{\text{S}}) = \dfrac{\h{p}_{\text{S}}^2}{2m} + V(\h{q}_{\text{S}})$を仮定します. まずは被積分関数の一つの要素である${ }_{\text{H}} \braket{q_{n}, t_{n}}{q_{n-1}, t_{n-1}}_{\text{H}}$を計算します. 
+
+$$
+
+{ }_{\text{H}} \braket{q_{n}, t_{n}}{q_{n-1}, t_{n-1}}_{\text{H}} &= { }_{\text{S}} \mel{q_{n}}{e^{-\mathrm{i}\frac{\h{H}}{\hbar}\Delta t}}{q_{n-1}}_{\text{S}} \\
+&= \int_{-\infty}^{\infty} \mathrm{d}p_n \; { }_{\text{S}} \mel{q_{n}}{\left( 1 - \dfrac{\mathrm{i} \Delta t}{\hbar}H(\h{p}_{\text{S}}, \h{q}_{\text{S}}) \right)}{p_{n}}_{\text{S} \; {\text{S}} }\braket{p_{n}}{q_{n-1}}_{\text{S}} + \order{ (\Delta t)^2 } \\
+&= \int_{-\infty}^{\infty}  \dfrac{\mathrm{d}p_n}{2\pi \hbar} \; \exp \left[ \dfrac{\mathrm{i}}{\hbar}\Delta t \left\{ p_n\left( \dfrac{q_n - q_{n-1}}{\Delta t} \right) - H(p_n, q_n) \right\} \right] + \order{ (\Delta t)^2 } 
+
+$$
+
+2つ目の等号は時間発展演算子を$\Delta t$について展開して, 完全性関係を挿入しています. 3つ目の等号では位置演算子や運動量演算子をその固有値で書き直しています. 
+>$\h{q}_{\text{S}}$と$\h{p}_{\text{S}}$の交換関係は0でないので, 同時固有状態を取ることはできません. そのため固有値に置き換えるときは, 交換関係を使って並び替える必要がある時があります. 安直に交換しないように気をつけてください. 
+
+　$q_N = q_{\text{F}}, \; q_0 = q_{\text{I}}$とします. 先ほどの計算で求めた式を, ファインマン核のそれぞれに代入して, $N \to \infty$の極限を取れば位相空間上の経路積分表示が得られます. 
+
+&&&thm 位相空間上での経路積分表示
+**位相空間上での経路積分表示**は次のようになる. 
+
+$$
+ 
+K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} ) = \lim_{N\to\infty} \left( \prod_{n = 1}^{N-1} \int \mathrm{d}q_n \right) \left( \prod_{n = 1}^{N} \int \dfrac{\mathrm{d}q_n}{2\pi\hbar} \right) \exp \left[ \dfrac{\mathrm{i}}{\hbar} \sum_{n=1}^{N} \Delta t \left\{ p_n\left( \dfrac{q_n - q_{n-1}}{\Delta t} \right) - H(p_n, q_n) \right\} \right]
+
+$$
+
+形式的に連続変数に書き換えると次のようになる. 
+
+$$
+
+K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} ) = \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q\mathcal{D}p \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \left\{ p(t) \dot{q}(t) - H(p(t), q(t)) \right\} \right]
+
+$$
+
+&&&
+>以下では形式的な表式である汎関数積分の形で書くことにします. しかしいついかなる時でも本当は$N$等分した上で計算を行い, その極限をとっていることを思い出さなくてはなりません. 
+
+　最後に位相空間上での積分において運動量積分を行うことができます. 各$p_n$に対して平方完成を行ったのちにフレネル積分をすれば**配位空間上での経路積分表示**が得られます. 
+
+&&&thm 配位空間上での経路積分表示
+$$
+K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} ) = \lim_{n \to \infty} \left( \dfrac{m}{2\pi\hbar\mathrm{i}\Delta t} \right)^{N/2} \left( \prod_{n=1}^{N-1} \int \mathrm{d}q_n \right) \exp \left[ \dfrac{\mathrm{i}}{\hbar} \sum_{n=1}^{N} \Delta t \left\{ \dfrac{m}{2} \left( \dfrac{q_n - q_{n-1}}{\Delta t} \right)^2 - V(q_n) \right\} \right]
+$$
+これを先ほどと同様に形式的に連続変数を用いて書き直せば
+
+$$
+
+K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} ) &= \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} S[q] \right] = \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \; L(q(t), \dot{q}(t)) \right] \\
+&= \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \left\{ \dfrac{m}{2}\dot{q}(t)^2 - V(q(t)) \right\} \right]
+
+$$
+
+となります. 
+&&&
+
+晴れて, 経路積分の表式が得られました. 長かったですね. よくある流れとしては古典極限$\hbar \to 0$で, 最小作用の原理が再現されることを見て, その後に自由粒子と調和振動子に対してファインマン核の計算を行うというのがあります. また冒頭でも述べたAharonov Bohm効果も経路積分を用いれば簡単にその結果が示せます. 是非坂本QFT(II)[[坂本QFT]]やJJサクライ[[JJ]]を参照してみてください. 
+
+# 経路積分の性質
+　場の量子論を勉強すると, 経路積分が世界を牛耳っています. かの有名なファインマンダイアグラムも経路積分を簡単に(視覚的に)計算するために導入されたものです. 
+　ではなぜ経路積分が活躍するのでしょうか？それは演算子をただのc数にすることができるからです. 場の量子論では場$\phi(x)$が第二量子化によって演算子$\h{\phi}(x)$に化けます. 後に導入する相関関数などを計算する際も演算子であると安直に順序を交換することができず, とても扱いづらいです. しかし経路積分表示にすれば, 演算子をただのc数にすることができます. これが量子力学でも成り立っていることを見ていきます. 
+>場の量子論は, 特殊相対性理論と量子力学を合体させたものです. そのため場$\phi(x)$の引数$x$は4元ベクトルです. 場の演算子というのは抽象的でわかりづらいですが, 時空点$x$に粒子を生成させたり消滅させたりする演算子だと思ってください. 
+
+&&&thm 演算子の要素の経路積分表示
+
+$$
+
+\int \mathcal{D}q \; O_1(q(t_1)) O_2(q(t_2)) e^{\dfrac{\mathrm{i}}{\hbar} S[q]} = \mel{q_{\text{F}}, t_{\text{F}}}{T[\h{O}_1(t_1) \h{O}_2(t_2)]}{q_{\text{I}}, t_{\text{I}}}
+
+$$
+
+&&&
+これについて説明を行います. まず添字が消えていますが, Heisenberg表示です. 次に右辺の$T[\cdots]$は時間順序積と呼ばれています. 引数の$t$について古いもの(小さいもの)が右側に来るように並び替えるという約束がついた積です. 具体的には階段関数
+$$
+\theta(x) = \begin{cases} 1 &(x > 0) \\ 1/2 &(x = 0) \\ 0 &(x < 0) \end{cases}
+$$
+を用いて, 2つの演算子の時間順序積は
+$$
+T[\h{O}_1(t_1)\h{O}_2(t_2)] = \theta(t_1 - t_2) \h{O}_1(t_1)\h{O}_2(t_2) + \theta(t_2 - t_1) \h{O}_2(t_2)\h{O}_1(t_1)
+$$
+とかけます. 
+　経路積分表示を導くのは, 先ほど行ったこととほとんど同じ操作を行えば導くことができます. 
+
+# 外場(ソース)と汎函数微分/相関関数
+突然ですが, **外場(ソース)**と呼ばれる量$J(t)$を考えます. 物理的には電磁波のような外部から与えられるポテンシャルだと思えば大丈夫です. そこでファインマン核を次のように拡張します. 
+$$
+K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} |J ) = \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \; \left\{ L(q(t), \dot{q}(t)) + J(t)q(t) \right\} \right] 
+$$
+これを$\frac{\mathrm{i}}{\hbar} J(t_1)$で汎函数微分をしてみます. すると
+
+$$
+
+\dfrac{\delta}{\delta \left(\frac{\mathrm{i}}{\hbar} J(t_1) \right)}K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} |J )  &= \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \; \left\{ L(q(t), \dot{q}(t)) + J(t)q(t) \right\} \right] \cdot \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \; \delta(t - t_1) q(t) \\
+&= \int_{q(t_{\text{I}}) = q_{\text{I}}}^{q(t_{\text{F}}) = q_{\text{F}}} \mathcal{D}q \; \exp \left[ \dfrac{\mathrm{i}}{\hbar} \int_{t_{\text{I}}}^{t_{\text{F}}} \mathrm{d}t \; \left\{ L(q(t), \dot{q}(t)) + J(t)q(t) \right\} \right] \cdot q(t_1) \\ 
+& \xrightarrow{\; J = 0 \;} \mel{q_{\text{F}}, t_{\text{F}}}{T[\h{q}(t_1)]}{q_{\text{I}}, t_{\text{I}}}
+
+$$
+
+と変形できます. 同じように汎函数微分を繰り返していけば, 外場を入れたファインマン核と相関関数との関係が導かれれます. 
+
+&&&thm ファインマン核と相関関数
+$$
+\dfrac{\hbar \delta}{\mathrm{i}\delta J(t_1)} \cdots \dfrac{\hbar \delta}{\mathrm{i}\delta J(t_n)} \left. K( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} |J ) \right|_{J=0} = \mel{q_{\text{F}}, t_{\text{F}}}{T[\h{q}(t_1) \cdots \h{q}(t_n) ]}{q_{\text{I}}, t_{\text{I}}}
+$$
+&&&
+　場の量子論において知りたい量の一例として散乱確率があります. その計算のためには真空期待値と呼ばれる量が計算できればいいわけです. 真空期待値とは相関関数において$\mel{0}{\cdots}{0}$に対応します. 以下相関関数と真空期待値の関係を求めることを念頭に話を進めていきます. 
+>汎函数微分は数学的には難しいこともあるかと思いますが. ここでは簡単に
+>$$ \dfrac{\delta q(\tilde{t})}{\delta q(t)} = \delta(t - \tilde{t})$$として定義します.
+>汎函数$F[q] = \displaystyle\int \mathrm{d}t \; \mathcal{F}(q(t))$に対して, $q(t)$で汎函数微分をすると
+>$$ \dfrac{\delta F[q]}{\delta q(t)} = \int \mathrm{d}\tilde{t} \; \pdv{\mathcal{F}(q)}{q} \dfrac{\delta q(\tilde{t})}{\delta q(t)} = \int \mathrm{d}\tilde{t} \; \pdv{\mathcal{F}(q)}{q} \delta(t - \tilde{t}) = \pdv{\mathcal{F}(q)}{q}$$
+>となります. ここで$\mathcal{F}$が$q(t)$のみにしか依存していないことに注意してください. これから考えるソース$J(t)$について$\dot{J}(t)$は現れないのでこれで十分です. 
+
+# ユークリッド経路積分
+　ここでWick回転を行なって, ユークリッド経路積分を導いていきます. ユークリッド経路積分を持ち込むモチベーションの一つは, 真空期待値が求めやすいのと, あとで見るようにユークリッド経路積分であれば収束性がいいからです. 
+　$t^{\prime} = -i\tau$という変換をWick回転と言い, この$\tau$を虚時間と呼びます. なぜ複素数を含んだ変数変換をするのでしょうか. 今やろうとしていることは相関関数を求めることでした. これは実時間$t$の変数です. これを解析接続することで複素平面上まで拡張できます. この拡張された関数の虚軸上での形を求めて, 逆に解析接続を行なってやれば求めたかった相関関数を知ることができるというカラクリです. 先ほどの変数変換を行ったのは, 虚軸上での相関関数を求めるためだったわけです. 
+>紛らわしいですが, $t$を複素数にまで拡張してその虚軸上で積分を行おうとしています. そのため$t^{\prime} = -i\tau$での$\tau$は実数です. そのため以下で定義される$\beta$も実数となります. 
+
+>解析接続ができるためには, 元の実軸上で正則であり, かつ拡張後の領域でも正則である必要があります. ここではそれを認めました. 
+
+　実際にユークリッド経路積分を求めていきます. まず冒頭で求めたファインマン核において, $t_{\text{F}} = t, \; t_{\text{I}} = 0$とします. また$t = -i\beta$として$\beta$を定めます. 
+
+&&&def 熱カーネル
+**熱カーネル**は$$ K_{\text{E}}(q_{\text{F}}, q_{\text{I}} ; \beta) = {}_{\text{S}} \mel{q_{\text{F}}}{e^{-\dfrac{\beta}{\hbar}\h{H}}}{q_{\text{I}}}_{\text{S}}$$と定義される. 
+&&&
+
+ファインマン核の計算の時にやったことと全く同じことをします. 具体的には$\beta$を$N$当分して, 完全系を挟んで個々に計算してやります. 
+　ここでは形式的に求めていきます. 指数の方に乗っている作用に着目すると
+
+$$
+
+\dfrac{\mathrm{i}}{\hbar} \int_0^{t} \mathrm{d}t^{\prime} \left( \dfrac{m}{2}\dot{q}^2 - V(q) \right) &\to  \dfrac{\mathrm{i}}{\hbar} \int_0^{\beta} \mathrm{d}(-i\tau) \left\{ \dfrac{m}{2}\left( \dv{q}{(-i\tau)} \right)^2 - V(q) \right\} = \dfrac{1}{\hbar} \int_0^{\beta} \mathrm{d}\tau \left\{ -\dfrac{m}{2}\left( \dv{q}{\tau} \right)^2 - V(q) \right\} \\
+&= -\dfrac{1}{\hbar} \int_0^{\beta} \mathrm{d}\tau \left\{ \dfrac{m}{2}\left( \dv{q}{\tau} \right)^2 + V(q) \right\} = -\dfrac{1}{\hbar} S_{\text{E}}
+
+$$
+
+となります. 積分測度に関しては$\Delta t \to -i \Delta \tau$と変更すればいい. 以上より**ユークリッド経路積分**が得られました. 
+
+&&&thm ユークリッド経路積分
+$$
+K_{\text{E}}( q_{\text{F}}, q_{\text{I}}; \beta ) = \lim_{n \to \infty} \left( \dfrac{m}{2\pi\hbar\Delta \tau} \right)^{N/2} \left( \prod_{n=1}^{N-1} \int \mathrm{d}q_n \right) \exp \left[ -\dfrac{1}{\hbar} \sum_{n=1}^{N} \Delta \tau \left\{ \dfrac{m}{2} \left( \dfrac{q_n - q_{n-1}}{\Delta \tau} \right)^2 + V(q_n) \right\} \right]
+$$
+形式的に書き直せば
+
+$$
+
+K_{\text{E}}( q_{\text{F}}, t_{\text{F}} ; q_{\text{I}}, t_{\text{I}} ) &= \int_{q(0) = q_{\text{I}}}^{q(\beta) = q_{\text{F}}} \mathcal{D}q_{\text{E}} \; \exp \left[ -\dfrac{1}{\hbar} S_{\text{E}}[q] \right] 
+= \int_{q(0) = q_{\text{I}}}^{q(\beta) = q_{\text{F}}} \mathcal{D}q_{\text{E}} \; \exp \left[ -\dfrac{1}{\hbar} \int_{0}^{\beta} \mathrm{d}\tau \left\{ \dfrac{m}{2}\dot{q}(\tau)^2 + V(q(\tau)) \right\} \right]
+
+$$
+
+&&&
+
+　このユークリッド経路積分の形を見ると, 何か思い出されるものがないでしょうか？まず指数の方に乗っている積分の被積分関数はエネルギーの表式になっています. エネルギーが虚時間によらない時は$e^{-\dfrac{\beta}{\hbar}E}$となって, カノニカル分布が想起されることと思います. 
+　ハミルトニアンの固有状態を$\ket{n}$, 固有エネルギーを$E_n$とします. 定義式に固有状態に関する完全系を挿入すれば,  
+$$
+K_{\text{E}}(q_{\text{F}}, q_{\text{I}} ; \beta) = {}_{\text{S}} \mel{q_{\text{F}}}{e^{-\dfrac{\beta}{\hbar}\h{H}}}{q_{\text{I}}}_{\text{S}} = \sum_{n} \mel{q_{\text{F}}}{e^{-\dfrac{\beta}{\hbar}\h{H}}}{n} \braket{n}{q_{\text{I}}} = \sum_{n} \Psi_n^{*}(q_{\text{I}})\Psi_n(q_{\text{F}}) e^{-\dfrac{\beta}{\hbar}E_n}
+$$
+と変形できます. **分配関数**が次のように定義されます. 
+
+&&&def 分配関数
+分配関数は次のように定義されます.
+$$
+Z[\beta] = \int \mathrm{d}q \; K_{\text{E}}(q, q ; \beta) = \sum_n e^{-\dfrac{\beta}{\hbar}E_n}
+$$
+また, 経路積分表示にすれば
+$$
+Z[\beta] = \int_{q(0) = q(\beta)} \mathcal{D}q \; e^{-\dfrac{1}{\hbar}S_{\text{E}}}
+$$
+と書けます. 
+&&&
+
+# 真空期待値
+　ここまでで準備が整いました. ではユークリッド経路積分を用いて真空期待値を表現していきます. ユークリッド経路積分において$\tau_{\text{I}} = –\beta/2, \; \tau_{\text{F}} = \beta/2$として, 通常の経路積分での相関関数の表示と同じように考えれば, 
+$$
+\int_{q(–\beta/2) = q_{\text{I}}}^{q(\beta/2) = q_{\text{F}}} \mathcal{D}q \; q(\tau_1)q(\tau_2) \cdots q(\tau_n) e^{-\dfrac{1}{\hbar}S_{\text{E}}} = \mel{q_\text{F}, \beta/2}{T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)]}{q_\text{I}, –\beta/2}
+$$
+を導くことができます. ただし$\h{q}_\text{E}(\tau) = e^{\h{H}\tau/\hbar} \h{q} e^{-\h{H}\tau/\hbar}$と定めました. これはHeisenberg表示の虚時間Versionです. 
+
+　統計力学より, 低温極限$\beta \to \infty$では状態は最低エネルギー固有状態になっていました. $\beta \to \infty$で
+
+$$
+
+K_{\text{E}}(q_{\text{F}}, \beta/2 ; q_{\text{I}}, -\beta/2) &= {}_{\text{S}} \mel{q_{\text{F}}}{e^{-\dfrac{\beta}{\hbar}\h{H}}}{q_{\text{I}}}_{\text{S}} = \sum_{n} \Psi_n^{*}(q_{\text{I}})\Psi_n(q_{\text{F}}) e^{-\dfrac{\beta}{\hbar}E_n} \\
+& \xrightarrow{\beta \to \infty} \Psi_0^{*}(q_{\text{I}})\Psi_0(q_{\text{F}}) e^{-\dfrac{\beta}{\hbar}E_0} \left[ 1 + \order{ e^{-\beta(E_1 - E_0)/\hbar} } \right]
+
+$$
+
+相関関数に関しても同様に計算すれば, 
+
+$$
+
+\lim_{\beta \to \infty} \mel{q_\text{F}, \beta/2}{T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)]}{q_\text{I}, –\beta/2} &= \lim_{\beta \to \infty} \mel{q_\text{F}}{ e^{-\dfrac{\beta \h{H}}{2\hbar}} T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)] e^{-\dfrac{\beta \h{H}}{2\hbar}} }{q_\text{I}} \\
+&= \lim_{\beta \to \infty} \sum_{n, n^{\prime}} \braket{q_\text{F}}{n} \mel{n}{ e^{-\dfrac{\beta \h{H}}{2\hbar}} T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)] e^{-\dfrac{\beta \h{H}}{2\hbar}} }{n} \braket{n}{q_\text{I}} \\
+&= \mel{0}{ T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)] }{0} \Psi_0^{*}(q_{\text{I}})\Psi_0(q_{\text{F}}) e^{-\dfrac{\beta}{\hbar}E_0} \left[ 1 + \order{ e^{-\beta(E_1 - E_0)/\hbar} } \right]
+
+$$
+
+となります. 上で求めた2つの式の比を取ることで**真空期待値**を求めることができます. 
+
+&&&thm 真空期待値
+
+$$
+
+\mel{0}{ T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)] }{0} &= \lim_{\beta \to \infty} \dfrac{ \mel{q_\text{F}}{ e^{-\dfrac{\beta \h{H}}{2\hbar}} T[\h{q}_\text{E}(\tau_1) \h{q}_\text{E}(\tau_2) \cdots \h{q}_\text{E}(\tau_n)] e^{-\dfrac{\beta \h{H}}{2\hbar}} }{q_\text{I}} }{\mel{q_{\text{F}}}{e^{-\dfrac{\beta}{\hbar}\h{H}}}{q_{\text{I}}}} \\
+&= \lim_{\beta \to \infty} \dfrac{\displaystyle\int \mathcal{D}q \; q(\tau_1)q(\tau_2) \cdots q(\tau_n) e^{-\dfrac{1}{\hbar}S_{\text{E}}}}{\displaystyle\int \mathcal{D}q \; e^{-\dfrac{1}{\hbar}S_{\text{E}}}}
+
+$$
+
+&&&
+　以上より, 真空期待値が経路積分を用いて書くことができました. 詳細は省きますがこれは境界条件によらないことが示せます. また統計力学において物理量$\h{A}$の期待値が$\langle \h{A}\rangle = \mathrm{Tr}[ e^{-\beta\mathcal{H}} \h{A} ] / \mathrm{Tr}[e^{-\beta\mathcal{H}}]$と書けることと対応していることも見て取れると思います. 最後にこれを全領域に解析接続を行えば, 実軸上での真空期待値を求めることができるので目標が達成されました. 
+
+# 終わりに
+　今回は経路積分を用いて真空期待値を求めることを行いました. ただ経路積分はこのままでは終わりません. まず途中で導入したソースについて, 本記事では紹介程度で終わってしまいましたが, 相関関数との関係からソースを加えたファインマン核が計算できれば, $J(t)$の$n$次に関する係数が$n$個の相関関数に対応しているとわかります. また, 摂動を計算する際にもこの量はとても大事になってくるのです. 
+　真空期待値がわかれば, 場の量子論では素粒子実験での散乱振幅を知ることができます. 今回求めた諸々の表示に対して$q \to \h{\phi}, \; t \to x, \; L \to \int \mathrm{d}^3x \mathcal{L}$という対応をすればそのまま場の量子論での表示が得られます.
+ 
+　長くなってしまいましたが, ここまで読んでいただきありがとうございました. 量子力学での経路積分でもまだまだ奥が深く, 今後余裕があればファインマンダイアグラムなどについても整理したいと思います.

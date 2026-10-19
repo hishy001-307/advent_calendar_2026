@@ -15,7 +15,7 @@ export default function ArticlesPage() {
           <p className={styles.eyebrow}>Physics Lab. 2026</p>
           <h1 className={styles.title}>解説記事・資料</h1>
           <p className={styles.lead}>
-            各班のページに掲載している解説資料（PDF）の一覧です。班の紹介ページと同じ内容をまとめて参照できます。
+            各班のページに掲載している解説資料 PDFの一覧です。
           </p>
         </header>
 
@@ -48,11 +48,6 @@ export default function ArticlesPage() {
                       </Link>
                     </h3>
                   ) : null}
-                  <div className={styles.summary}>
-                    {item.summaryLines.map((line, i) => (
-                      <p key={`${team.variant}-${itemIndex}-${i}`}>{line}</p>
-                    ))}
-                  </div>
                 </article>
               ))}
             </div>

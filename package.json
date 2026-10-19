@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
+    "dev:turbo": "next dev --turbopack",
     "format": "prettier --write .",
     "build": "next build",
+    "postbuild": "find out -type f -name '*.pdf' -exec chmod 644 {} \\;",
+    "build:out": "next build",
     "export": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node scripts/serve-out.mjs",
+    "lint": "next lint",
+    "normalize:slides": "node scripts/normalize-completed-pdfs.mjs",
+    "gen:slides": "node scripts/generate-completed-slides.mjs",
+    "postinstall": "mkdir -p public/pdfjs && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdfjs/pdf.worker.mjs && rm -rf public/pdfjs/cmaps public/pdfjs/standard_fonts && cp -R node_modules/pdfjs-dist/cmaps public/pdfjs/cmaps && cp -R node_modules/pdfjs-dist/standard_fonts public/pdfjs/standard_fonts"
   },
   "dependencies": {
     "@next/mdx": "^16.0.0",
@@ -16,9 +22,11 @@
     "katex": "^0.16.25",
     "next": "16.0.0",
     "next-mdx-remote": "^5.0.0",
+    "pdfjs-dist": "^4.10.38",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
@@ -32,8 +40,10 @@
     "baseline-browser-mapping": "^2.10.19",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
+    "pdf-parse": "^1.1.1",
     "prettier": "^3.6.2",
     "sass": "^1.94.2",
+    "serve-handler": "^6.1.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

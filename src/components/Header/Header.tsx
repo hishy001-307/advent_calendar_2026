@@ -179,7 +179,7 @@ export default function Header() {
             ))}
 
             <Link href="/performance" className={styles.mobileNavLink} onClick={closeMobileMenu}>
-              学生公演
+              学生講演
             </Link>
             <Link href="/articles" className={styles.mobileNavLink} onClick={closeMobileMenu}>
               解説記事

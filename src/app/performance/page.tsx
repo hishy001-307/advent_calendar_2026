@@ -7,8 +7,11 @@ import {
   PERFORMANCE_DAY2_TITLE,
   PERFORMANCE_PAGE_SUBTITLE,
   PERFORMANCE_SHOWS,
+  PERFORMANCE_TWEETS_SECTION_TITLE,
+  PERFORMANCE_TWEET_STATUS_IDS,
   SCHEDULE_TABLE_HEADING,
 } from "./performanceData";
+import PerformanceTweetEmbeds from "./PerformanceTweetEmbeds";
 import styles from "./Performance.module.scss";
 
 export default function PerformancePage() {
@@ -58,6 +61,16 @@ export default function PerformancePage() {
                   ))}
                 </ul>
               </div>
+            </section>
+
+            <section
+              aria-labelledby="tweets-heading"
+              className={styles.tweetsSection}
+            >
+              <h2 id="tweets-heading" className={styles.tweetsSectionTitle}>
+                {PERFORMANCE_TWEETS_SECTION_TITLE}
+              </h2>
+              <PerformanceTweetEmbeds statusIds={PERFORMANCE_TWEET_STATUS_IDS} />
             </section>
 
             <section aria-labelledby="shows-heading">

@@ -55,7 +55,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="text-[#983c3d] underline underline-offset-4"
               >
-                @physicslab2026
+                @physicslab2027
               </a>
             </p>
             <p className="text-zinc-700">
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="text-[#983c3d] underline underline-offset-4"
               >
-                @physlab2026
+                @physlab2027
               </a>
             </p>
             <SocialLinks variant="onLightContact" />

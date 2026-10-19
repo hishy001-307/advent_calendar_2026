@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import 'katex/dist/katex.min.css'; // ★これが重要（どこか1カ所で読み込む）
+import "katex/dist/katex.min.css";
 import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
 
 const zenMaruGothic = Zen_Maru_Gothic({
-  weight: ['400', '500', '700'],
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-zen-maru-gothic",
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -27,8 +29,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${zenMaruGothic.variable} font-sans antialiased`}
-        style={{ fontFamily: 'var(--font-zen-maru-gothic)' }}
+        className={`${zenMaruGothic.className} ${zenMaruGothic.variable} font-sans antialiased`}
       >
         {children}
       </body>

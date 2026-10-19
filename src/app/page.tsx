@@ -4,6 +4,7 @@ import Header from "@/components/Header/Header";
 import About from "@/components/About/About";
 import Footer from "@/components/Footer/Footer";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
+import PosterGraph from "@/components/PosterGraph/PosterGraph";
 import { TEAM_NAV } from "@/components/TeamPage/teamPageDefaults";
 import { publicPath } from "@/utils/publicPath";
 import styles from "./Home.module.scss";
@@ -18,6 +19,8 @@ export default function HomePage() {
     <>
       <Header />
       <main className="mx-auto max-w-5xl min-w-0 px-3 pt-6 pb-8 space-y-6 min-[480px]:px-4 min-[480px]:pt-8 min-[480px]:space-y-8">
+        <PosterGraph />
+
         <section className={styles.hero}>
           <div className={styles.orbOne} />
           <div className={styles.orbTwo} />
