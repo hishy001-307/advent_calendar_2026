@@ -204,6 +204,55 @@ function normalizeWikiReferences(source: string, anchors: Set<string>) {
     .join('');
 }
 
+function normalizeProblematicStrongEmphasis(source: string) {
+  const isPunctuation = (character: string | undefined) =>
+    character !== undefined && /[\p{P}\p{S}]/u.test(character);
+  const canOpen = (before: string | undefined, after: string | undefined) =>
+    after !== undefined &&
+    !/\s/u.test(after) &&
+    (!isPunctuation(after) || before === undefined || /\s/u.test(before) || isPunctuation(before));
+  const canClose = (before: string | undefined, after: string | undefined) =>
+    before !== undefined &&
+    !/\s/u.test(before) &&
+    (!isPunctuation(before) || after === undefined || /\s/u.test(after) || isPunctuation(after));
+
+  let inFence = false;
+  return source
+    .split('\n')
+    .map((line) => {
+      if (/^\s*(```|~~~)/.test(line)) {
+        inFence = !inFence;
+        return line;
+      }
+      if (inFence) return line;
+
+      return line
+        .split(/(`+[^`]*`+)/g)
+        .map((part, index) => {
+          if (index % 2 === 1) return part;
+
+          return part.replace(
+            /\*\*(.+?)\*\*/g,
+            (match, content: string, offset: number, whole: string) => {
+              // Display math cannot be nested in an inline strong element. Keep
+              // the formula and discard only its surrounding markers.
+              if (/^\$\$[\s\S]*\$\$$/.test(content)) return content;
+              if (content.includes('$$')) return match;
+
+              const before = whole[offset - 1];
+              const after = whole[offset + match.length];
+              if (canOpen(before, content[0]) && canClose(content.at(-1), after)) {
+                return match;
+              }
+              return `<strong>${content}</strong>`;
+            },
+          );
+        })
+        .join('');
+    })
+    .join('\n');
+}
+
 function normalizeArticleMarkdown(
   body: string,
   series: string,
@@ -286,7 +335,9 @@ function normalizeArticleMarkdown(
 
   const anchors = new Set(explicitAnchors.values());
   return {
-    source: normalizeWikiReferences(normalized.join('\n'), anchors),
+    source: normalizeProblematicStrongEmphasis(
+      normalizeWikiReferences(normalized.join('\n'), anchors),
+    ),
     explicitAnchors,
   };
 }
